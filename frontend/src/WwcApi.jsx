@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL =
   process.env.REACT_APP_API_URL ||
-  "https://wwcode-chtools-api-dev.herokuapp.com/api";
+  "https://wwcode-chtools-api.herokuapp.com/api";
 
 const getConfig = () => {
   let { access } = JSON.parse(sessionStorage.getItem("token"));
@@ -65,7 +65,7 @@ axios.interceptors.response.use(
 
 class WwcApi {
   static async login(data) {
-    return await axios.post(`${BASE_URL}/login`, data, {
+    return await axios.post(`${BASE_URL}/login/`, data, {
       headers: { "content-type": "application/json" },
     });
   }
@@ -124,7 +124,7 @@ class WwcApi {
   }
 
   static async getMember(userId) {
-    let res = await axios.get(`${BASE_URL}/user/${userId}`, {
+    let res = await axios.get(`${BASE_URL}/user/${userId}/`, {
       headers: getConfig(),
     });
     return res.data;
@@ -132,6 +132,12 @@ class WwcApi {
 
   static async createMember(data) {
     return await axios.post(`${BASE_URL}/user/create/`, data, {
+      headers: getConfig(),
+    });
+  }
+
+  static async addInvitee(data) {
+    return await axios.post(`${BASE_URL}/invitee/`, data, {
       headers: getConfig(),
     });
   }
@@ -158,26 +164,26 @@ class WwcApi {
   }
 
   static async editMemberRoleTeams(userId, data) {
-    return await axios.put(`${BASE_URL}/user/edit/${userId}/role_teams`, data, {
+    return await axios.put(`${BASE_URL}/user/edit/${userId}/role_teams/`, data, {
       headers: getConfig(),
     });
   }
 
   static async getUserProfile() {
-    let res = await axios.get(`${BASE_URL}/user/profile`, {
+    let res = await axios.get(`${BASE_URL}/user/profile/`, {
       headers: getConfig(),
     });
     return res.data;
   }
 
   static async editUserName(userName) {
-    return await axios.patch(`${BASE_URL}/user/name`, userName, {
+    return await axios.patch(`${BASE_URL}/user/name/`, userName, {
       headers: getConfig(),
     });
   }
 
   static async editUserPassword(data) {
-    return await axios.patch(`${BASE_URL}/user/password`, data, {
+    return await axios.patch(`${BASE_URL}/user/password/`, data, {
       headers: getConfig(),
     });
   }
@@ -210,6 +216,13 @@ class WwcApi {
     return await axios.delete(`${BASE_URL}/user/edit/${userId}/role/`, data, {
       headers: getConfig(),
     });
+  }
+
+  static async getInvitees() {
+    let res = await axios.get(`${BASE_URL}/invitee/`, {
+      headers: getConfig(),
+    });
+    return res.data;
   }
 }
 export default WwcApi;

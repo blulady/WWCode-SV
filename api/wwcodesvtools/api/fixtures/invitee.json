@@ -6,9 +6,9 @@
             "email": "volunteer@example.com",
             "message": "Invitee for a new member sent by a director at WWCode",
             "role": 1,
-            "registration_token": "938d60469dc74cceae396f2c963f105520500219015651",
+            "registration_token": "0223ed8f8936448dafd37088c955333420210219015606",
             "resent_counter": 0,
-            "accepted": true,
+            "accepted": false,
             "created_by": 1,
             "created_at": "2022-01-19T17:30:10.468Z",
             "updated_at": "2022-01-19T17:31:00.445Z"
@@ -21,12 +21,87 @@
             "email": "sophiefisher@example.com",
             "message": "Invitee for a new member sent by a director at WWCode",
             "role": 1,
-            "registration_token": "#deftoken#",
+            "registration_token": "22f9f678565b4f1783dba9028801c1de20210524235504",
             "resent_counter": 2,
             "accepted": false,
             "created_by": 1,
             "created_at": "2022-01-19T17:30:10.468Z",
             "updated_at": "2022-01-19T17:31:00.445Z"
+        }
+    },
+    {
+        "model": "api.invitee",
+        "pk": 3,
+        "fields": {
+            "email": "volunteer_3@example.com",
+            "message": "Invitee for a new member sent by a director at WWCode",
+            "role": 2,
+            "registration_token": "93f9f678565b4f1783dba9028801c1de20210624235504",
+            "resent_counter": 0,
+            "accepted": false,
+            "created_by": 1,
+            "created_at": "2022-10-19T17:30:10.468Z",
+            "updated_at": "2022-10-19T17:30:10.468Z"
+        }
+    },
+    {
+        "model": "api.invitee",
+        "pk": 4,
+        "fields": {
+            "email": "volunteer_4@example.com",
+            "message": "Invitee for a new member sent by a director at WWCode",
+            "role": 1,
+            "registration_token": "93f9g678565b4f1783dba9028801c1de20210625235504",
+            "resent_counter": 0,
+            "accepted": false,
+            "created_by": 1,
+            "created_at": "2022-10-16T17:30:10.468Z",
+            "updated_at": "2022-10-16T17:31:00.445Z"
+        }
+    },
+    {
+        "model": "api.invitee",
+        "pk": 5,
+        "fields": {
+            "email": "volunteer_5@example.com",
+            "message": "Invitee for a new member sent by a director at WWCode",
+            "role": 1,
+            "registration_token": "93f9f678565b4f1783dba9028801c1de20220619235504",
+            "resent_counter": 1,
+            "accepted": false,
+            "created_by": 1,
+            "created_at": "2022-10-16T17:30:10.468Z",
+            "updated_at": "2022-10-19T17:31:00.445Z"
+        }
+    },
+    {
+        "model": "api.invitee",
+        "pk": 6,
+        "fields": {
+            "email": "volunteer_6@example.com",
+            "message": "Invitee for a new member sent by a director at WWCode",
+            "role": 3,
+            "registration_token": "93f9f678565b4f1983dba9028801c1de20221020235504",
+            "resent_counter": 2,
+            "accepted": false,
+            "created_by": 1,
+            "created_at": "2022-10-13T17:30:10.468Z",
+            "updated_at": "2022-10-20T17:31:00.445Z"
+        }
+    },
+    {
+        "model": "api.invitee",
+        "pk": 7,
+        "fields": {
+            "email": "volunteer_7@example.com",
+            "message": "Invitee for a new member sent by a director at WWCode",
+            "role": 3,
+            "registration_token": "83f9f678565a3f1783dba9028801c1de20221024235504",
+            "resent_counter": 0,
+            "accepted": true,
+            "created_by": 1,
+            "created_at": "2022-10-20T17:30:10.468Z",
+            "updated_at": "2022-10-20T17:30:10.468Z"
         }
     }
 ]
