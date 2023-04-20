@@ -2,7 +2,7 @@ import axios from "axios";
 
 const BASE_URL =
   process.env.REACT_APP_API_URL ||
-  "https://wwcode-chtools-api.herokuapp.com/api";
+  "https://wwcode-chtools-api-dev-development.up.railway.app/api";
 
 const getConfig = () => {
   let { access } = JSON.parse(sessionStorage.getItem("token"));
@@ -36,7 +36,7 @@ axios.interceptors.response.use(
         originalRequest._retry = true;
         const { refresh } = JSON.parse(sessionStorage.getItem("token"));
         return axios
-          .post(`${BASE_URL}/login/refresh`, { refresh: refresh })
+          .post(`${BASE_URL}/login/refresh/`, { refresh: refresh })
           .then((res) => {
             if (res.status === 200) {
               console.log(res);
@@ -223,6 +223,12 @@ class WwcApi {
       headers: getConfig(),
     });
     return res.data;
+  }
+
+  static async resendInvite() {
+    return await new Promise((resolve, reject) => {
+      resolve();
+    });
   }
 }
 export default WwcApi;
