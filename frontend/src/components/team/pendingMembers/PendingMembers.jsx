@@ -40,7 +40,7 @@ const PendingMembers = (props) => {
 
     const resendInvite = async () => {
        await WwcApi.resendInvite();
-       await getInvitees();       
+       await getInvitees();
        setShowMessage(true);
     };
 
