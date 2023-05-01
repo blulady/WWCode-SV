@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import styles from "./index.module.css";
 
-const PopupConfirm = ({
+const ModalConfirm = ({
   title,
   description,
   okText = "confirm",
@@ -13,6 +13,16 @@ const PopupConfirm = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.classList.contains(styles.popupConfirm)) {
+        setIsOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [])
+
   const handleCancel = () => {
     onCancel();
     setIsOpen(false);
@@ -22,9 +32,12 @@ const PopupConfirm = ({
     onConfirm();
     setIsOpen(false);
   };
+
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>{children}</button>
+      {React.cloneElement(children, {
+        onClick: () => setIsOpen(true),
+      })}
 
       {isOpen && (
         <div className={styles.popupConfirm}>
@@ -51,4 +64,4 @@ const PopupConfirm = ({
   );
 };
 
-export default PopupConfirm;
+export default ModalConfirm;

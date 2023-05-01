@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import PopupConfirm from '../../common/Popconfirm';
+import ModalConfirm from '../../common/ModalConfirm';
 import styles from "./PendingMemberTable.module.css";
 
 const TableBody = ({users, target}) => {
@@ -31,7 +31,7 @@ const TableBody = ({users, target}) => {
                 </button>
               </td>
               <td>
-                <PopupConfirm
+                <ModalConfirm
                   title={"Are you sue?"}
                   description={
                     "Are you sure you want to permanently delete this invitee from the records?"
@@ -40,7 +40,7 @@ const TableBody = ({users, target}) => {
                   onCancel={() => console.log("cancel")}
                 >
                   <button className={styles["delete"] + " " + styles["icon"]}></button>
-                </PopupConfirm>
+                </ModalConfirm>
               </td>
             </tr>
           ))}
