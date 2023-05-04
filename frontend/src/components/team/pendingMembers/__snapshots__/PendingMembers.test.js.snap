@@ -61,6 +61,7 @@ exports[`PendingMembers Component Validation Tests PendingMembers component is r
               class="invite-button"
               data-bs-target="#resendConfirmationDialog"
               data-bs-toggle="modal"
+              data-bs-user="1"
               type="button"
             >
               Resend Invite

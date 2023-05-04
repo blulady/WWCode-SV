@@ -46,14 +46,18 @@ exports[`PendingMemberTable Component Validation Tests PendingMemberTable compon
         <td>
           <button
             class="invite-button"
+            data-bs-target="group"
             data-bs-toggle="modal"
+            data-bs-user="1"
             type="button"
           >
             Resend Invite
           </button>
         </td>
         <td>
-          <TableBody users={props.users} target={props.target}/>
+          <button
+            class="delete icon"
+          />
         </td>
       </tr>
     </tbody>
