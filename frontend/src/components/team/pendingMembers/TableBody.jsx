@@ -25,7 +25,7 @@ const TableBody = ({users, target}) => {
                   type="button"
                   data-bs-toggle="modal"
                   data-bs-target={target}
-                  data-bs-user={user.email}
+                  data-bs-user={user.id}
                 >
                   Resend Invite
                 </button>
