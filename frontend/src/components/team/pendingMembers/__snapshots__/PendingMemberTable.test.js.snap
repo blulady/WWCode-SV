@@ -53,9 +53,18 @@ exports[`PendingMemberTable Component Validation Tests PendingMemberTable compon
           </button>
         </td>
         <td>
-          <button
-            class="delete icon"
-          />
+        <ModalConfirm
+          title={"Are you sue?"}
+                  description={
+                    "Are you sure you want to permanently delete this invitee from the records?"
+                  }
+                  onConfirm={() => handelDeleteMember(user.id)}
+                  onCancel={() => console.log("cancel")}
+          >
+            <button
+              class="delete icon"
+            />
+          </ModalConfirm>
         </td>
       </tr>
     </tbody>
