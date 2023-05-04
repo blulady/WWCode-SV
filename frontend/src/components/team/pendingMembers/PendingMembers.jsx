@@ -8,13 +8,14 @@ import PendingMemberList from "./PendingMemberList";
 import PendingMemberTable from "./PendingMemberTable";
 import styles from "./PendingMembers.module.css";
 import MessageBox from "../../messagebox/MessageBox";
-import { ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD } from "../../../Messages";
+import { ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD, ERROR_REQUEST_MESSAGE } from "../../../Messages";
 import ModalDialog from "../../common/ModalDialog";
 
 const PendingMembers = (props) => {
     const [users, setUsers] = useState([]);
-    const [errorOnLoading, setErrorOnLoading] = useState(false);
+    const [apiError, setApiError] = useState(null);
     const [showMessage, setShowMessage] = useState(false);
+    const [currentUser, setCurrentUser] = useState(null);
     const navigate = useNavigate();
 
     const renderTable = () => {
@@ -29,7 +30,7 @@ const PendingMembers = (props) => {
             let _users = await WwcApi.getInvitees();
             setUsers(_users);
         } catch (error) {
-            setErrorOnLoading(true);
+            setApiError(ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD.replace("{0}", ""));
             console.log(error);
         }
     };
@@ -39,9 +40,14 @@ const PendingMembers = (props) => {
     };
 
     const resendInvite = async () => {
-       await WwcApi.resendInvite();
-       await getInvitees();       
-       setShowMessage(true);
+        try {
+            await WwcApi.resendInvite(currentUser);
+            await getInvitees();       
+            setShowMessage(true);
+        } catch (error) {
+            setApiError(ERROR_REQUEST_MESSAGE);
+            console.log(error);
+        }
     };
 
     const onOpeningResendDialog = (target) => {
@@ -49,20 +55,21 @@ const PendingMembers = (props) => {
         if (target) {
             user = target.getAttribute("data-bs-user");
         }
+        setCurrentUser(user);
     };
 
     useEffect(() => {
         getInvitees();
     }, []);
 
-    if (errorOnLoading) {
+    if (apiError) {
         // TODO: Revisit to see if we can consolidate this with MessageBox below
         return (
             <div className="d-flex justify-content-center">
                 <MessageBox
                     type="Error"
                     title="Sorry!"
-                    message={ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD.replace("{0}", "")}
+                    message={apiError}
                 ></MessageBox>
             </div>)
     } else {
