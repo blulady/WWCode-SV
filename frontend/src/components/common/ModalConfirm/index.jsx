@@ -8,7 +8,7 @@ const ModalConfirm = ({
   okText = "confirm",
   cancelText = "cancel",
   onConfirm,
-  onCancel,
+  onCancel = () => Promise.resolve(),
   children,
 }) => {
   const [isOpen, setIsOpen] = useState(false);

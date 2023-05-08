@@ -1,11 +1,9 @@
 import React from "react";
 
-import WwcApi from "../../../WwcApi";
 import TableBody from "./TableBody";
 import styles from "./PendingMemberTable.module.css";
 
-const PendingMemberTable = (props) => {
-
+const PendingMemberTable = ({ users, target, onDeleteMember }) => {
   return (
     <table className={styles["pending-members-table"]}>
       <thead>
@@ -18,7 +16,11 @@ const PendingMemberTable = (props) => {
           <th>Actions</th>
         </tr>
       </thead>
-      <TableBody users={props.users} target={props.target}/>
+      <TableBody
+        users={users}
+        target={target}
+        onDeleteMember={onDeleteMember}
+      />
     </table>
   );
 };
