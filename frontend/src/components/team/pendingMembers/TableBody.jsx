@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 
+import WwcApi from '../../../WwcApi';
 import ModalConfirm from '../../common/ModalConfirm';
 import styles from "./PendingMemberTable.module.css";
 
@@ -7,9 +8,17 @@ const TableBody = ({users, target}) => {
     const [members, setMembers] = useState(users);
 
     const handelDeleteMember = (userId) => {
-        let temp = [...members];
-        temp = temp.filter(member => member.id !== userId);
-        setMembers(temp);
+        const temp = [...members];
+        const filteredTemp = temp.filter(member => member.id !== userId);
+        setMembers(filteredTemp);
+        WwcApi.deleteInvitees(userId).catch(err => {
+          console.log(err)
+          setMembers(temp)
+        })
+    }
+
+    const handleCancel = () => {
+      console.log("cancel")
     }
 
     return (
@@ -37,7 +46,7 @@ const TableBody = ({users, target}) => {
                     "Are you sure you want to permanently delete this invitee from the records?"
                   }
                   onConfirm={() => handelDeleteMember(user.id)}
-                  onCancel={() => console.log("cancel")}
+                  onCancel={() => handleCancel()}
                 >
                   <button className={styles["delete"] + " " + styles["icon"]}></button>
                 </ModalConfirm>

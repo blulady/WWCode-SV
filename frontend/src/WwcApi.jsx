@@ -14,7 +14,7 @@ const getConfig = () => {
 
 axios.interceptors.response.use(
   (response) => {
-    return response;
+    return Promise.resolve(response);
   },
   function (error) {
     const { detail, code, error: err } = error.response.data;
@@ -224,11 +224,17 @@ class WwcApi {
     });
     return res.data;
   }
+  static async deleteInvitees(id) {
+    return await axios.delete(`${BASE_URL}/invitee/${id}/`, {
+      headers: getConfig(),
+    });
+  }
 
   static async resendInvite(userId) {
     return await axios.patch(`${BASE_URL}/invitee/${userId}/resend `, null, {
       headers: getConfig(),
     });
   }
+
 }
 export default WwcApi;

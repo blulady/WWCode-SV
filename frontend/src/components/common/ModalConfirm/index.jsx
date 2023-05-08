@@ -15,7 +15,7 @@ const ModalConfirm = ({
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.classList.contains(styles.popupConfirm)) {
+      if (event.target.classList.contains(styles.popupConfirm)) {
         setIsOpen(false);
       }
     }
