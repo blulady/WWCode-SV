@@ -9,8 +9,8 @@ import PendingMemberTable from "./PendingMemberTable";
 import ModalDialog from "../../common/ModalDialog";
 import MessageBox from "../../messagebox/MessageBox";
 import {
-    ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD,
-    ERROR_REQUEST_MESSAGE,
+  ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD,
+  ERROR_REQUEST_MESSAGE,
 } from "../../../Messages";
 import styles from "./PendingMembers.module.css";
 
@@ -69,8 +69,8 @@ const PendingMembers = (props) => {
     const filteredMembers = temp.filter((member) => member.id !== userId);
     setUsers(filteredMembers);
     WwcApi.deleteInvitees(userId).catch((err) => {
-        setUsers(temp);
-        setApiError(ERROR_REQUEST_MESSAGE);
+      setUsers(temp);
+      setApiError(ERROR_REQUEST_MESSAGE);
     });
   };
 
@@ -86,53 +86,53 @@ const PendingMembers = (props) => {
     getInvitees();
   }, []);
 
-  if (apiError) {
-    // TODO: Revisit to see if we can consolidate this with MessageBox below
-    return (
-      <div className="d-flex justify-content-center">
-        <MessageBox type="Error" title="Sorry!" message={apiError}></MessageBox>
+  return (
+    <div className={styles["pending-members-container"]}>
+      <div className="d-flex justify-content-end mb-2 mb-md-5">
+        <button
+          type="button"
+          className="wwc-action-button"
+          onClick={goToAddMember}
+        >
+          + Add Member
+        </button>
       </div>
-    );
-  } else {
-    return (
-      <div className={styles["pending-members-container"]}>
-        <div className="d-flex justify-content-end mb-2 mb-md-5">
-          <button
-            type="button"
-            className="wwc-action-button"
-            onClick={goToAddMember}
-          >
-            + Add Member
-          </button>
+      {showMessage && (
+        <div className="d-flex justify-content-center">
+          <MessageBox
+            type="Success"
+            title="Success!"
+            message="New registration link has been sent."
+          ></MessageBox>
         </div>
-        {showMessage && (
-          <div className="d-flex justify-content-center">
-            <MessageBox
-              type="Success"
-              title="Success!"
-              message="New registration link has been sent."
-            ></MessageBox>
-          </div>
-        )}
-        {users.length ? (
-          isBrowser ? (
-            renderTable()
-          ) : (
-            renderList()
-          )
+      )}
+      {apiError && (
+        <div className="d-flex justify-content-center">
+          <MessageBox
+            type="Error"
+            title="Sorry!"
+            message={apiError}
+          ></MessageBox>
+        </div>
+      )}
+      {users.length ? (
+        isBrowser ? (
+          renderTable()
         ) : (
-          <div className={styles["no-users-msg"]}>No invitees to display</div>
-        )}
-        <ModalDialog
-          id="resendConfirmationDialog"
-          title="Are you sure?"
-          text="Are you sure you want to resend the registration link?"
-          onConfirm={resendInvite}
-          onOpening={onOpeningResendDialog}
-        ></ModalDialog>
-      </div>
-    );
-  }
+          renderList()
+        )
+      ) : (
+        <div className={styles["no-users-msg"]}>No invitees to display</div>
+      )}
+      <ModalDialog
+        id="resendConfirmationDialog"
+        title="Are you sure?"
+        text="Are you sure you want to resend the registration link?"
+        onConfirm={resendInvite}
+        onOpening={onOpeningResendDialog}
+      ></ModalDialog>
+    </div>
+  );
 };
 
 export default PendingMembers;
