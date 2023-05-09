@@ -32,6 +32,7 @@ const TableBody = ({ users, target, onDeleteMember }) => {
                 "Are you sure you want to permanently delete this invitee from the records?"
               }
               onConfirm={() => onDeleteMember(user.id)}
+              okText="OK"
             >
               <button
                 className={styles["delete"] + " " + styles["icon"]}
