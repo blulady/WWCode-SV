@@ -59,7 +59,7 @@ function Register(props) {
     const userData = { ...userInfo };
     try {
       await WwcApi.activateMember(userData); // activate new member
-      navigate("/login");
+      navigate("/login?register=true");
     } catch (error) { // error with activation
       setErrorOnLoading({ hasError: true, title: "Oops!", message: ERROR_REQUEST_MESSAGE }); // generic error
     } finally {

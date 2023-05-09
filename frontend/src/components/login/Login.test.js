@@ -2,15 +2,18 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Login from './Login';
 import AuthProvider from "../../context/auth/AuthProvider";
+import Router from "react-router-dom";
 
 const mockedUsedNavigate = jest.fn();
 
 jest.mock('react-router-dom', () => ({
    ...jest.requireActual('react-router-dom'),
   useNavigate: () => mockedUsedNavigate,
+  useSearchParams: jest.fn()
 }));
 
 it(' it should render  login form', () => {
+  jest.spyOn(Router, "useSearchParams").mockReturnValue([new URLSearchParams({})]);
   const handleSetAuth = jest.fn();
   const {getByTestId ,getByText, findByLabelText} = render(
     <AuthProvider value={{handleSetAuth,}}> 
@@ -35,4 +38,16 @@ it(' it should render  login form', () => {
   expect(passwdInp).toHaveAttribute('required');
   expect(submitBtn).toBeInTheDocument();
   expect(submitBtn).toHaveAttribute('disabled');
+});
+
+it('Login with register param', () => {
+  jest.spyOn(Router, "useSearchParams").mockReturnValue([new URLSearchParams({ "register": true })]);
+  const handleSetAuth = jest.fn();
+  const {getByTestId ,getByText, findByLabelText} = render(
+    <AuthProvider value={{handleSetAuth,}}> 
+      <Login />
+    </AuthProvider>
+  );
+
+  expect(getByText(/Registration Successful */i)).toBeTruthy();
 });
