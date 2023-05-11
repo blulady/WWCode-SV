@@ -4,11 +4,11 @@ import cx from "classnames";
 import WwcBackground from "./WwcBackground";
 import AuthContext from "../../context/auth/AuthContext";
 import TeamContext from "../../context/team/TeamContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import ResetPasswordModal from "./ResetPasswordModal";
 import WwcApi from "../../WwcApi";
 import MessageBox from "../messagebox/MessageBox";
-import { ERROR_REQUEST_MESSAGE, SUCCESS_REQUEST_PASSWORD_RESET } from "../../Messages";
+import { ERROR_REQUEST_MESSAGE, SUCCESS_REQUEST_PASSWORD_RESET, SUCCESS_REGISTRATION } from "../../Messages";
 
 
 /*
@@ -24,11 +24,17 @@ const Login = () => {
     username: "",
     password: "",
   });
+  let initMsg = { type: null };
+  const [searchParams] = useSearchParams();
+  const isRegisterationSuccess = searchParams.get("register") === "true";
+  if (isRegisterationSuccess) {
+    initMsg = { type: "Success", title: "Registration Successful", message: SUCCESS_REGISTRATION };
+  }
   
   let passwordReset = JSON.parse(sessionStorage.getItem('password-reset'));
 
   const [showResetPasswordModal, setShowResetPasswordModal] = useState(false);
-  const [showRequestStatus, setShowRequestStatus] = useState({type: null});
+  const [showRequestStatus, setShowRequestStatus] = useState(initMsg);
 
   const clearPasswordResetInfo = () => {
     sessionStorage.removeItem('password-reset');
