@@ -1,0 +1,12 @@
+[run]
+omit =
+        api/migrations/*
+        api/tests/*
+        manage.py
+        api/__init__.py
+        api/serializers/__init__.py
+        api/swagger/__init__.py
+        api/views/__init__.py
+        wwcodesvtools/__init__.py
+
+
