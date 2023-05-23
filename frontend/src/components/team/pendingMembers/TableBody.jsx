@@ -1,9 +1,9 @@
 import React from "react";
 
-import ModalConfirm from "../../common/ModalConfirm";
 import styles from "./PendingMemberTable.module.css";
 
-const TableBody = ({ users, target, onDeleteMember }) => {
+const TableBody = ({ users, target, targetDelete }) => {
+  
   return (
     <tbody>
       {users.map((user, idx) => (
@@ -26,18 +26,13 @@ const TableBody = ({ users, target, onDeleteMember }) => {
             </button>
           </td>
           <td>
-            <ModalConfirm
-              title={"Are you sue?"}
-              description={
-                "Are you sure you want to permanently delete this invitee from the records?"
-              }
-              onConfirm={() => onDeleteMember(user.id)}
-              okText="OK"
-            >
-              <button
-                className={styles["delete"] + " " + styles["icon"]}
-              ></button>
-            </ModalConfirm>
+            <button
+              className={styles["delete"] + " " + styles["icon"]}
+              type="button"
+              data-bs-toggle="modal"
+              data-bs-target={targetDelete}
+              data-bs-user={user.id}
+            />
           </td>
         </tr>
       ))}

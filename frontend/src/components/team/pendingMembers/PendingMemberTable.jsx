@@ -3,7 +3,7 @@ import React from "react";
 import TableBody from "./TableBody";
 import styles from "./PendingMemberTable.module.css";
 
-const PendingMemberTable = ({ users, target, onDeleteMember }) => {
+const PendingMemberTable = ({ users, target, targetDelete }) => {
   return (
     <table className={styles["pending-members-table"]}>
       <thead>
@@ -19,7 +19,7 @@ const PendingMemberTable = ({ users, target, onDeleteMember }) => {
       <TableBody
         users={users}
         target={target}
-        onDeleteMember={onDeleteMember}
+        targetDelete={targetDelete}
       />
     </table>
   );
