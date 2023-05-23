@@ -30,6 +30,7 @@ describe("PendingMembers Component Validation Tests", () => {
     WwcApi.getInvitees.mockImplementation(async () => {
       return await Promise.resolve(
         [{
+          id: 1,
           email: "abc@example.com",
           role_name: "volunteer",
           status: "invited"
