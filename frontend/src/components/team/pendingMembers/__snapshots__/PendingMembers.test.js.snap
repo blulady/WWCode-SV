@@ -70,6 +70,10 @@ exports[`PendingMembers Component Validation Tests PendingMembers component is r
           <td>
             <button
               class="delete icon"
+              data-bs-target="#deletePendingMemberDialog"
+              data-bs-toggle="modal"
+              data-bs-user="1"
+              type="button"
             />
           </td>
         </tr>
@@ -88,7 +92,7 @@ exports[`PendingMembers Component Validation Tests PendingMembers component is r
           class="modal-content"
         >
           <div
-            class="modal-header font-weight-bold"
+            class="modal-header fw-bold"
           >
             <header
               class="text-center"
@@ -112,7 +116,61 @@ exports[`PendingMembers Component Validation Tests PendingMembers component is r
               class="text-center"
             >
               <button
-                class="btn btn cancel-btn dialog-button mr-3"
+                class="btn btn cancel-btn dialog-button me-3"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                class="btn btn confirm-btn dialog-button submit-button"
+                data-bs-dismiss="modal"
+                type="submit"
+              >
+                Confirm
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="modal"
+      id="deletePendingMemberDialog"
+      role="dialog"
+      tabindex="-1"
+    >
+      <div
+        class="modal-dialog modal-dialog-centered"
+      >
+        <div
+          class="modal-content"
+        >
+          <div
+            class="modal-header fw-bold"
+          >
+            <header
+              class="text-center"
+            >
+              <div
+                class="modal-title-text"
+              >
+                Are you sure?
+              </div>
+            </header>
+          </div>
+          <div
+            class="modal-body"
+          >
+            <div
+              class="mb-5"
+            >
+              Are you sure you want to permanently delete this invitee from the records?
+            </div>
+            <div
+              class="text-center"
+            >
+              <button
+                class="btn btn cancel-btn dialog-button me-3"
                 data-bs-dismiss="modal"
               >
                 Cancel

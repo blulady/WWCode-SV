@@ -57,6 +57,9 @@ exports[`PendingMemberTable Component Validation Tests PendingMemberTable compon
         <td>
           <button
             class="delete icon"
+            data-bs-toggle="modal"
+            data-bs-user="1"
+            type="button"
           />
         </td>
       </tr>
