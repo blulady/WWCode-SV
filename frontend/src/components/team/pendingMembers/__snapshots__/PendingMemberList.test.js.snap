@@ -17,6 +17,7 @@ exports[`PendingMemberList Component Validation Tests PendingMemberList componen
           <li>
             <a
               class="dropdown-item"
+              data-bs-toggle="modal"
               href="#"
             >
               Delete

@@ -6,24 +6,30 @@ import "../../../Common.css";
 const PendingMemberList = (props) => {
   const users = props.users;
 
-  const menuItems = [
-    {
-      label: (
-        <a className="dropdown-item" href="#">
-          Delete
-        </a>
-      ),
-      key: "delete",
-    },
-  ];
-
   return users.map((user, idx) => (
     <div
       className={styles["pending-member-list-card"] + " d-flex flex-column"}
       key={idx}
     >
       <div className={"align-self-end"}>
-        <Dropdown menu={menuItems}>
+        <Dropdown
+          menu={[
+            {
+              label: (
+                <a
+                  className="dropdown-item"
+                  href="#"
+                  data-bs-toggle="modal"
+                  data-bs-target={props.targetDelete}
+                  data-bs-user={user.id}
+                >
+                  Delete
+                </a>
+              ),
+              key: "delete",
+            },
+          ]}
+        >
           <div className={styles["icon"] + " " + styles["more"]}></div>
         </Dropdown>
       </div>
