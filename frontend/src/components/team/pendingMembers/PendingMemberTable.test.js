@@ -3,6 +3,7 @@ import { render } from "@testing-library/react";
 import PendingMemberTable from "./PendingMemberTable";
 
 const pendingMembers = [{
+    id: 1,
     email: "abc@example.com",
     role_name: "volunteer",
     status: "invited"
@@ -10,7 +11,8 @@ const pendingMembers = [{
 
 describe("PendingMemberTable Component Validation Tests", () => {
   test("PendingMemberTable component is rendering", async () => {
-      const { container, getByText } = render(<PendingMemberTable users={pendingMembers} />);
+      const target = 'group'
+      const { container, getByText } = render(<PendingMemberTable users={pendingMembers} target={target}/>);
       expect(container).toMatchSnapshot();
 
       expect(getByText("abc@example.com")).toBeTruthy();

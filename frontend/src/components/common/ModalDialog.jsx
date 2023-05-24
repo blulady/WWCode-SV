@@ -4,9 +4,9 @@ import classes from "./ModalDialog.module.css";
 import { useRef } from "react";
 import { useEffect } from "react";
 
-const ModalDialog = (props) => {   
+const ModalDialog = (props) => {
     const ref = useRef();
-    
+
     useEffect(() => {
         if (props.onOpening) {
             ref.current.addEventListener("show.bs.modal", (event) => {
@@ -14,7 +14,7 @@ const ModalDialog = (props) => {
                 props.onOpening(target);
             });
         }
-    
+
         if (props.onClosing) {
             ref.current.addEventListener("hide.bs.modal", (event) => {
                 let target = event.relatedTarget;
@@ -27,7 +27,7 @@ const ModalDialog = (props) => {
         <div className="modal" id={props.id} tabIndex="-1" role="dialog" ref={ref}>
             <div className="modal-dialog modal-dialog-centered">
                 <div className="modal-content">
-                    <div className="modal-header font-weight-bold">
+                    <div className="modal-header fw-bold">
                         <header className="text-center">
                             <div className={classes["modal-title-text"]}>{props.title}</div>
                         </header>
@@ -38,7 +38,7 @@ const ModalDialog = (props) => {
                         </div>
                         <div className='text-center'>
                             <button
-                                    className={cx('btn', classes['btn'], classes['cancel-btn'], classes["dialog-button"], "mr-3")}
+                                    className={cx('btn', classes['btn'], classes['cancel-btn'], classes["dialog-button"], "me-3")}
                                     onClick={(e) => {e.preventDefault(); props.onCancel();}}
                                     data-bs-dismiss="modal"
                                 >
