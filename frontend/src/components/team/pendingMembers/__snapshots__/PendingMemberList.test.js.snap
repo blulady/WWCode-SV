@@ -6,8 +6,31 @@ exports[`PendingMemberList Component Validation Tests PendingMemberList componen
     class="pending-member-list-card d-flex flex-column"
   >
     <div
-      class="align-self-end icon more"
-    />
+      class="align-self-end"
+    >
+      <div
+        class="dropdown"
+      >
+        <ul
+          class="dropdown-menu"
+        >
+          <li>
+            <a
+              class="dropdown-item"
+              data-bs-toggle="modal"
+              href="#"
+            >
+              Delete
+            </a>
+          </li>
+        </ul>
+        <div
+          aria-expanded="false"
+          class="icon more"
+          data-bs-toggle="dropdown"
+        />
+      </div>
+    </div>
     <div
       class="d-flex row"
     >
