@@ -36,6 +36,7 @@ const PendingMembers = (props) => {
       <PendingMemberList
         users={users}
         target="#resendConfirmationDialog"
+        targetDelete="#deletePendingMemberDialog"
       ></PendingMemberList>
     );
   };
