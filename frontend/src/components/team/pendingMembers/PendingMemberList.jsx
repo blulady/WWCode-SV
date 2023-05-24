@@ -6,6 +6,7 @@ import "../../../Common.css";
 const PendingMemberList = (props) => {
   const users = props.users;
 
+
   return users.map((user, idx) => (
     <div
       className={styles["pending-member-list-card"] + " d-flex flex-column"}
