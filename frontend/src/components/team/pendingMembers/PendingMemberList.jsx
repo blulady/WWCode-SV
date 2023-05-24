@@ -1,5 +1,5 @@
 import React from "react";
-import Dropdown from "../../common/dropdown";
+import Dropdown from "../../common/Dropdown";
 import styles from "./PendingMemberList.module.css";
 import "../../../Common.css";
 
