@@ -10,5 +10,4 @@ djangorestframework-simplejwt==4.6.0
 drf-yasg==1.17.1
 django-cors-headers==3.5.0
 flake8==3.8.4
-coverage==7.0.5
 whitenoise==6.3.0
