@@ -28,7 +28,7 @@ class UserTeamModelTestCase(TransactionTestCase):
     def test_user_can_belong_to_many_teams_same_role(self):
         user1 = User.objects.get(email="director@example.com")
         team1 = Team.objects.get(name='Host Management')
-        team2 = Team.objects.get(name='Tech Event Volunteers')
+        team2 = Team.objects.get(name='Tech Event Team')
         team3 = Team.objects.get(name='Partnership Management')
         role1 = Role.objects.get(name=Role.DIRECTOR)
         User_Team.objects.bulk_create([
@@ -43,9 +43,9 @@ class UserTeamModelTestCase(TransactionTestCase):
     def test_user_can_belong_to_many_teams_diff_roles(self):
         user1 = User.objects.get(email="director@example.com")
         team1 = Team.objects.get(name='Host Management')
-        team2 = Team.objects.get(name='Tech Event Volunteers')
+        team2 = Team.objects.get(name='Tech Event Team')
         team3 = Team.objects.get(name='Partnership Management')
-        team4 = Team.objects.get(name='Social Media')
+        team4 = Team.objects.get(name='Social Media Team')
         role1 = Role.objects.get(name=Role.VOLUNTEER)
         role2 = Role.objects.get(name=Role.LEADER)
         role3 = Role.objects.get(name=Role.DIRECTOR)

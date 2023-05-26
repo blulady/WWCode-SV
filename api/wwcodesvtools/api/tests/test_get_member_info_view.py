@@ -54,7 +54,7 @@ class GetMemberInfoViewTestCase(TransactionTestCase):
         self.assertEqual(member_content.get('status'), "ACTIVE")
         self.assertEqual(member_content.get('highest_role'), Role.DIRECTOR)
         self.assertEqual(member_content.get('date_joined'), "2021-02-19T01:55:01.810000Z")
-        self.assertEqual(member_content.get('role_teams'), [{'team_id': 5, 'team_name': 'Social Media', 'role_name': Role.DIRECTOR}])
+        self.assertEqual(member_content.get('role_teams'), [{'team_id': 5, 'team_name': 'Social Media Team', 'role_name': Role.DIRECTOR}])
         self.assertEqual(member_content.get('email'), 'director@example.com')
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
@@ -89,6 +89,6 @@ class GetMemberInfoViewTestCase(TransactionTestCase):
         self.assertEqual(member_content.get('date_joined'), "2021-02-19T01:56:06.115000Z")
         self.assertEqual(member_content.get('role_teams'),
                          [{'role_name': Role.VOLUNTEER, 'team_id': 4, 'team_name': 'Partnership Management'},
-                         {'role_name': Role.VOLUNTEER, 'team_id': 5, 'team_name': 'Social Media'},
+                         {'role_name': Role.VOLUNTEER, 'team_id': 5, 'team_name': 'Social Media Team'},
                          {'role_name': Role.VOLUNTEER, 'team_id': 3, 'team_name': 'Host Management'}])
         self.assertEqual(response.status_code, status.HTTP_200_OK)
