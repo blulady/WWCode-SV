@@ -14,6 +14,8 @@ import BackToMemberPortal from "../layout/BackToMemberPortal";
 function AddMember(props) {
   const navigate = useNavigate();
   const location = useLocation();
+  const teamId = (location.state ? location.state.teamId : 0);
+  const pending = (location.state ? location.state.pending : false);
   let successFlag = false;
   if (location.state) {
     successFlag = location.state.fromReview;
@@ -66,7 +68,7 @@ function AddMember(props) {
 
   const handleSubmit = (event) => {
     navigate( "/member/review", {
-      state: { memberinfo: newMember, roleinfo: memberRole },
+      state: { memberinfo: newMember, roleinfo: memberRole, teamId, pending },
     });
   };
 
@@ -78,7 +80,7 @@ function AddMember(props) {
             <button
               className='chapter-member-btn'
               onClick={() => {
-                navigate("/home");
+                navigate("/team/0/members");
               }}
             >
               {" "}
@@ -86,7 +88,7 @@ function AddMember(props) {
             </button>
           </div>
           <div className='form-div'>
-            <BackToMemberPortal />
+            <BackToMemberPortal teamId={teamId} pending={pending}/>
             <div className='row justify-content-center form-div-spacing'>
               <div>
                 <div className='header'>Add New Member</div>

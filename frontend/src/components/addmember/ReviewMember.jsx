@@ -17,6 +17,8 @@ import BackToMemberPortal from "../layout/BackToMemberPortal";
 function ReviewMember(props) {
   const navigate = useNavigate();
   const location = useLocation();
+  const teamId = location.state.teamId;
+  const pending = location.state.pending;
   const data = location.state.memberinfo;
   const roleinfo = location.state.roleinfo;
   const [errorOnRequest, setErrorOnRequest] = useState(false);
@@ -124,14 +126,14 @@ function ReviewMember(props) {
             <button
               className='chapter-member-btn'
               onClick={() => {
-                navigate("/home");
+                navigate("/team/0/members");
               }}
             >
               Chapter Members
             </button>
           </div>
           <div className='form-div'>
-            <BackToMemberPortal />
+          <BackToMemberPortal teamId={teamId} pending={pending} />
             <div className='row justify-content-center form-div-spacing'>
             <div className={errorOnRequest ? "show padded" : "hide"}>
               <MessageBox type="Error" title={"Sorry!"} message={ERROR_REQUEST_MESSAGE}></MessageBox>

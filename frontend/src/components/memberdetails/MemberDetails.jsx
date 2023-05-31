@@ -209,7 +209,7 @@ function ViewMemberDetails() {
       <div className={styles["view-member-wrapper"]}>
         <BackToTeamHomeButton label="Back to" teamId={teamId} />
         <div className={styles["member-container"]}>
-          <BackToMemberPortal />
+          <BackToMemberPortal teamId={teamId}/>
           <div className={cx(styles["member-details-container"], "align-items-center")}>
             {errorOnLoading && (
               <MessageBox

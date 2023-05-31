@@ -107,7 +107,8 @@ exports[`AddMember it renders without crashing 1`] = `
                   class="back-btn-img"
                   src="arrow_back_24px.png"
                 />
-                Back to Member Portal
+                Back to 
+                Test Page
               </button>
             </div>
             <div

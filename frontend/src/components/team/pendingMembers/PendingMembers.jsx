@@ -51,9 +51,11 @@ const PendingMembers = (props) => {
     }
   };
 
-  const goToAddMember = () => {
-    navigate("/member/add");
-  };
+    const goToAddMember = () => {
+        navigate("/member/add",{
+            state: { teamId: 0, pending: true }
+          });
+    };
 
   const resendInvite = async () => {
     try {

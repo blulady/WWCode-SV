@@ -1,8 +1,12 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import AddMember from './AddMember';
+import * as TeamContext from "../../context/team/TeamContext";
+
 
 const mockNavigation = jest.fn();
+const contextTeams = { teams: [{ id: 0, name: 'Team0', pages: [{ label: "Test Page" }] }] };
+
 let mockFromReview = false;
 
 jest.mock('react-router-dom', () => {
@@ -12,7 +16,9 @@ jest.mock('react-router-dom', () => {
         useNavigate: () => mockNavigation,
         useLocation: () => ({
             state: {
-                fromReview: mockFromReview
+                fromReview: mockFromReview,
+                teamId: 0,
+                pending: false
             }
         })
     }
@@ -36,6 +42,12 @@ jest.mock('react', () => {
 });
 
 describe('AddMember', () => {
+    beforeEach(() => {
+        jest
+            .spyOn(TeamContext, "useTeamContext")
+            .mockImplementation(() => contextTeams);
+    });
+
     test('it renders without crashing', () => {
         const { container } = render(<AddMember />);
         
