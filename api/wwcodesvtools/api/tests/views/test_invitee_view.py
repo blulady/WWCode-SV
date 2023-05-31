@@ -73,3 +73,11 @@ class InviteeModelTest(TransactionTestCase):
     def test_delete_invitee_by_id_for_director(self):
         response = self.client.delete("/api/invitee/2/", **self.bearer)
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+
+    def test_resend_invitation_by_id_for_director(self):
+        json_type = "application/json"
+        data = json.dumps({"email": "volunteer_3@example.com"})
+        response = self.client.patch("/api/invitee/3/resend/", data, **self.bearer, accept=json_type, content_type=json_type)
+        response_content = json.loads(response.content)
+        print(response_content)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)

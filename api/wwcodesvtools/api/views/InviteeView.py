@@ -12,8 +12,12 @@ import logging
 from django.utils.http import urlencode
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 from django.conf import settings
+from django.shortcuts import get_object_or_404
 from django.db import transaction
+from django.contrib.auth.models import User
+
 
 logger = logging.getLogger('django')
 
@@ -24,13 +28,16 @@ class InviteeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated & CanAccessInvitee]
 
     def get_serializer_class(self):
-        if self.action == 'create':
+        if self.action == 'create' or self.action == 'resend':
             return None
         return InviteeSerializer
 
     ERROR_CREATING_INVITEE = 'Error creating invitee'
     ERROR_SENDING_EMAIL_NOTIFICATION = 'Error sending email notification to the invitee'
+    ERROR_RESENDING_REGISTRATION_INVITATION = 'Something went wrong during resend to invitee'
     INVITEE_CREATED_SUCCESSFULLY = 'Invitee Created Succesfully'
+    INVITEE_RESEND_SUCCESSFUL = 'Resend registration invitation successful'
+    INVITEE_NOT_FOUND = 'Requested id not found in Invitee database'
 
     post_response_schema = {
         status.HTTP_200_OK: openapi.Response(
@@ -152,3 +159,65 @@ class InviteeViewSet(viewsets.ModelViewSet):
                         }
         return send_email_helper(
             email, 'Invitation to Join Chapter Portal, Action Required', 'new_member_email.html', context_data)
+
+    post_resend_schema = {
+        status.HTTP_200_OK: openapi.Response(
+            description="Registration Invitation resent successfully",
+            examples={
+                "application/json": {
+                    'result': INVITEE_RESEND_SUCCESSFUL,
+                    'token': "0148f55a1f404363bf27dd8ebc9443c920210210220436"
+                }
+            }
+        ),
+        status.HTTP_404_NOT_FOUND: openapi.Response(
+            description="Id not found in Invitee database",
+            examples={
+                "application/json": {
+                    'result': INVITEE_NOT_FOUND,
+                    'token': "0148f55a1f404363bf27dd8ebc9443c920210210220436"
+                }
+            }
+         ),
+        status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
+            description="Error resending registration invitation",
+            examples={
+                "application/json": {
+                    'result': INVITEE_NOT_FOUND,
+                    'token': "0148f55a1f404363bf27dd8ebc9443c920210210220436"
+                }
+            }
+        ),
+    }
+
+    @swagger_auto_schema(responses=post_resend_schema)
+    @action(methods=['patch'], detail=True)
+    def resend(self, request, *args, **kwargs):
+        error = None
+        invitee_id = kwargs.get('pk')
+        target_invitee = get_object_or_404(Invitee, pk=invitee_id)
+        logger.debug("invitee exists or 404", target_invitee)
+        requestor = User.objects.get(email=request.user.email)
+
+        try:
+            message = "Resending registration invitation"
+            timenow = datetime.now().strftime('%Y%m%d%H%M%S')
+            target_invitee.created_by = requestor
+            target_invitee.resent_counter += 1
+            target_invitee.registration_token = str(uuid4().hex) + timenow
+            message_sent = self.send_email_notification(target_invitee.email, target_invitee.registration_token, message)
+            if message_sent:
+                target_invitee.save()
+                logger.info('InviteeViewSet Resend: Invitee registration invitation resent successfully')
+                res_status = status.HTTP_200_OK
+            else:
+                res_status = status.HTTP_500_INTERNAL_SERVER_ERROR
+                error = self.ERROR_RESENDING_REGISTRATION_INVITATION
+        except Exception as e:
+            error = e
+            logger.error(f'InviteeViewSet Resend: error: {e}')
+            res_status = status.HTTP_500_INTERNAL_SERVER_ERROR
+
+        if error is None and res_status == status.HTTP_200_OK:
+            return Response({'result': self.INVITEE_RESEND_SUCCESSFUL}, status=res_status)
+        return Response({'Error': str(error)}, status=res_status)

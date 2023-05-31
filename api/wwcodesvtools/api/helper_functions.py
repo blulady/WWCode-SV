@@ -37,7 +37,7 @@ def send_email_helper(to_email, subject, template_file, context_data):
 
 
 def generate_random_password(num):
-    # generate random pasword string of num chars
+    # generate random password string of num chars
     letters_and_digits = string.ascii_letters + string.digits
     password = ''.join((random.choice(letters_and_digits) for i in range(num)))
     return password
@@ -56,4 +56,4 @@ def is_director_or_superuser(user_id, is_superuser):
 # It's expired if it's been more than 72hrs
 def is_token_expired(self, registration_token):
     token_datetime = datetime.strptime(registration_token[-14:], '%Y%m%d%H%M%S')
-    return (datetime.now() - timedelta(seconds=settings.REGISTRATION_LINK_EXPIRATION) > token_datetime)
+    return datetime.now() - timedelta(seconds=settings.REGISTRATION_LINK_EXPIRATION) > token_datetime
