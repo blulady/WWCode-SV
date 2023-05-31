@@ -143,16 +143,16 @@ Here are the users details with roles and teams:
 ```
  user_id |            user_name            |    FN     |    LN    | role_name | status  |       team_name        
 ---------+---------------------------------+-----------+----------+-----------+---------+------------------------
-       1 | director@example.com            | John      | Smith    | DIRECTOR  | ACTIVE  | Social Media
+       1 | director@example.com            | John      | Smith    | DIRECTOR  | ACTIVE  | Social Media Team
        2 | volunteer@example.com           | Alice     | Robinson | VOLUNTEER | ACTIVE  | Partnership Management
-       2 | volunteer@example.com           | Alice     | Robinson | VOLUNTEER | ACTIVE  | Social Media
+       2 | volunteer@example.com           | Alice     | Robinson | VOLUNTEER | ACTIVE  | Social Media Team
        2 | volunteer@example.com           | Alice     | Robinson | VOLUNTEER | ACTIVE  | Host Management
        3 | leader@example.com              | Bruno     | Clark    | LEADER    | ACTIVE  | Event Volunteers
        3 | leader@example.com              | Bruno     | Clark    | LEADER    | ACTIVE  | Volunteer Management
        4 | leaderPendingStatus@example.com | Caroline  | Miller   | LEADER    | PENDING | 
        5 | brendajackson@example.com       | Brenda    | Jackson  | DIRECTOR  | ACTIVE  | 
        6 | sophiefisher@example.com        | Sophie    | Fisher   | VOLUNTEER | ACTIVE  | Hackathon Volunteers
-       6 | sophiefisher@example.com        | Sophie    | Fisher   | LEADER    | ACTIVE  | Tech Event Volunteers
+       6 | sophiefisher@example.com        | Sophie    | Fisher   | LEADER    | ACTIVE  | Tech Event Team
        7 | alexanderbrown@example.com      | Alexander | Brown    | LEADER    | ACTIVE  | 
        8 | jackross@example.com            | Jack      | Ross     | LEADER    | PENDING | 
        9 | sophiebutler@example.com        | Sophie    | Butler   | DIRECTOR  | ACTIVE  | Partnership Management

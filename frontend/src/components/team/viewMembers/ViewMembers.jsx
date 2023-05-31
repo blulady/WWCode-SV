@@ -106,7 +106,9 @@ const ViewMembers = (props) => {
   };
 
   const handleAddMember = () => {
-    navigate("/member/add");
+    navigate("/member/add",{
+      state: { teamId: team }
+    });
   };
 
   const onSortSelect = (val) => (e) => {

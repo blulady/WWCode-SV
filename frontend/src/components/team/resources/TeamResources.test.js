@@ -10,7 +10,6 @@ import * as TeamContext from "../../../context/team/TeamContext";
 import Router from "react-router-dom";
 
 const userInfo = { userInfo: { role: "DIRECTOR" } };
-const teams = { teams: [{ id: 1, name: "Team1", slug: "test" }] };
 jest.mock("../../../WwcApi", () => {
   return {
     ...jest.requireActual("../../../WwcApi"),

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import ReviewMember from './ReviewMember';
 import WwcApi from '../../WwcApi';
+import * as TeamContext from "../../context/team/TeamContext";
 
 const mockNavigation = jest.fn();
 
@@ -16,6 +17,8 @@ let mockRoleInfo = {
     MemberRoleDescription: ''
 };
 
+const contextTeams = { teams: [{ id: 0, name: 'Team0', pages: [{ label: "Test Page" }] }] };
+
 jest.mock('react-router-dom', () => {
     const ActualReactRouterDom = jest.requireActual('react-router-dom');
     return {
@@ -24,7 +27,9 @@ jest.mock('react-router-dom', () => {
         useLocation: () => ({
             state: {
                 memberinfo: mockMemberInfo,
-                roleinfo: mockRoleInfo
+                roleinfo: mockRoleInfo,
+                teamId: 0,
+                pending: false
             }
         })
     }
@@ -58,6 +63,9 @@ describe('ReviewMember', () => {
             MemberRole: 'Director',
             MemberRoleDescription: 'Access to all areas of portal'
         };
+        jest
+            .spyOn(TeamContext, "useTeamContext")
+            .mockImplementation(() => contextTeams);
     });
 
     test('it renders without crashing', () => {
