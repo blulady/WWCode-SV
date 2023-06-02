@@ -23,6 +23,7 @@ def delete_pending_users(apps, schema_editor):
 
     UserProfile.objects.filter(status="PENDING").delete()
 
+
 class Migration(migrations.Migration):
 
     dependencies = [
