@@ -72,7 +72,7 @@ class InviteeModelTest(TransactionTestCase):
     # Testing DELETE invitee endpoint
     def test_delete_invitee_by_id_for_director(self):
         response = self.client.delete("/api/invitee/2/", **self.bearer)
-        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
 
     def test_resend_invitation_by_id_for_director(self):
         json_type = "application/json"
