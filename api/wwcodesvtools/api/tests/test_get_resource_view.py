@@ -28,8 +28,16 @@ class GetResourceViewTestCase(TransactionTestCase):
     def test_resources_valid_slug_director(self):
         access_token = self.get_token(None)
         bearer = {'HTTP_AUTHORIZATION': 'Bearer {}'.format(access_token)}
+
         response = self.client.get("/api/resources/volunteer_resource/", **bearer)
         expected_link = Resource.objects.get(slug='volunteer_resource')
+        data_json = response.json()
+        self.assertEqual(expected_link.edit_link, data_json['edit_link'])
+        self.assertEqual(expected_link.published_link, data_json['published_link'])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response = self.client.get("/api/resources/host_management_resource/", **bearer)
+        expected_link = Resource.objects.get(slug='host_management_resource')
         data_json = response.json()
         self.assertEqual(expected_link.edit_link, data_json['edit_link'])
         self.assertEqual(expected_link.published_link, data_json['published_link'])
@@ -39,8 +47,16 @@ class GetResourceViewTestCase(TransactionTestCase):
     def test_resources_valid_slug_leader(self):
         access_token = self.get_token(self.LEADER_EMAIL)
         bearer = {'HTTP_AUTHORIZATION': 'Bearer {}'.format(access_token)}
+
         response = self.client.get("/api/resources/volunteer_resource/", **bearer)
         expected_link = Resource.objects.get(slug='volunteer_resource')
+        data_json = response.json()
+        self.assertNotIn('edit_link', data_json)
+        self.assertEqual(expected_link.published_link, data_json['published_link'])
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+        response = self.client.get("/api/resources/host_management_resource/", **bearer)
+        expected_link = Resource.objects.get(slug='host_management_resource')
         data_json = response.json()
         self.assertNotIn('edit_link', data_json)
         self.assertEqual(expected_link.published_link, data_json['published_link'])
