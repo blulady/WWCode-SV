@@ -18,7 +18,6 @@ from django.shortcuts import get_object_or_404
 from django.db import transaction
 from django.contrib.auth.models import User
 
-
 logger = logging.getLogger('django')
 
 
@@ -36,6 +35,8 @@ class InviteeViewSet(viewsets.ModelViewSet):
     ERROR_SENDING_EMAIL_NOTIFICATION = 'Error sending email notification to the invitee'
     ERROR_RESENDING_REGISTRATION_INVITATION = 'Something went wrong during resend to invitee'
     INVITEE_CREATED_SUCCESSFULLY = 'Invitee Created Succesfully'
+    INVITEE_DELETED_SUCCESSFULLY = 'Invitee Deleted Succesfully'
+    INVITEE_NOT_FOUND = 'Invitee not found in database'
     INVITEE_RESEND_SUCCESSFUL = 'Resend registration invitation successful'
     INVITEE_NOT_FOUND = 'Requested id not found in Invitee database'
 
@@ -49,14 +50,6 @@ class InviteeViewSet(viewsets.ModelViewSet):
                 }
             }
         ),
-        status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
-            description="Internal Server Error",
-            examples={
-                "application/json": {
-                     'error': ERROR_CREATING_INVITEE
-                }
-            }
-        ),
         status.HTTP_400_BAD_REQUEST: openapi.Response(
             description="Bad Request",
             examples={
@@ -65,6 +58,14 @@ class InviteeViewSet(viewsets.ModelViewSet):
                         "email": ["Enter a valid email address."],
                         "role": ["Invalid pk \"n\" - object does not exist."]
                     }
+                }
+            }
+        ),
+        status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
+            description="Internal Server Error",
+            examples={
+                "application/json": {
+                     'error': ERROR_CREATING_INVITEE
                 }
             }
         ),
@@ -178,7 +179,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
                     'token': "0148f55a1f404363bf27dd8ebc9443c920210210220436"
                 }
             }
-         ),
+        ),
         status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
             description="Error resending registration invitation",
             examples={
@@ -221,3 +222,44 @@ class InviteeViewSet(viewsets.ModelViewSet):
         if error is None and res_status == status.HTTP_200_OK:
             return Response({'result': self.INVITEE_RESEND_SUCCESSFUL}, status=res_status)
         return Response({'Error': str(error)}, status=res_status)
+
+    post_delete_schema = {
+        status.HTTP_200_OK: openapi.Response(
+            description="Invitee deleted successfully",
+            examples={
+                "application/json": {
+                    'result': INVITEE_DELETED_SUCCESSFULLY,
+                    'token': "0148f55a1f404363bf27dd8ebc9443c920210210220436"
+                }
+            }
+        ),
+        status.HTTP_404_NOT_FOUND: openapi.Response(
+            description="Invitee not found in database",
+        ),
+        status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
+            description="Internal Server Error",
+            examples={
+                "application/json": {
+                    'result': 'Internal server error.',
+                    'token': "0148f55a1f404363bf27dd8ebc9443c920210210220436"
+                }
+            }
+        ),
+    }
+
+    @swagger_auto_schema(responses=post_delete_schema)
+    def destroy(self, request, *args, **kwargs):
+        error = None
+        try:
+            invitee_obj = self.get_object()
+            invitee_obj.delete()
+            res_status = status.HTTP_200_OK
+        except Exception as e:
+            error = "Delete invitee failed. Invitee not found in database."
+            logger.error(f'InviteeViewSet Destroy: {error}: {e}')
+            res_status = status.HTTP_404_NOT_FOUND
+
+        if (error is None):
+            return Response({'Result': 'Invitee deleted successfully'}, status=res_status)
+        else:
+            return Response({'Result': str(error)}, status=res_status)
