@@ -8,20 +8,18 @@ def delete_pending_users(apps, schema_editor):
     User = apps.get_model('auth', 'User')
     UserProfile = apps.get_model("api", "UserProfile")
     User_Team = apps.get_model("api", "User_Team")
-    users = User.objects.all()
-    userteams = User_Team.objects.all()
 
     userprofile_pending = UserProfile.objects.filter(status="PENDING")
-    userprofile_pending_names = [people.user for people in userprofile_pending]
-    for people in users:
-        if people in userprofile_pending_names:
-            people.delete()  # can this be a list comp?
 
-    for people in userteams:
-        if people.user in userprofile_pending_names:
-            people.delete()  # can this be a list comp?
+    for people in userprofile_pending:
+        user = User.objects.get(id=people.user.id)
+        if user:
+            user.delete()
+        teams = User_Team.objects.filter(user=people.user.id)
+        if teams:
+            teams.delete()  # can this be a list comp?
 
-    UserProfile.objects.filter(status="PENDING").delete()
+    userprofile_pending.delete()
 
 
 class Migration(migrations.Migration):
