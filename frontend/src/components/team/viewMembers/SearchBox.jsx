@@ -41,7 +41,7 @@ const SearchBox = (props) => {
     };
 
     return (
-        <div className={cx(styles["search-box"], "input-group", "flex-nowrap")}>
+        <div className={cx(styles["search-box"], "input-group", "flex-nowrap", "align-items-center")}>
             <div className={styles["search-box-prepend"] + " input-group-prepend"}>
                 <div className={cx(styles["search-box-search-icon"], "input-group-text bg-transparent")}><i className="fa fa-search"></i></div>
             </div>

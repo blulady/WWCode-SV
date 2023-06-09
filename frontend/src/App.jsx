@@ -16,12 +16,14 @@ import TeamHomeContainer from "./components/team/TeamHomeContainer";
 import TeamResources from "./components/team/resources/TeamResources";
 import ViewMembers from "./components/team/viewMembers/ViewMembers";
 import PendingMembers from "./components/team/pendingMembers/PendingMembers";
+import ResetScroll from "./ResetScroll";
 
 
 function App() {
   return (
     <AuthProvider>
       <Router>
+        <ResetScroll />
         <Routes>
           <Route exact path='/' element={<Reroute />} />
           <Route exact path='/login' element={<Login />} />
