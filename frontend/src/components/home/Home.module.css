@@ -32,16 +32,16 @@
   background: url(../../images/host-management.png);
 }
 
-.social-media .cardimgtop {
-  background: url(../../images/social-media.png);
+.social-media-team .cardimgtop {
+  background: url(../../images/social-media-team.png);
 }
 
 .tech-bloggers .cardimgtop {
   background: url(../../images/tech-bloggers.png);
 }
 
-.tech-event-volunteers .cardimgtop {
-  background: url(../../images/tech-event-volunteers.png);
+.tech-event-team .cardimgtop {
+  background: url(../../images/tech-event-team.png);
 }
 
 .cardbody {
