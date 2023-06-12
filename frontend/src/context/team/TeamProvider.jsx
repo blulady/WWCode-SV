@@ -17,6 +17,7 @@ const TeamProvider = ({ children }) => {
                 console.log(e);
             }
             _teams.unshift({ id: 0, name: "Chapter Members" });
+            _teams.sort((a,b) => a.id-b.id);
             _teams = _teams.map((t, i) => {
                 return { ...t, ...data[i]};
             });

@@ -164,7 +164,7 @@ const ViewMembers = (props) => {
     if (!searchStr) {
       setSuggestions([]);
     }
-    setPrevSearch(searchStr);
+    setPrevSearch(searchStr ||  "");
     setSearch(searchStr);
     getUsers(searchStr);
   };
@@ -227,7 +227,7 @@ const ViewMembers = (props) => {
   };
 
   const onFilterReset = (_filters) => {
-    setPrevSearch(search);
+    setPrevSearch("");
     setFilters(_filters);
     toggleFilterBox();
   };
