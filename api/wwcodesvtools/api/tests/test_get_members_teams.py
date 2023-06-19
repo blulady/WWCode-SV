@@ -37,10 +37,10 @@ class TestGetMembersTeams(TransactionTestCase):
         alice_expected_role_teams = [{'role_name': Role.VOLUNTEER, 'team_id': 4, 'team_name': 'Partnership Management'},
                                      {'role_name': Role.VOLUNTEER, 'team_id': 5, 'team_name': 'Social Media Team'},
                                      {'role_name': Role.VOLUNTEER, 'team_id': 3, 'team_name': 'Host Management'}]
-        self.assertEqual(members[1]['first_name'], 'Alice')
+        self.assertEqual(members[1]['first_name'], 'alice')
         self.assertListEqual(members[1]['role_teams'], alice_expected_role_teams)
 
-        self.assertEqual(members[2]['first_name'], 'Brenda')
+        self.assertEqual(members[2]['first_name'], 'brenda')
         self.assertListEqual(members[2]['role_teams'], [{'role_name': Role.DIRECTOR}])
 
         self.assertEqual(members[3]['first_name'], 'Bruno')

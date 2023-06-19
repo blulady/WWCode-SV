@@ -26,7 +26,7 @@ class GetIndividualProfileViewTestCase(TransactionTestCase):
         response = self.client.get("/api/user/profile/", **bearer)
         member_content = json.loads(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK, msg='HTTP 200 failed')
-        self.assertEqual(member_content.get('first_name'), 'Alice', msg='Invalid first name')
+        self.assertEqual(member_content.get('first_name'), 'alice', msg='Invalid first name')
         self.assertEqual(member_content.get('email'), 'volunteer@example.com', msg='Invalid email')
 
     def test_get_individual_profile_director(self):
