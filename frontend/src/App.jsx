@@ -17,6 +17,7 @@ import TeamResources from "./components/team/resources/TeamResources";
 import ViewMembers from "./components/team/viewMembers/ViewMembers";
 import PendingMembers from "./components/team/pendingMembers/PendingMembers";
 import ResetScroll from "./ResetScroll";
+import CompanyHosts from "./components/team/companyHosts/CompanyHosts";
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
             <Route path='members' element={<ViewMembers />} />
             <Route path='pending' element={<PendingMembers />} />
             <Route path='resources' element={<TeamResources />} />
+            <Route path="company-hosts" element={<CompanyHosts />} />
           </Route>
           <Route exact path='/member/view' element={<PrivateRoute element={<MemberDetails />}/>} />
           <Route exact path='/member/add' element={<PrivateRoute element={<AddMember />}/>} />

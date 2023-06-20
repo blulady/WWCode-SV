@@ -1,0 +1,35 @@
+
+.company-hosts-table tr > :first-child {
+    padding-left: 2vw;
+}
+
+.company-hosts-table tr > :last-child {
+    padding-right: 2vw;
+}
+
+.company-hosts-table thead {
+    height: 60px;
+    background: rgba(107, 55, 104, 0.1);
+    vertical-align: middle;
+}
+
+.company-hosts-table tbody tr {
+    border-bottom: 1px solid #6B3768;
+    vertical-align: middle;
+}
+
+.icon.delete {
+    background: url("../../../images/delete_24px.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 24px;
+    height: 24px;
+}
+
+.truncate {
+    width:200px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
