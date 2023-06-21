@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import ContainerWithNav from "../layout/ContainerWithNav";
 import EditIcon from "../../images/edit_24px.png";
-import BackButton from "../../images/arrow_back_24px.png";
 import EmailInput from "./EmailInput";
 import RoleRadioInput from "./RoleRadioField";
 import InputLabel from "./InputLabel";
@@ -81,7 +80,7 @@ function ReviewMember(props) {
         setErrorOnRequest(false);
         const results = await WwcApi.addInvitee(memberInfo);
         navigate("/member/add",
-          { state: { fromReview: true }});
+          { state: { fromReview: true, teamId, pending }});
       } catch (error) {
         setErrorOnRequest(true);
         console.log(error + ':\n'+ JSON.stringify(error.response.data));
@@ -143,7 +142,7 @@ function ReviewMember(props) {
                 <div className='header'>Added</div>
                 <p className='subheader'> *Mandatory Fields</p>
                 <form onSubmit={handleSubmit}>
-                  <div className='reviewform-border'>
+                  <div className='row justify-content-center reviewform-border'>
                     <section className='review-email-div'>
                       <InputLabel labelName='email' text='Email *' />
                       <EmailInput
