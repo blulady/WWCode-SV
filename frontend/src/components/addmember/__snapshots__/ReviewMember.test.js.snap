@@ -150,7 +150,7 @@ Please try again.
                 </p>
                 <form>
                   <div
-                    class="reviewform-border"
+                    class="row justify-content-center reviewform-border"
                   >
                     <section
                       class="review-email-div"

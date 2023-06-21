@@ -39,7 +39,7 @@ const ResetPasswordModal = (props) => {
                     instructions
                   </div>
                   <form
-                    className='needs-validation mb-4'
+                    className='row justify-content-center needs-validation mb-4'
                     onSubmit={handleSubmit}
                   >
                     <div className='invalid-feedback'>Invalid email</div>
@@ -67,7 +67,7 @@ const ResetPasswordModal = (props) => {
                     </div>
                   </form>
                   <div className='d-flex justify-content-center'>
-                    <button className='hypertext' onClick={props.close}>
+                    <button className={classes.hypertext} onClick={props.close}>
                       Back to Login
                     </button>
                   </div>
