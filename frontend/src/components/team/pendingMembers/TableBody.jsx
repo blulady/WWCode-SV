@@ -35,7 +35,7 @@ const TableBody = ({ users, onResendInvite, onDeleteMember}) => {
             <ModalDialog
               id="deletePendingMemberDialog"
               title="Are you sure?"
-              text="Are you sure you want to resend the registration link?"
+              text="Are you sure you want to delete the pending member?"
               onConfirm={() => onDeleteMember(user.id)}
             >
               <button

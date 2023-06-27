@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import WwcApi from "../../../WwcApi";
 import PendingMemberList from "./PendingMemberList";
 import PendingMemberTable from "./PendingMemberTable";
-import ModalDialog from "../../common/ModalDialog";
 import MessageBox from "../../messagebox/MessageBox";
 import {
   ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD,
@@ -14,11 +13,10 @@ import {
 } from "../../../Messages";
 import styles from "./PendingMembers.module.css";
 
-const PendingMembers = (props) => {
+const PendingMembers = () => {
   const [users, setUsers] = useState([]);
   const [apiError, setApiError] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
   const renderTable = () => {
@@ -34,8 +32,8 @@ const PendingMembers = (props) => {
     return (
       <PendingMemberList
         users={users}
-        target="#resendConfirmationDialog"
-        targetDelete="#deletePendingMemberDialog"
+        onResendInvite={resendInvite}
+        onDeleteMember={handelDeleteMember}
       ></PendingMemberList>
     );
   };
@@ -75,13 +73,6 @@ const PendingMembers = (props) => {
       setUsers(temp);
       setApiError(ERROR_REQUEST_MESSAGE);
     });
-  };
-
-  const onOpeningModalDialog = (target) => {
-    if (target) {
-      const user = target.getAttribute("data-bs-user");
-      setCurrentUser(user);
-    }
   };
 
   useEffect(() => {
