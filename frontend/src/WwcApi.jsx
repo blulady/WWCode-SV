@@ -236,5 +236,9 @@ class WwcApi {
     });
   }
 
+  static async deleteCompanyHost(companyId) {
+    return null
+  }
+
 }
 export default WwcApi;

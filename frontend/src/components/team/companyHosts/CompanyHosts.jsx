@@ -14,7 +14,7 @@ const CompanyHosts = () => {
     },
   ];
   return (
-    <GenricTable columns={columns} data={data} tableClass={styles["company-hosts-table"]} />
+    <GenricTable tableClass={styles["company-hosts-table"]} columns={columns} data={data}  />
   );
 };
 

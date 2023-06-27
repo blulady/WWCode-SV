@@ -1,5 +1,7 @@
 import React from "react";
+import WwcApi from "../../../WwcApi";
 import TruncatedText from "../companyHosts/TruncatedText";
+import ModalDialog from "../../common/ModalDialog";
 import styles from "./CompanyHosts.index.module.css";
 
 export const columns = [
@@ -23,7 +25,6 @@ export const columns = [
     title: "Contacts",
     dataIndex: "contacts",
     render: (data, record) => {
-      console.log(record);
       return data.map((item, index) => {
         return (
           <div key={index}>
@@ -38,22 +39,31 @@ export const columns = [
     title: "Notes",
     dataIndex: "notes",
     render: (notes) => {
-        return <TruncatedText text={notes} />;
-    }
+      return <TruncatedText text={notes} />;
+    },
   },
   {
     key: "actions",
     title: "Actions",
     dataIndex: "",
-    render: () => {
+    render: (_, record) => {
+      const handleDeleteCompanyHost = (companyId) => {
+        WwcApi.deleteCompanyHost(companyId).catch((err) => {
+          console.log(err)
+        })
+      }
       return (
-        <button
-          className={styles["delete"] + " " + styles["icon"]}
-          type="button"
-          data-bs-toggle="modal"
-          //   data-bs-target={targetDelete}
-          //   data-bs-user={user.id}
-        />
+        <ModalDialog
+          id="deleteCompanyHost"
+          title="Are you sure?"
+          text="Are you sure you want to delete the company host?"
+          onConfirm={() => handleDeleteCompanyHost(record.id)}
+        >
+          <button
+            className={styles["delete"] + " " + styles["icon"]}
+            type="button"
+          />
+        </ModalDialog>
       );
     },
   },
