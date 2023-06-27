@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Navigate } from "react-router-dom";
 import queryString from "query-string";
+import { useLocation } from 'react-router-dom';
 import Password from "../layout/Password"
 import classes from "./ResetPasswordForm.module.css";
 import ContainerWithNav from "../layout/ContainerWithNav";
@@ -8,8 +9,9 @@ import WwcApi from "../../WwcApi";
 import { ERROR_REQUEST_MESSAGE, SUCCESS_PASSWORD_RESET } from "../../Messages";
 
 
-const ConfirmResetPassword = (props) => {
-  const { email, token } = queryString.parse(props.location.search);
+const ConfirmResetPassword = () => {
+  const location = useLocation();
+  const { email, token } = queryString.parse(location.search);
   const [submitted,setSubmitted] = useState(false);
   const [password, setPassword] = useState("");
 

@@ -127,7 +127,9 @@ describe('ReviewMember', () => {
         await expect(apiSpy).toHaveBeenCalledTimes(1);
         expect(mockNavigation).toHaveBeenCalledWith('/member/add',
             {state: {
-                fromReview: true
+                fromReview: true,
+                teamId: 0,
+                pending: false
             }
         });
         return Promise.resolve();

@@ -22,6 +22,12 @@
   padding: 20px 20px 20px 20px;
   /* overflow: hidden; */
 }
+.form-inner {
+  width: auto !important;
+}
+.form-group {
+  margin: 1em 0;
+}
 /* End of Form div */
 
 /* Start of back to Member Portal Button */
@@ -257,7 +263,6 @@
   }
   .form-div {
     width: 306px;
-    height: 100vh;
     margin: auto;
     overflow: hidden;
   }
@@ -429,7 +434,6 @@
     line-height: 22px;
   }
   .form-div {
-    width: 1080px;
     height: 80vh;
     margin: 20px 0px 20px 0px;
   }
@@ -450,7 +454,6 @@
     margin-left: 20px;
   }
   .radio-input {
-    padding: 5px;
     width: 408.17px;
     height: 30px;
     display: flex;

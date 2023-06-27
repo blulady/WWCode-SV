@@ -30,7 +30,7 @@ class GetMembersOrderingTestCase(TransactionTestCase):
         responseLength = len(response.data)
         members = json.loads(response.content)
         for ix in range(1, responseLength):
-            self.assertLessEqual(members[ix-1]['first_name'], members[ix]['first_name'])
+            self.assertLessEqual(members[ix-1]['first_name'].lower(), members[ix]['first_name'].lower())
 
     # Testing get members ordering with role = DIRECTOR
     # first_name field ordered by "Descending" order
@@ -41,7 +41,7 @@ class GetMembersOrderingTestCase(TransactionTestCase):
         responseLength = len(response.data)
         members = json.loads(response.content)
         for ix in range(1, responseLength):
-            self.assertLessEqual(members[ix]['first_name'], members[ix-1]['first_name'])
+            self.assertLessEqual(members[ix]['first_name'].lower(), members[ix-1]['first_name'].lower())
 
     # Testing get members ordering with role = LEADER
     # last_name field ordered by "Ascending" order
@@ -52,7 +52,7 @@ class GetMembersOrderingTestCase(TransactionTestCase):
         responseLength = len(response.data)
         members = json.loads(response.content)
         for ix in range(1, responseLength):
-            self.assertLessEqual(members[ix-1]['last_name'], members[ix]['last_name'])
+            self.assertLessEqual(members[ix-1]['last_name'].lower(), members[ix]['last_name'].lower())
 
     # Testing get members ordering with role = LEADER
     # last_name field ordered by "Descending" order
@@ -63,7 +63,7 @@ class GetMembersOrderingTestCase(TransactionTestCase):
         responseLength = len(response.data)
         members = json.loads(response.content)
         for ix in range(1, responseLength):
-            self.assertLessEqual(members[ix]['last_name'], members[ix-1]['last_name'])
+            self.assertLessEqual(members[ix]['last_name'].lower(), members[ix-1]['last_name'].lower())
 
     # Testing get members ordering with role = VOLUNTEER
     # date_joined field ordered by "Ascending" order

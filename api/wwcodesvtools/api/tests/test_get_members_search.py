@@ -36,24 +36,24 @@ class GetMembersSearchTestCase(TransactionTestCase):
         self.assertEqual(responseLength, 3)
         members = json.loads(response.content)
         name_of_members = set()
-        expected_members = set(['Brown', 'Brenda', 'Bruno'])
+        expected_members = set(['Brown', 'brenda', 'Bruno'])
         for member in members:
-            member_start_with_first_name_check = re.search('^Br', member['first_name'])
-            member_start_with_last_name_check = re.search('^Br', member['last_name'])
+            member_start_with_first_name_check = re.search('^Br|^br', member['first_name'])
+            member_start_with_last_name_check = re.search('^Br|^br', member['last_name'])
             if(member_start_with_first_name_check is not None):
                 name_of_members.add(member['first_name'])
             elif(member_start_with_last_name_check is not None):
                 name_of_members.add(member['last_name'])
         self.assertSetEqual(expected_members, name_of_members)
 
-    # Testing get members searching with role = DIRECTOR, first_name/last_name = mil
+    # Testing get members searching with role = DIRECTOR, first_name/last_name = de
     def test_get_members_search_by_last_name_for_director_role(self):
         access_token = self.get_token(self.DIRECTOR_EMAIL, self.DIRECTOR_PASSWORD)
         bearer = {'HTTP_AUTHORIZATION': 'Bearer {}'.format(access_token)}
-        response = self.client.get("/api/users/?search=cla", **bearer)
+        response = self.client.get("/api/users/?search=de", **bearer)
         responseLength = len(response.data)
         self.assertEqual(responseLength, 1)
-        self.assertEqual(json.loads(response.content)[0]['last_name'], 'Clark')
+        self.assertEqual(json.loads(response.content)[0]['last_name'], 'de la Clark')
 
     # Testing get members searching with role = DIRECTOR, first_name/last_name='not_matching_anything'
     def test_member_search_return_empty_for_no_match_for_director_role(self):
@@ -90,10 +90,10 @@ class GetMembersSearchTestCase(TransactionTestCase):
         self.assertEqual(responseLength, 3)
         members = json.loads(response.content)
         name_of_members = set()
-        expected_members = set(['Brown', 'Brenda', 'Bruno'])
+        expected_members = set(['Brown', 'brenda', 'Bruno'])
         for member in members:
-            member_start_with_first_name_check = re.search('^Br', member['first_name'])
-            member_start_with_last_name_check = re.search('^Br', member['last_name'])
+            member_start_with_first_name_check = re.search('^Br|^br', member['first_name'])
+            member_start_with_last_name_check = re.search('^Br|^br', member['last_name'])
             if(member_start_with_first_name_check is not None):
                 name_of_members.add(member['first_name'])
             elif(member_start_with_last_name_check is not None):

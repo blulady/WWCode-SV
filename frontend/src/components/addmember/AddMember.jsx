@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./AddMember.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import ContainerWithNav from "../layout/ContainerWithNav";
-import BackButton from "../../images/arrow_back_24px.png";
 import EmailInput from "./EmailInput";
 import RoleRadioInput from "./RoleRadioField";
 import InputLabel from "./InputLabel";
@@ -62,7 +61,6 @@ function AddMember(props) {
   };
 
   const handleChange = (event) => {
-    // event.persist();
     setNewMember({ ...newMember, [event.target.name]: event.target.value });
   };
 
@@ -90,7 +88,7 @@ function AddMember(props) {
           <div className='form-div'>
             <BackToMemberPortal teamId={teamId} pending={pending}/>
             <div className='row justify-content-center form-div-spacing'>
-              <div>
+              <div className='form-inner'>
                 <div className='header'>Add New Member</div>
                 <div className='header'>to Portal</div>
                 <p className='subheader'> *Mandatory Fields</p>
@@ -176,7 +174,7 @@ function AddMember(props) {
                   <SuccessModal
                     onClick={() => {
                       setShowSuccessModal(false);
-                      navigate("", { replace: true })
+                      navigate("", { replace: true, state: { teamId, pending } })
                     }}
                   />
                 ) : null}

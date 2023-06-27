@@ -3,15 +3,26 @@ import { render, screen, act, fireEvent } from "@testing-library/react";
 import ConfirmResetPassword from "./ResetPasswordForm";
 import AuthProvider from "../../context/auth/AuthProvider";
 
-jest.mock("react-router");
+const mockNavigation = jest.fn();
+
 jest.mock("../../WwcApi");
 
+jest.mock('react-router-dom', () => {
+  const ActualReactRouterDom = jest.requireActual('react-router-dom');
+  return {
+      ...ActualReactRouterDom,
+      useNavigate: () => mockNavigation,
+      useLocation: () => (
+        {search: "?email=a@b.com&token=test"}
+      )
+  }
+});
+
 test('it should render reset password form', () => {
-  let loc = {search: "?email=a@b.com&token=test"};
   const handleSetAuth = jest.fn();
   const { getByTestId } = render (
     <AuthProvider value={{handleSetAuth,}}> 
-      <ConfirmResetPassword location={loc}/>
+      <ConfirmResetPassword/>
     </AuthProvider>
   )
 

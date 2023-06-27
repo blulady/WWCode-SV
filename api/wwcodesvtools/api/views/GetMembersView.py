@@ -6,6 +6,7 @@ from api.serializers.CompleteMemberInfoSerializer import CompleteMemberInfoSeria
 from api.serializers.NonSensitiveMemberInfoSerializer import NonSensitiveMemberInfoSerializer
 from api.helper_functions import is_director_or_superuser
 from rest_framework.filters import OrderingFilter, SearchFilter
+from django.db.models.functions import Collate
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from datetime import date, datetime, timedelta
@@ -44,7 +45,7 @@ class GetMembersView(ListAPIView):
     filter_backends = [OrderingFilter, SearchFilter]
     ordering_fields = ['first_name', 'last_name', 'date_joined']
     ordering = ['-date_joined']
-    search_fields = ['^first_name', '^last_name']
+    search_fields = ['^first_name_deterministic', '^last_name_deterministic']
 
     item = openapi.Items(type=openapi.TYPE_STRING)
     status_param = openapi.Parameter('status', openapi.IN_QUERY, description="Filter on status", type=openapi.TYPE_ARRAY, collectionFormat='multi', items=item)
@@ -95,6 +96,10 @@ class GetMembersView(ListAPIView):
             role_team_filter['user_team__team__id'] = team_filter
         if role_team_filter:
             queryset = queryset.filter(**role_team_filter)
+
+        # Add deterministic collation to search fields
+        queryset = queryset.annotate(first_name_deterministic=Collate("first_name", "und-x-icu"), last_name_deterministic=Collate("last_name", "und-x-icu"))
+
         return queryset
 
     def get_serializer_class(self):
