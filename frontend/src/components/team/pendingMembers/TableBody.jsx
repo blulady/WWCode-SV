@@ -1,9 +1,11 @@
 import React from "react";
 
+import ModalDialog  from '../../common/ModalDialog'
+
 import styles from "./PendingMemberTable.module.css";
 
-const TableBody = ({ users, target, targetDelete }) => {
-  
+const TableBody = ({ users, onResendInvite, onDeleteMember}) => {
+  console.log(users)
   return (
     <tbody>
       {users.map((user, idx) => (
@@ -15,24 +17,32 @@ const TableBody = ({ users, target, targetDelete }) => {
           </td>
           <td className="wwc-text-capitalize">{user.status.toLowerCase()}</td>
           <td>
+          <ModalDialog
+              id="resendConfirmationDialog"
+              title="Are you sure?"
+              text="Are you sure you want to resend the registration link?"
+              onConfirm={() => onResendInvite(user.id)}
+            >
             <button
               className={styles["invite-button"]}
               type="button"
-              data-bs-toggle="modal"
-              data-bs-target={target}
-              data-bs-user={user.id}
             >
               Resend Invite
             </button>
+            </ModalDialog>
           </td>
           <td>
-            <button
-              className={styles["delete"] + " " + styles["icon"]}
-              type="button"
-              data-bs-toggle="modal"
-              data-bs-target={targetDelete}
-              data-bs-user={user.id}
-            />
+            <ModalDialog
+              id="deletePendingMemberDialog"
+              title="Are you sure?"
+              text="Are you sure you want to resend the registration link?"
+              onConfirm={() => onDeleteMember(user.id)}
+            >
+              <button
+                className={styles["delete"] + " " + styles["icon"]}
+                type="button"
+              />
+            </ModalDialog>
           </td>
         </tr>
       ))}
