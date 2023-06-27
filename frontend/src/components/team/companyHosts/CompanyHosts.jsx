@@ -1,5 +1,5 @@
 import React from "react";
-import Table from "../../common/Table";
+import GenricTable from "../../common/Table";
 import { columns } from "./comapnyHosts.config";
 import styles from "./CompanyHosts.index.module.css";
 
@@ -14,7 +14,7 @@ const CompanyHosts = () => {
     },
   ];
   return (
-    <Table columns={columns} data={data} tableClass={styles["company-hosts-table"]} />
+    <GenricTable columns={columns} data={data} tableClass={styles["company-hosts-table"]} />
   );
 };
 
