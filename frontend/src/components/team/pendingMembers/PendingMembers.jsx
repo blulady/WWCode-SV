@@ -25,9 +25,8 @@ const PendingMembers = (props) => {
     return (
       <PendingMemberTable
         users={users}
-        target="#resendConfirmationDialog"
-        targetDelete="#deletePendingMemberDialog"
         onDeleteMember={handelDeleteMember}
+        onResendInvite={resendInvite}
       />
     );
   };
@@ -57,7 +56,7 @@ const PendingMembers = (props) => {
           });
     };
 
-  const resendInvite = async () => {
+  const resendInvite = async (currentUser) => {
     try {
       await WwcApi.resendInvite(currentUser);
       await getInvitees();
@@ -68,11 +67,11 @@ const PendingMembers = (props) => {
     }
   };
 
-  const handelDeleteMember = () => {
+  const handelDeleteMember = (currentUserId) => {
     const temp = [...users];
-    const filteredMembers = temp.filter((member) => member.id !== +currentUser);
+    const filteredMembers = temp.filter((member) => member.id !== currentUserId);
     setUsers(filteredMembers);
-    WwcApi.deleteInvitees(currentUser).catch((err) => {
+    WwcApi.deleteInvitees(currentUserId).catch((err) => {
       setUsers(temp);
       setApiError(ERROR_REQUEST_MESSAGE);
     });
@@ -127,22 +126,6 @@ const PendingMembers = (props) => {
       ) : (
         <div className={styles["no-users-msg"]}>No invitees to display</div>
       )}
-      <ModalDialog
-        id="resendConfirmationDialog"
-        title="Are you sure?"
-        text="Are you sure you want to resend the registration link?"
-        onConfirm={resendInvite}
-        onOpening={onOpeningModalDialog}
-        onCancel={() => {}}
-      ></ModalDialog>
-      <ModalDialog
-        id="deletePendingMemberDialog"
-        title="Are you sure?"
-        text="Are you sure you want to permanently delete this invitee from the records?"
-        onConfirm={handelDeleteMember}
-        onOpening={onOpeningModalDialog}
-        onCancel={() => {}}
-      ></ModalDialog>
     </div>
   );
 };
