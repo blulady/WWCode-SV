@@ -58,7 +58,7 @@ class RequestPasswordResetViewTestCase(TransactionTestCase):
 
         expected_encoded_email_param = "email=%2B%2BMary--Shaw%40example.com"
         expected_encoded_token_param = "token=alzzo5-3e9de98f260e4abb8177846acb569305"
-        expected_host_api_endpoint = "https://wwcode-chtools-fe.herokuapp.com/password/reset?"
+        expected_host_api_endpoint = "https://wwcode-chtools-fe-staging.up.railway.app/password/reset?"
 
         # Verify that one email message has been sent.
         self.assertEquals(len(mail.outbox), 1)
