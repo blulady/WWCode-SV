@@ -155,6 +155,61 @@ class UserRegistrationViewTestCase(TransactionTestCase):
         resp = self.__send_request(self.registration_request_data)
         self.__perform_response_assertions(resp, status.HTTP_404_NOT_FOUND, expected_error)
 
+    # Test user with invalid minimum password length sent to register
+    def test_invalid_password_min_length_fail(self):
+        """
+        Test to verify that a post call with the User with invalid password(less than 8 characteres) fails.
+        Returns error response.
+        """
+        self.registration_request_data["password"] = "Pas1"
+        expected_error = "Password should be a minimum of 8 and maximum of 50 characters long"
+        resp = self.__send_request(self.registration_request_data)
+        self.assertIn(expected_error, resp.data["error"])
+
+    # Test user with invalid maximum password length sent to register
+    def test_invalid_password_max_length_fail(self):
+        """
+        Test to verify that a post call with the User with invalid password(more than 50 characters) fails.
+        Returns error response.
+        """
+        self.registration_request_data["password"] = "Pas1" + "a"*50
+        expected_error = "Password should be a minimum of 8 and maximum of 50 characters long"
+        resp = self.__send_request(self.registration_request_data)
+        self.assertIn(expected_error, resp.data["error"])
+
+    # Test user with password without uppercase letter sent to register
+    def test_invalid_password_no_uppercase_fail(self):
+        """
+        Test to verify that a post call with the User with invalid password (no uppercase letter) fails.
+        Returns error response.
+        """
+        self.registration_request_data["password"] = "password123"
+        expected_error = "Password should have at least one uppercase letter"
+        resp = self.__send_request(self.registration_request_data)
+        self.assertIn(expected_error, resp.data["error"])
+
+    # Test user with password without lowercase letter sent to register
+    def test_invalid_password_no_lowercase_fail(self):
+        """
+        Test to verify that a post call with the User with invalid password (no lowercase letter) fails.
+        Returns error response.
+        """
+        self.registration_request_data["password"] = "PASSWORD123"
+        expected_error = "Password should have at least one lowercase letter"
+        resp = self.__send_request(self.registration_request_data)
+        self.assertIn(expected_error, resp.data["error"])
+
+    # Test user with password without a number sent to register
+    def test_invalid_password_no_number_fail(self):
+        """
+        Test to verify that a post call with the User with invalid password (no number) fails.
+        Returns error response.
+        """
+        self.registration_request_data["password"] = "PASSWORDtest"
+        expected_error = "Password should have at least one number"
+        resp = self.__send_request(self.registration_request_data)
+        self.assertIn(expected_error, resp.data["error"])
+
     def test_user_registration_view_permissions(self):
         view_permissions = UserRegistrationView().permission_classes
         self.assertEqual(len(view_permissions), 1)
