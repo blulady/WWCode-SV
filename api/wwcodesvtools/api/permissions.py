@@ -1,5 +1,5 @@
 from rest_framework import permissions
-from .helper_functions import is_director_or_superuser
+from .helper_functions import is_director_or_superuser, is_host_management_member
 
 
 class CanSendEmail(permissions.BasePermission):
@@ -65,3 +65,12 @@ class CanAccessInvitee(permissions.BasePermission):
 
     def has_permission(self, request, view):
         return is_director_or_superuser(request.user.id, request.user.is_superuser)
+
+
+class CanAccessHost(permissions.BasePermission):
+    """
+    Check if user can access host companies.
+    """
+
+    def has_permission(self, request, view):
+        return is_host_management_member(request.user.id)
