@@ -1,0 +1,155 @@
+[
+  {
+    "model": "api.userprofile",
+     "pk": 13,
+     "fields": {
+       "user": 13,
+       "status": "ACTIVE",
+       "created_at": "2023-07-19T22:04:40.319Z",
+       "updated_at": "2023-07-20T19:52:04.692Z",
+       "city": "Mumbai",
+       "state": "Maharashtra",
+       "country": "India",
+       "Timezone": null,
+       "Bio": "Sneha Langer is a computer engineer based in Mumbai,India. Her passion for computers began when she was very young, and she has devoted her career to learning and mastering the latest technologies.\r\n\r\nSneha completed her engineering degree at the Indian Institute of Technology in Mumbai, where she was a star student. During her time at IIT Mumbai, Sneha gained extensive experience in software development, programming languages, and systems engineering. She was also an active participant in tech clubs and hackathons, where she honed her skills and made connections in the industry.\r\n\r\nAfter graduation, Sneha joined a major software development firm in Mumbai. There, she worked on a variety of projects ranging from cloud-based systems to mobile applications. Her primary role was as a lead developer, where she oversaw the development of software solutions and ensured that they were accurate, functional, and efficient. Sneha's talent for finding solutions, attention to detail, and leadership skills quickly made her a valuable member of the team.\r\n\r\nSneha took her skills further by attending various certifications and training programs in order to remain current with emerging technologies. She worked on innovative projects that included immersive technologies such as Augmented Reality, Virtual Reality, and Mixed Reality. These projects integrated artificial intelligence and machine learning to deliver engaging digital experiences.\r\n\r\nAs a result of her dedication to her craft, Sneha gained widespread recognition within her organization and the greater technology community in Mumbai. Her colleagues praised her technical acumen and ability to take on and solve complex challenges with ease.\r\n\r\nSneha's expertise in software architecture and design made her a sought-after tech consultant. Her clients included both startups and big organizations,and she helped them develop software solutions that boosted their productivity and efficiency. Her interaction with clients was professional, and she consistently exceeded project expectations while maintaining excellent communication, which greatly helped in her future projects.\r\n\r\nApart from her professional achievements, Sneha enjoys traveling and exploring new cultures. She is also passionate about cooking and exploring new cuisines. Sneha actively volunteers at her local community center, where she teaches computer literacy to children from underserved communities, thereby enhancing their technological skills and providing them with life-changing opportunities.\r\n\r\nAll in all, Sneha Langer is a skilled computer engineer with vast experience in creating software products that are efficient, resilient, and user-friendly. She is committed to developing innovative technology solutions that meet her clients' specific needs and excels at delivering seamless and cutting-edge software solutions for all",
+       "Photo": "",
+       "Slack_Handle": null,
+       "LinkedIn": "https://www.linkedin.com/in/snehalanger",
+       "Instagram": null,
+       "Facebook": null,
+       "Twitter": "https://www.twitter.com/snehalanger34",
+       "Medium": "https://medium.com/@snehalanger"
+     }
+  },
+  {
+    "model": "api.userprofile",
+    "pk": 16,
+    "fields": {
+      "user": 15,
+      "status": "ACTIVE",
+      "created_at": "2023-07-19T22:55:12.930Z",
+      "updated_at": "2023-07-20T19:48:06.704Z",
+      "city": "San Diego",
+      "state": "CA",
+      "country": "United States",
+      "Timezone": "PST",
+      "Bio": "",
+      "Photo": "images/asherah-token2.png",
+      "Slack_Handle": null,
+      "LinkedIn": "https://www.linkedin.com/in/",
+      "Instagram": null,
+      "Facebook": "https://www.facebook.com/raquel.nunoz.72",
+      "Twitter": "https://www.twitter.com/raquelnunoz77",
+      "Medium": "https://medium.com/@raquelroxrust"}
+  },
+  {
+    "model": "api.userprofile",
+    "pk": 17,
+    "fields": {
+      "user": 16,
+      "status": "ACTIVE",
+      "created_at": "2023-07-19T23:35:40.947Z",
+      "updated_at": "2023-07-20T19:45:11.738Z",
+      "city": "San Jose",
+      "state": "CA",
+      "country": "United States",
+      "Timezone": "PST",
+      "Bio": "",
+      "Photo": "",
+      "Slack_Handle": null,
+      "LinkedIn": "https://www.linkedin.com/in/imogencampo",
+      "Instagram": null,
+      "Facebook": "https://www.facebook.com/imogen.campo.15",
+      "Twitter": "https://mstdn.social/@imogencampo",
+      "Medium": "https://medium.com/@imogeneratescode"
+    }
+  },
+  {
+    "model": "api.userprofile",
+    "pk": 18,
+    "fields": {
+      "user": 17,
+      "status": "ACTIVE",
+      "created_at": "2023-07-19T23:36:40.852Z",
+      "updated_at": "2023-07-20T19:40:44.094Z",
+      "city": "San Francisco",
+      "state": "CA",
+      "country": "United States",
+      "Timezone": "PST",
+      "Bio": "",
+      "Photo": "",
+      "Slack_Handle": null,
+      "LinkedIn": "https://www.linkedin.com/in/natalinameyer",
+      "Instagram": null,
+      "Facebook": "https://www.facebook.com/natalina.meyer.12",
+      "Twitter": "https://fosstodon.org/@NatalinaMeyer",
+      "Medium": null
+    }
+  },
+  {
+    "model": "api.userprofile",
+    "pk": 19,
+    "fields": {
+      "user": 18,
+      "status": "ACTIVE",
+      "created_at": "2023-07-19T23:39:35.009Z",
+      "updated_at": "2023-07-20T19:37:40.081Z",
+      "city": "Tokyo",
+      "state": "Kanto",
+      "country": "Japan",
+      "Timezone": null,
+      "Bio": "May Aiko is a talented software developer residing in Tokyo,Japan. With a passion for innovation, May has dedicated her career to designing and implementing cutting-edge software solutions that solve complex problems across a range of industries.\r\n\r\nMay gained her Bachelor's Degree in Computer Science from Tokyo University,where she excelled in her studies, earning numerous academic awards and scholarships along the way. During her university years, May worked on various research projects, contributing to the development of financial analysis software that has since gained recognition in the Japanese banking industry.\r\n\r\nFollowing her graduation, May began her career at a large multinational corporation specializing in cloud computing. In this role, she worked on a project that aimed to develop a cloud-based processing system that would enable the company's clients to optimize their data storage and processing needs. Working as the lead developer,she applied her knowledge of both front-end and back-end development to push the project forward, earning her a promotion and recognition from both her team and upper management.\r\n\r\nMay then moved to a small software solutions firm in Tokyo, where she worked on a variety of projects ranging from developing web-based applications to deploying enterprise-level solutions for corporate clients. During this time, she honed her skills in programming languages like Java, Python, and C++, as well as exploring new technologies and development frameworks.\r\n\r\nOver time, May developed an interest in mobile application development and decided to pursue this area of software development. She began developing applications for smartphones, including both Android and iOS platforms. She has since created several successful applications that have been downloaded and used by millions of people worldwide.\r\n\r\nMay is a versatile and multi-skilled software developer who prides herself on her ability to think outside the box and adapt to new situations quickly. She's known for her attention to detail,as well as her excellent communication skills and ability to work effectively with cross-functional teams. These abilities have made her a valued member of any development team, and she's continually sought after by companies looking for experienced and talented software developers.\r\n\r\nWhen May isn't working, she enjoys exploring Tokyo and spending time with her family and friends. She is also an avid practicer of martial arts and has a black belt in karate and a brown belt in judo. May believes that staying active and healthy helps her maintain a clear mind, which in turn helps her with her creative problem-solving skills. She is always striving to learn and find new ways to innovate with software development.",
+      "Photo": "images/wood_elf.jpeg",
+      "Slack_Handle": null,
+      "LinkedIn": "https://www.linkedin.com/in/mayakio",
+      "Instagram": null,
+      "Facebook": "ttps://www.facebook.com/may.akio.56",
+      "Twitter": "https://www.twitter.com/MayAkio3",
+      "Medium": "https://medium.com/@mayakio"
+    }
+  },
+  {
+    "model": "api.userprofile",
+    "pk": 20,
+    "fields": {"user": 19,
+    "status": "ACTIVE",
+    "created_at": "2023-07-19T23:41:10.845Z",
+    "updated_at": "2023-07-20T19:53:34.536Z",
+    "city": "Mekelle",
+    "state": "Tigray",
+    "country": "Ethiopia",
+    "Timezone": null,
+    "Bio": "",
+    "Photo": "images/angryjane.jpg",
+    "Slack_Handle": null,
+    "LinkedIn": "https://www.linkedin.com/in/",
+    "Instagram": null,
+    "Facebook": "https://www.facebook.com/a",
+    "Twitter": "https://fosstodon.org/@aishaee",
+    "Medium": "https://medium.com/@aishaeecodes"
+    }
+  },
+  {
+    "model": "api.userprofile",
+    "pk": 21,
+    "fields": {
+      "user": 20,
+      "status": "ACTIVE",
+      "created_at": "2023-07-19T23:42:46.501Z",
+      "updated_at": "2023-07-20T19:28:17.247Z",
+      "city": "Heroica Nogales",
+      "state": "Sonora",
+      "country": "Mexico",
+      "Timezone": null,
+      "Bio": "Abril Ceilo is a talented software developer residing in Nogales,Sonora. With a passion for technology, Abril has dedicated their career to creating innovative solutions for a variety of industries. Abril's expertise lies in developing software applications that streamline processes,increase efficiency, and enhance user experiences.\r\n\r\nAbril is highly skilled in programming languages such as Java, Python, C++, and JavaScript, to name a few. They have a keen eye for detail and a natural curiosity for seeking out creative ways to tackle complex problems. With their broad skillset and experience, Abril has quickly developed a reputation as a competent and reliable software developer.\r\n\r\nAbril received their Bachelor's Degree in Computer Science from the Universidad de Sonora,where they excelled in their studies. During their undergraduate years, Abril worked on various research projects with professors. They contributed to the development of a sleep monitoring system that tracks sleep patterns and measures the quality of sleep, which gained recognition from the scientific community.\r\n\r\nAfter graduation, Abril began their career as a software developer in a small startup that specialized in developing e-commerce platforms. As the second member of the team, Abril contributed significantly to the company's success by developing the backend and front-end systems. Their talents in designing and developing the user interface helped the company's clients reach new heights in online sales.\r\n\r\nFollowing this successful venture, Abril moved to a larger company that was focused on artificial intelligence solutions. Here, they worked on a project that aimed to automate customer service through the use of deep learning. Abril was the lead developer for this project and was responsible for developing an algorithm that could understand customer queries and give accurate responses in real-time.\r\n\r\nAbril has since transitioned to freelancing, where they work with clients from a range of industries, including healthcare, finance, and education. Their work continues to receive high praise from their clients, and they have earned a reputation as a talented and dedicated software developer.\r\n\r\nIn their spare time, Abril enjoys exploring new programming languages and experimenting with different frameworks. They believe that continuous learning is essential to stay relevant in the ever-evolving tech industry. Abril is also an avid gamer and enjoys spending time with their family and pets.\r\n\r\nAbril is deeply passionate about software development and is always striving to improve their skills and knowledge to create even more innovative solutions in today's rapidly advancing technological world.",
+      "Photo": "",
+      "Slack_Handle": null,
+      "LinkedIn": "https://www.linkedin.com/in/abrilceilo/",
+      "Instagram": null,
+      "Facebook": "https://www.facebook.com/abril.ceilo.23",
+      "Twitter": "https://www.twitter.com/AbrilCeilo44",
+      "Medium": null
+    }
+  }
+
+]

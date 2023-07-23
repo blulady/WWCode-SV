@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from api.views.InviteeView import InviteeViewSet
 from rest_framework_simplejwt.views import TokenRefreshView
 from drf_yasg.utils import swagger_auto_schema
@@ -57,4 +59,6 @@ urlpatterns = [
     path('user/name/', UserView.as_view()),
 ]
 
+
 urlpatterns += router.urls
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
