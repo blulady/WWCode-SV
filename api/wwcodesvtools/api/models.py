@@ -111,15 +111,9 @@ class Host(models.Model):
     updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='updated_by')
     updated_at = models.DateTimeField(auto_now=True)
 
-    def __str__(self):
-        return self.company
-
 
 class Contact(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=254, null=True, blank=True)
     info = models.TextField(null=True, blank=True, validators=[MaxLengthValidator(2000)])
     company = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='contacts')
-
-    def __str__(self):
-        return self.name
