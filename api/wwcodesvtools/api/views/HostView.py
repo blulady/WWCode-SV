@@ -381,3 +381,46 @@ class HostView(viewsets.ModelViewSet):
         if (error is None and res_status == status.HTTP_200_OK):
             return Response({'result': self.HOST_UPDATED_SUCCESSFULLY}, status=res_status)
         return Response({'error': str(error)}, status=res_status)
+
+    delete_response_schema = {
+        status.HTTP_200_OK: openapi.Response(
+            description="Deleted Successfully",
+            examples={
+                "application/json": {
+                    'result': 'Host deleted successfully',
+                }
+            }
+        ),
+        status.HTTP_401_UNAUTHORIZED: openapi.Response(
+            description="Authentication Required",
+            examples={
+                "application/json": {
+                        "detail": "Authentication credentials were not provided.",
+                }
+            }
+        ),
+        status.HTTP_403_FORBIDDEN: openapi.Response(
+            description="No Permission",
+            examples={
+                "application/json": {
+                        "detail": "You do not have permission to perform this action.",
+                }
+            }
+        ),
+        status.HTTP_404_NOT_FOUND: openapi.Response(
+            description="Host Not Found",
+            examples={
+                "application/json": {
+                        "detail": "Host company not found in database.",
+                }
+            }
+        ),
+        status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
+            description="Internal Server Error",
+            examples={
+                "application/json": {
+                    'result': 'Internal server error.'
+                }
+            }
+        ),
+    }
