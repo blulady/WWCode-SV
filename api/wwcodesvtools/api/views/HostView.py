@@ -44,11 +44,13 @@ class HostView(viewsets.ModelViewSet):
     search_fields = ['^company_search', '^contacts__name', '^contacts__email']
     http_method_names = ['get', 'post', 'put', 'delete']
 
-    ERROR_CREATING_HOST = 'Error creating Host Company.'
     ERROR_HOST_NOT_FOUND = 'Host Company does not exist.'
+    ERROR_CREATING_HOST = 'Error creating Host Company.'
     ERROR_UPDATING_HOST = 'Error updating Host Company.'
+    ERROR_DELETING_HOST = 'Error deleting Host Company.'
     HOST_CREATED_SUCCESSFULLY = 'Host Company Created Successfully.'
     HOST_UPDATED_SUCCESSFULLY = 'Host Company Updated Successfully.'
+    HOST_DELETED_SUCCESSFULLY = 'Host Company Deleted Successfully.'
 
     get_response_schema = {
         status.HTTP_200_OK: openapi.Response(
@@ -424,3 +426,22 @@ class HostView(viewsets.ModelViewSet):
             }
         ),
     }
+
+    @swagger_auto_schema(
+        operation_summary="Deletes a specified host company",
+        operation_description="This function deletes an existing Host Company.",
+        responses=delete_response_schema
+    )
+    def destroy(self, request, *args, **kwargs):
+        host = self.get_object()
+        if not host:
+            return Response({'error': self.ERROR_HOST_NOT_FOUND}, status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            contacts = host.contacts.all()
+            contacts.delete()
+            host.delete()
+            return Response({'result': self.HOST_DELETED_SUCCESSFULLY}, status=status.HTTP_200_OK)
+        except Exception as e:
+            logger.error(f'HostViewSet Delete: {self.ERROR_DELETING_HOST}: {e}')
+            return Response({'error': self.ERROR_DELETING_HOST}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
