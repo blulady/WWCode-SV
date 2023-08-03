@@ -57,3 +57,16 @@ def is_director_or_superuser(user_id, is_superuser):
 def is_token_expired(self, registration_token):
     token_datetime = datetime.strptime(registration_token[-14:], '%Y%m%d%H%M%S')
     return datetime.now() - timedelta(seconds=settings.REGISTRATION_LINK_EXPIRATION) > token_datetime
+
+
+def is_host_management_member(user_id):
+    try:
+        # Host management team id is 3
+        user_in_host_management_team = User_Team.objects.filter(team_id=3, user_id=user_id)
+        if user_in_host_management_team:
+            return True
+        else:
+            return False
+    except Exception as e:
+        logger.error(f'Error : {e}')
+        return False

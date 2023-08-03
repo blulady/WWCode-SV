@@ -23,11 +23,13 @@ from api.views.UpdateMemberStatusView import UpdateMemberStatusView
 from api.views.resources_view import ResourceViewSet
 from api.views.DeleteMemberRoleView import DeleteMemberRoleView
 from api.views.UserView import UserView
+from api.views.HostView import HostView
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
 router.register(r'resources', ResourceViewSet)
 router.register(r'invitee', InviteeViewSet)
+router.register(r'host', HostView)
 
 
 decorated_login_view = \

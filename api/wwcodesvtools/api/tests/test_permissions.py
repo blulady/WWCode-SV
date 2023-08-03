@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TransactionTestCase
-from ..permissions import CanAccessInvitee, CanSendEmail, CanAddMember, CanDeleteMember, CanDeleteMemberRole, CanEditMember
+from ..permissions import CanAccessHost, CanAccessInvitee, CanSendEmail, CanAddMember, CanDeleteMember, CanDeleteMemberRole, CanEditMember
 from django.http.request import HttpRequest
 from rest_framework.generics import GenericAPIView
 
@@ -135,3 +135,21 @@ class PermissionsTestCase(TransactionTestCase):
         self._req.user = self._volunteer
         permission = self._can_access_invitee_permission.has_permission(self._req, None)
         self.assertFalse(permission, 'Volunteer should not have permission to access invitee')
+
+    # Can access host
+    _can_access_host_permission = CanAccessHost()
+
+    def test_can_access_host_permission_false_for_director(self):
+        self._req.user = self._director
+        permission = self._can_access_host_permission.has_permission(self._req, None)
+        self.assertFalse(permission, 'Director, is not part of host management team, should not have permission to access host')
+
+    def test_can_access_host_permission_false_for_leader(self):
+        self._req.user = self._leader
+        permission = self._can_access_host_permission.has_permission(self._req, None)
+        self.assertFalse(permission, 'Leader, is not part of host management team, should not have permission to access host')
+
+    def test_can_access_host_permission_true_for_volunteer(self):
+        self._req.user = self._volunteer
+        permission = self._can_access_host_permission.has_permission(self._req, None)
+        self.assertTrue(permission, 'Volunteer, is part of host management team, should have permission to access host')
