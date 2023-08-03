@@ -2,8 +2,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from api.models import Invitee, User_Team, Role
 from api.serializers.UserActivationSerializer import UserActivationSerializer
-from api.serializers.UserSerializer import UserSerializer
 from api.helper_functions import is_token_expired
+from api.serializers.UserRegistrationSerializer import UserRegistrationSerializer
 from rest_framework.generics import GenericAPIView
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -79,8 +79,8 @@ class UserRegistrationView(GenericAPIView):
             if (invitee.registration_token == request_token):
                 # email and token matched, check token expiration
                 if (not is_token_expired(self, request_token)):
-                    user_serializer = UserSerializer(data={'email': request_data['email'], 'username': request_data['email'], 'first_name': request_data['first_name'],
-                                                           'last_name': request_data['last_name'], 'password': request_data['password']})
+                    user_serializer = UserRegistrationSerializer(data={'email': request_data['email'], 'username': request_data['email'], 'first_name': request_data['first_name'],
+                                                                       'last_name': request_data['last_name'], 'password': request_data['password']})
                     # if the token is not expired and all the fields are valid,
                     # create a new user, a new user-team-role and delete the invitee
                     if user_serializer.is_valid():

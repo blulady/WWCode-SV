@@ -2,9 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.core.validators import MaxValueValidator, MaxLengthValidator
+from django.core.validators import MaxValueValidator, MaxLengthValidator, MinLengthValidator
 
 # Create your models here.
+
+
+def upload_to(instance, filename):
+    return f'images/{filename}'
 
 
 class UserProfile(models.Model):
@@ -22,6 +26,18 @@ class UserProfile(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
+    state = models.CharField(max_length=255, null=True, blank=True)
+    country = models.CharField(max_length=255, null=True, blank=True)
+    Timezone = models.CharField(max_length=255, null=True, blank=True)
+    Bio = models.TextField(null=True, blank=True, validators=[MinLengthValidator(2000)])
+    Photo = models.ImageField(upload_to=upload_to, null=True, blank=True)
+    Slack_Handle = models.CharField(max_length=255, null=True, blank=True)
+    LinkedIn = models.CharField(max_length=255, null=True, blank=True)
+    Instagram = models.CharField(max_length=255, null=True, blank=True)
+    Facebook = models.CharField(max_length=255, null=True, blank=True)
+    Twitter = models.CharField(max_length=255, null=True, blank=True)
+    Medium = models.CharField(max_length=255, null=True, blank=True)
 
     def is_pending(self):
         return self.status == self.PENDING
@@ -100,3 +116,20 @@ class Invitee(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Host(models.Model):
+    company = models.CharField(max_length=255, unique=True, db_collation="case_insensitive")
+    city = models.CharField(max_length=255, null=True, blank=True)
+    notes = models.TextField(null=True, blank=True, validators=[MaxLengthValidator(2000)])
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='created_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='updated_by')
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    info = models.TextField(null=True, blank=True, validators=[MaxLengthValidator(2000)])
+    company = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='contacts')

@@ -105,7 +105,7 @@ class CreateInviteeTestCase(TransactionTestCase):
 
         expected_encoded_email_param = "email=Ja-ne%2B%2BDo-e%40example.com"
         expected_encoded_token_param = "token=7b4152bbf09444cdbe97ce574b88634c20210219015501"
-        expected_host_api_endpoint = "https://wwcode-chtools-fe.herokuapp.com/register?"
+        expected_host_api_endpoint = "https://wwcode-chtools-fe-staging.up.railway.app/register?"
 
         # Verify that one email message has been sent.
         self.assertEquals(len(mail.outbox), 1)

@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from api.views.InviteeView import InviteeViewSet
 from rest_framework_simplejwt.views import TokenRefreshView
 from drf_yasg.utils import swagger_auto_schema
@@ -21,11 +23,13 @@ from api.views.UpdateMemberStatusView import UpdateMemberStatusView
 from api.views.resources_view import ResourceViewSet
 from api.views.DeleteMemberRoleView import DeleteMemberRoleView
 from api.views.UserView import UserView
+from api.views.HostView import HostView
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
 router.register(r'resources', ResourceViewSet)
 router.register(r'invitee', InviteeViewSet)
+router.register(r'host', HostView)
 
 
 decorated_login_view = \
@@ -57,4 +61,6 @@ urlpatterns = [
     path('user/name/', UserView.as_view()),
 ]
 
+
 urlpatterns += router.urls
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
