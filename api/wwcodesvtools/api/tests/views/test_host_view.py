@@ -272,9 +272,8 @@ class HostViewTestCase(TransactionTestCase):
     def test_delete_valid_company(self):
         response = self.client.delete("/api/host/4/", **self.bearer)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-    
+
     # Test that nonexisting company can't be deleted
     def test_invalid_company_not_deleted(self):
         response = self.client.delete("/api/host/100/", **self.bearer)
         self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND)
-

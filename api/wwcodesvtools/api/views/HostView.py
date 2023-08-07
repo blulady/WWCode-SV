@@ -438,8 +438,6 @@ class HostView(viewsets.ModelViewSet):
             return Response({'error': self.ERROR_HOST_NOT_FOUND}, status=status.HTTP_404_NOT_FOUND)
 
         try:
-            contacts = host.contacts.all()
-            contacts.delete()
             host.delete()
             return Response({'result': self.HOST_DELETED_SUCCESSFULLY}, status=status.HTTP_200_OK)
         except Exception as e:
