@@ -433,13 +433,11 @@ class HostView(viewsets.ModelViewSet):
         responses=delete_response_schema
     )
     def destroy(self, request, *args, **kwargs):
-        host = self.get_object()
-        if not host:
-            return Response({'error': self.ERROR_HOST_NOT_FOUND}, status=status.HTTP_404_NOT_FOUND)
-
         try:
+            host = self.get_object()
             host.delete()
             return Response({'result': self.HOST_DELETED_SUCCESSFULLY}, status=status.HTTP_200_OK)
         except Exception as e:
-            logger.error(f'HostViewSet Delete: {self.ERROR_DELETING_HOST}: {e}')
-            return Response({'error': self.ERROR_DELETING_HOST}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            error = "Host not found in database."
+            logger.error(f'HostViewSet Destroy: {error}: {e}')
+            return Response({'error': self.ERROR_HOST_NOT_FOUND}, status=status.HTTP_404_NOT_FOUND)
