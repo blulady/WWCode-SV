@@ -33,3 +33,19 @@
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
 }
+
+.contacts {
+    border-radius: 8px;
+    background-color: rgba(130, 130, 130, 0.1);
+    padding: 5px;
+    margin-bottom: 5px;
+
+}
+
+.arrowUp {
+    text-align: end;
+}
+
+.contactsDivider {
+    background-color: #6B3768;
+}

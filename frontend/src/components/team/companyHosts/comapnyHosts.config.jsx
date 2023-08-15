@@ -1,5 +1,8 @@
 import React from "react";
 import WwcApi from "../../../WwcApi";
+import ChevronUp from "../../../icons/ChevronUp";
+import ChevronDown from "../../../icons/ChevronDown"
+import Dropdown from "../../common/Dropdown";
 import TruncatedText from "../companyHosts/TruncatedText";
 import ModalDialog from "../../common/ModalDialog";
 import styles from "./CompanyHosts.index.module.css";
@@ -25,10 +28,37 @@ export const columns = [
     title: "Contacts",
     dataIndex: "contacts",
     render: (data, record) => {
+      console.log(data);
       return data.map((item, index) => {
+        console.log(item);
         return (
           <div key={index}>
-            {item.name}_{item.email}
+            <Dropdown
+              menuStyle={{ "max-width": "150px", backgroundColor: 'rgba(130, 130, 130, 0.1)' }}
+              menu={[
+                {
+                  label: <a className="dropdown-item">{item.email}</a>,
+                  key: 1,
+                },
+                {
+                  label: <a className="dropdown-item">{item.info}</a>,
+                  key: 2,
+                },
+                {
+                  label: <hr class={["dropdown-divider", styles["contactsDivider"]].join(" ")} />,
+                  key: 3,
+                },
+                {
+                  label: <a className={["dropdown-item", styles["arrowUp"]].join(" ")}><ChevronDown /></a>,
+                  key: 4,
+                },
+              ]}
+            >
+              <div className={["d-flex justify-content-between align-items-center", styles.contacts].join(" ")}>
+                {item.name}{" "}
+                <ChevronUp />
+              </div>
+            </Dropdown>
           </div>
         );
       });
@@ -49,9 +79,9 @@ export const columns = [
     render: (_, record) => {
       const handleDeleteCompanyHost = (companyId) => {
         WwcApi.deleteCompanyHost(companyId).catch((err) => {
-          console.log(err)
-        })
-      }
+          console.log(err);
+        });
+      };
       return (
         <ModalDialog
           id="deleteCompanyHost"

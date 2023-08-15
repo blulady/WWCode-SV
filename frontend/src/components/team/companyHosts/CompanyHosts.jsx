@@ -9,7 +9,7 @@ const CompanyHosts = () => {
       id: 1,
       company: "Apple",
       city: "cupertino",
-      contacts: [{ name: "Andy", email: "andy@gmail.com" }, { name: "Andy", email: "andy@gmail.com" }],
+      contacts: [{ name: "Andy Salvation Alexdender", email: "andy@gmail.com", info: "hello test..." }, { name: "Andy", email: "andy@gmail.com", info: "hello test..." }],
       notes: "This here is some placeholder text, intended to take up quite a bit of vertical space, to demonstrate how the vertical alignment works in the preceding cells.",
     },
   ];
