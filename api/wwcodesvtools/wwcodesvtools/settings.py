@@ -131,6 +131,9 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media Settings
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
 # Email Settings
 SENDGRID_API_KEY = env('SENDGRID_API_KEY')
 EMAIL_BACKEND = env('EMAIL_BACKEND')
