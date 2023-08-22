@@ -34,12 +34,31 @@
     -webkit-box-orient: vertical;
 }
 
-.contacts {
-    border-radius: 8px;
+.contactWrapper {
+    margin-bottom: 5px;
+}
+
+.contactNameWithCollapse {
+    border-radius: 8px 8px 0px 0px;
+    background-color: rgba(130, 130, 130, 0.1);
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+.contactNameWithoutCollapse {
+    border-radius: 8px 8px 8px 8px;
+    background-color: rgba(130, 130, 130, 0.1);
+    padding: 5px;
+    margin-bottom: 0px;
+}
+
+
+.contactNotes {
+    border-radius: 0px 0px 8px 8px;
     background-color: rgba(130, 130, 130, 0.1);
     padding: 5px;
     margin-bottom: 5px;
-
+    margin-top: 0; /* ensure no top margin */
 }
 
 .arrowUp {

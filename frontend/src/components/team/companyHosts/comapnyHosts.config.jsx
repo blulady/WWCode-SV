@@ -1,11 +1,10 @@
 import React from "react";
 import WwcApi from "../../../WwcApi";
-import ChevronUp from "../../../icons/ChevronUp";
-import ChevronDown from "../../../icons/ChevronDown"
 import Dropdown from "../../common/Dropdown";
 import TruncatedText from "../companyHosts/TruncatedText";
 import ModalDialog from "../../common/ModalDialog";
 import styles from "./CompanyHosts.index.module.css";
+import Contacts from "./Contacts";
 
 export const columns = [
   {
@@ -27,41 +26,8 @@ export const columns = [
     key: "contacts",
     title: "Contacts",
     dataIndex: "contacts",
-    render: (data, record) => {
-      console.log(data);
-      return data.map((item, index) => {
-        console.log(item);
-        return (
-          <div key={index}>
-            <Dropdown
-              menuStyle={{ "max-width": "150px", backgroundColor: 'rgba(130, 130, 130, 0.1)' }}
-              menu={[
-                {
-                  label: <a className="dropdown-item">{item.email}</a>,
-                  key: 1,
-                },
-                {
-                  label: <a className="dropdown-item">{item.info}</a>,
-                  key: 2,
-                },
-                {
-                  label: <hr class={["dropdown-divider", styles["contactsDivider"]].join(" ")} />,
-                  key: 3,
-                },
-                {
-                  label: <a className={["dropdown-item", styles["arrowUp"]].join(" ")}><ChevronDown /></a>,
-                  key: 4,
-                },
-              ]}
-            >
-              <div className={["d-flex justify-content-between align-items-center", styles.contacts].join(" ")}>
-                {item.name}{" "}
-                <ChevronUp />
-              </div>
-            </Dropdown>
-          </div>
-        );
-      });
+    render: (data) => {
+      return <Contacts data={data}/>
     },
   },
   {
