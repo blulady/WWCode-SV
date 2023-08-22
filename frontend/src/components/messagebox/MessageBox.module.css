@@ -1,8 +1,7 @@
 .message-box {
   width: 100%;
   max-width: 448px;
-  height: 100%;
-  max-height: 95px;
+  height: auto;
   padding: 5px;
   box-sizing: border-box;
   border: 1px solid #000000;
