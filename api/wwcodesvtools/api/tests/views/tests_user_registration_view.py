@@ -1,7 +1,7 @@
 from django.test import TransactionTestCase
 from django.contrib.auth.models import User
 from rest_framework import status
-from ...models import Invitee, Role, User_Team
+from ...models import Invitee, Role, User_Team, UserProfile
 from rest_framework.permissions import AllowAny
 from ...views.UserRegistrationView import UserRegistrationView
 from datetime import datetime
@@ -62,12 +62,16 @@ class UserRegistrationViewTestCase(TransactionTestCase):
         self.assertIs(resp.status_code, successfully_updated_status_code)
         self.assertEqual(resp["content-type"], self.CONTENT_TYPE_APPLICATION_JSON)
         self.assertEqual(resp.data["result"], "User Registered Successfully")
+        user_email = self.registration_request_data["email"]
         # Check new user was created
-        self.assertEqual(User.objects.filter(email='volunteer1@example.com').exists(), True)
+        self.assertEqual(User.objects.filter(email=user_email).exists(), True)
         # Check new user-role-team was created
-        self.assertEqual(User_Team.objects.filter(user_id=User.objects.get(email='volunteer1@example.com').id).exists(), True)
+        self.assertEqual(User_Team.objects.filter(user_id=User.objects.get(email=user_email).id).exists(), True)
         # Check the invitee is deleted
-        self.assertRaises(Invitee.DoesNotExist, Invitee.objects.get, email=self.registration_request_data["email"])
+        self.assertRaises(Invitee.DoesNotExist, Invitee.objects.get, email=user_email)
+        # Check user status is ACTIVE
+        registered_user = User.objects.get(email=user_email)
+        self.assertEqual(registered_user.userprofile.status, UserProfile.ACTIVE)
 
     # Test with password field missing in request data
     def test_password_required_fail(self):

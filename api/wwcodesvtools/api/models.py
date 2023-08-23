@@ -21,7 +21,8 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=20,
                               choices=((PENDING, PENDING),
-                                       (ACTIVE, ACTIVE), (INACTIVE, INACTIVE))
+                                       (ACTIVE, ACTIVE), (INACTIVE, INACTIVE)),
+                              default='ACTIVE'
                               )
 
     created_at = models.DateTimeField(auto_now_add=True)
