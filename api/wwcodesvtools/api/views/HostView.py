@@ -10,6 +10,7 @@ import logging
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models.functions import Collate
+from django.http import Http404
 
 logger = logging.getLogger('django')
 
@@ -44,11 +45,13 @@ class HostView(viewsets.ModelViewSet):
     search_fields = ['^company_search', '^contacts__name', '^contacts__email']
     http_method_names = ['get', 'post', 'put', 'delete']
 
-    ERROR_CREATING_HOST = 'Error creating Host Company.'
     ERROR_HOST_NOT_FOUND = 'Host Company does not exist.'
+    ERROR_CREATING_HOST = 'Error creating Host Company.'
     ERROR_UPDATING_HOST = 'Error updating Host Company.'
+    ERROR_DELETING_HOST = 'Error deleting Host Company.'
     HOST_CREATED_SUCCESSFULLY = 'Host Company Created Successfully.'
     HOST_UPDATED_SUCCESSFULLY = 'Host Company Updated Successfully.'
+    HOST_DELETED_SUCCESSFULLY = 'Host Company Deleted Successfully.'
 
     get_response_schema = {
         status.HTTP_200_OK: openapi.Response(
@@ -381,3 +384,61 @@ class HostView(viewsets.ModelViewSet):
         if (error is None and res_status == status.HTTP_200_OK):
             return Response({'result': self.HOST_UPDATED_SUCCESSFULLY}, status=res_status)
         return Response({'error': str(error)}, status=res_status)
+
+    delete_response_schema = {
+        status.HTTP_200_OK: openapi.Response(
+            description="Host Company Deleted Successfully",
+            examples={
+                "application/json": {
+                    'result': 'Host Company Deleted Successfully.',
+                }
+            }
+        ),
+        status.HTTP_401_UNAUTHORIZED: openapi.Response(
+            description="User is not authenticated",
+            examples={
+                "application/json": {
+                        "detail": "Authentication credentials were not provided.",
+                }
+            }
+        ),
+        status.HTTP_403_FORBIDDEN: openapi.Response(
+            description="User is not allowed",
+            examples={
+                "application/json": {
+                        "detail": "You do not have permission to perform this action.",
+                }
+            }
+        ),
+        status.HTTP_404_NOT_FOUND: openapi.Response(
+            description="Host Not Found",
+            examples={
+                "application/json": {
+                        "detail": "Host company not found in database.",
+                }
+            }
+        ),
+        status.HTTP_500_INTERNAL_SERVER_ERROR: openapi.Response(
+            description="Internal Server Error",
+            examples={
+                "application/json": {
+                    'result': 'Internal server error.'
+                }
+            }
+        ),
+    }
+
+    @swagger_auto_schema(
+        operation_summary="Deletes a specified Host Company",
+        operation_description="This function deletes an existing Host Company based on its ID.",
+        responses=delete_response_schema
+    )
+    def destroy(self, request, *args, **kwargs):
+        try:
+            host = self.get_object()
+            host.delete()
+            return Response({'result': self.HOST_DELETED_SUCCESSFULLY}, status=status.HTTP_200_OK)
+        except Http404:
+            return Response({'error': self.ERROR_HOST_NOT_FOUND}, status=status.HTTP_404_NOT_FOUND)
+        except Exception:
+            return Response({'error': self.ERROR_DELETING_HOST}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
