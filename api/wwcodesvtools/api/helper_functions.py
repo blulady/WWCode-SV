@@ -6,9 +6,11 @@ from datetime import datetime, timedelta
 from django.core.validators import validate_email, ValidationError
 from pathlib import Path
 from api.models import User_Team, Role
+from django.contrib.auth.models import User
 import logging
 import string
 import random
+import os
 
 
 logger = logging.getLogger('django')
@@ -70,3 +72,25 @@ def is_host_management_member(user_id):
     except Exception as e:
         logger.error(f'Error : {e}')
         return False
+
+
+# Check if the given email exists in the User table
+def is_user_active(email):
+    if User.objects.filter(email=email).exists():
+        return True
+    return False
+
+
+# Deletes a file from the media folder if it exists, with the filename 'name'.
+def delete_file_from_media(name):
+    file_path = os.path.join(settings.MEDIA_ROOT, name)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+
+# Checks if a file exists on the media folder
+def file_exists_media(name):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'images', name)
+    if os.path.exists(file_path):
+        return True
+    return False

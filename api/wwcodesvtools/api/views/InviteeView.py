@@ -6,7 +6,7 @@ from api.permissions import CanAccessInvitee
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from uuid import uuid4
-from api.helper_functions import send_email_helper
+from api.helper_functions import send_email_helper, is_user_active
 from datetime import datetime
 import logging
 from django.utils.http import urlencode
@@ -39,6 +39,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
     INVITEE_NOT_FOUND = 'Invitee not found in database'
     INVITEE_RESEND_SUCCESSFUL = 'Resend registration invitation successful'
     INVITEE_NOT_FOUND = 'Requested id not found in Invitee database'
+    USER_ALREADY_ACTIVE_MESSAGE = 'There is already an active user associated with this email'
 
     post_response_schema = {
         status.HTTP_200_OK: openapi.Response(
@@ -95,61 +96,66 @@ class InviteeViewSet(viewsets.ModelViewSet):
         error = None
         req = request.data
         logger.debug(f'InviteeViewSet Create : query params: {req}')
-        email = req.get('email')
-        role = req.get('role')
-        message = req.get('message')
 
         try:
-            timenow = datetime.now().strftime('%Y%m%d%H%M%S')
-            # generate random token as a 32-character hexadecimal string and timestamp
-            registration_token = str(uuid4().hex) + timenow
-            created_by = request.user.id
-            logger.debug(f'InviteeViewSet Create: token ={registration_token} : created_by ={created_by}')
+            email = req.get('email')
+            role = req.get('role')
+            message = req.get('message')
 
-            invitee_data = {
-                "email": email,
-                "message": message,
-                "role": role,
-                "status": 'INVITED',
-                "registration_token": registration_token,
-                "resent_counter": 0,
-                "accepted": False,
-                'created_at': timenow,
-                'updated_at': timenow,
-                'created_by': created_by
-            }
-
-            # create invitee in the invitee table
-            serializer_invitee = InviteeSerializer(data=invitee_data)
-            if serializer_invitee.is_valid():
-                # creating txn savepoint
-                sid = transaction.savepoint()
-                serializer_invitee.save()
-                logger.info('InviteeViewSet Create: Invitee data valid')
-                # If invitee created successfully, then send email notification to the new invitee
-                message_sent = self.send_email_notification(email, registration_token, message)
-                if message_sent:
-                    # all well, commit data to the db
-                    transaction.savepoint_commit(sid)
-                    res_status = status.HTTP_200_OK
-                    logger.info('InviteeViewSet Create : Invitee created and email sent successfully')
-                else:
-                    # something went wrong sending the email, don't commit data to db, rollback txn
-                    transaction.savepoint_rollback(sid)
-                    res_status = status.HTTP_502_BAD_GATEWAY
-                    error = self.ERROR_SENDING_EMAIL_NOTIFICATION
-                    logger.info('InviteeViewSet Create : email NOT sent, invitee rolled back')
+            # validate if a user with the given email doesn't exist in the system
+            if (is_user_active(email)):
+                return Response({'error': self.USER_ALREADY_ACTIVE_MESSAGE}, status=status.HTTP_400_BAD_REQUEST)
             else:
-                # invalid data
-                error = serializer_invitee.errors
-                res_status = status.HTTP_400_BAD_REQUEST
+                timenow = datetime.now().strftime('%Y%m%d%H%M%S')
+                # generate random token as a 32-character hexadecimal string and timestamp
+                registration_token = str(uuid4().hex) + timenow
+                created_by = request.user.id
+                logger.debug(f'InviteeViewSet Create: token ={registration_token} : created_by ={created_by}')
+
+                invitee_data = {
+                    "email": email,
+                    "message": message,
+                    "role": role,
+                    "status": 'INVITED',
+                    "registration_token": registration_token,
+                    "resent_counter": 0,
+                    "accepted": False,
+                    'created_at': timenow,
+                    'updated_at': timenow,
+                    'created_by': created_by
+                }
+
+                # create invitee in the invitee table
+                serializer_invitee = InviteeSerializer(data=invitee_data)
+                if serializer_invitee.is_valid():
+                    # creating txn savepoint
+                    sid = transaction.savepoint()
+                    serializer_invitee.save()
+                    logger.info('InviteeViewSet Create: Invitee data valid')
+                    # If invitee created successfully, then send email notification to the new invitee
+                    message_sent = self.send_email_notification(email, registration_token, message)
+                    if message_sent:
+                        # all well, commit data to the db
+                        transaction.savepoint_commit(sid)
+                        res_status = status.HTTP_200_OK
+                        logger.info('InviteeViewSet Create : Invitee created and email sent successfully')
+                    else:
+                        # something went wrong sending the email, don't commit data to db, rollback txn
+                        transaction.savepoint_rollback(sid)
+                        res_status = status.HTTP_502_BAD_GATEWAY
+                        error = self.ERROR_SENDING_EMAIL_NOTIFICATION
+                        logger.info('InviteeViewSet Create : email NOT sent, invitee rolled back')
+                else:
+                    # invalid data
+                    error = serializer_invitee.errors
+                    res_status = status.HTTP_400_BAD_REQUEST
         except Exception as e:
             error = self.ERROR_CREATING_INVITEE
             logger.error(f'InviteeViewSet Create: {error}: {e}')
             res_status = status.HTTP_500_INTERNAL_SERVER_ERROR
         if (error is None and res_status == status.HTTP_200_OK):
             return Response({'result': self.INVITEE_CREATED_SUCCESSFULLY, 'token': registration_token}, status=res_status)
-        return Response({'error': error}, status=res_status)
+        return Response({'error': str(error)}, status=res_status)
 
     def send_email_notification(self, email, token, message):
         registration_link = f'{settings.FRONTEND_APP_URL}/register?{urlencode({"email": email, "token": token})}'

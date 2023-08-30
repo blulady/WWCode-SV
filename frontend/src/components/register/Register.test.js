@@ -76,8 +76,8 @@ describe('Register Component Validation Tests', () => {
     });
     // Error message is rendered
     const msgBox = screen.getByTestId('message-box');
-    expect(screen.getByText(/Oops/i)).toBeInTheDocument();
-    expect(screen.getByText(/Token is already used/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sorry/i)).toBeInTheDocument();
+    expect(screen.getByText(/This registration link is no longer valid/i)).toBeInTheDocument();
     expect(msgBox).toBeInTheDocument();
   });
 
@@ -103,8 +103,8 @@ describe('Register Component Validation Tests', () => {
     });
     // Error message is rendered
     const msgBox = screen.getByTestId('message-box');
-    expect(screen.getByText(/Oops/i)).toBeInTheDocument();
-    expect(screen.getByText(/Token is expired/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sorry/i)).toBeInTheDocument();
+    expect(screen.getByText(/This registration link is no longer valid/i)).toBeInTheDocument();
     expect(msgBox).toBeInTheDocument();
   });
 
@@ -130,8 +130,8 @@ describe('Register Component Validation Tests', () => {
     });
     // Error message is rendered
     const msgBox = screen.getByTestId('message-box');
-    expect(screen.getByText(/Oops/i)).toBeInTheDocument();
-    expect(screen.getByText(/Invalid token/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sorry/i)).toBeInTheDocument();
+    expect(screen.getByText(/This registration link is no longer valid/i)).toBeInTheDocument();
     expect(msgBox).toBeInTheDocument();
   });
 

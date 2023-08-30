@@ -10,6 +10,7 @@ import logging
 from rest_framework.response import Response
 from rest_framework import status
 from django.db.models.functions import Collate
+from django.http import Http404
 
 logger = logging.getLogger('django')
 
@@ -386,15 +387,15 @@ class HostView(viewsets.ModelViewSet):
 
     delete_response_schema = {
         status.HTTP_200_OK: openapi.Response(
-            description="Deleted Successfully",
+            description="Host Company Deleted Successfully",
             examples={
                 "application/json": {
-                    'result': 'Host deleted successfully',
+                    'result': 'Host Company Deleted Successfully.',
                 }
             }
         ),
         status.HTTP_401_UNAUTHORIZED: openapi.Response(
-            description="Authentication Required",
+            description="User is not authenticated",
             examples={
                 "application/json": {
                         "detail": "Authentication credentials were not provided.",
@@ -402,7 +403,7 @@ class HostView(viewsets.ModelViewSet):
             }
         ),
         status.HTTP_403_FORBIDDEN: openapi.Response(
-            description="No Permission",
+            description="User is not allowed",
             examples={
                 "application/json": {
                         "detail": "You do not have permission to perform this action.",
@@ -428,8 +429,8 @@ class HostView(viewsets.ModelViewSet):
     }
 
     @swagger_auto_schema(
-        operation_summary="Deletes a specified host company",
-        operation_description="This function deletes an existing Host Company.",
+        operation_summary="Deletes a specified Host Company",
+        operation_description="This function deletes an existing Host Company based on its ID.",
         responses=delete_response_schema
     )
     def destroy(self, request, *args, **kwargs):
@@ -437,7 +438,7 @@ class HostView(viewsets.ModelViewSet):
             host = self.get_object()
             host.delete()
             return Response({'result': self.HOST_DELETED_SUCCESSFULLY}, status=status.HTTP_200_OK)
-        except Exception as e:
-            error = "Host not found in database."
-            logger.error(f'HostViewSet Destroy: {error}: {e}')
+        except Http404:
             return Response({'error': self.ERROR_HOST_NOT_FOUND}, status=status.HTTP_404_NOT_FOUND)
+        except Exception:
+            return Response({'error': self.ERROR_DELETING_HOST}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
