@@ -9,7 +9,8 @@ from api.views.UserRegistrationView import UserRegistrationView
 from api.views.MailSender import MailSender
 from api.views.AddMemberView import AddMemberView
 from api.views.EditMemberRoleTeamsView import EditMemberRoleTeamsView
-from api.views.GetMembersView import GetMembersView, GetMemberInfoView, GetMemberProfileView
+from api.views.GetMembersView import GetMembersView, GetMemberInfoView
+from api.views.UserProfileView import UserProfileView
 from api.views.RequestPasswordResetView import RequestPasswordResetView
 from api.views.SetNewPasswordView import SetNewPasswordView
 from api.views.ChangePasswordView import ChangePasswordView
@@ -46,7 +47,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view()),
     path("user/create/", AddMemberView.as_view()),
     path("users/", GetMembersView.as_view()),
-    path("user/profile/", GetMemberProfileView.as_view()),
+    path("user/profile/", UserProfileView.as_view()),
     path('user/<int:id>/', GetMemberInfoView.as_view()),
     path('user/reset_password/request/', RequestPasswordResetView.as_view()),
     path('user/reset_password/confirm/', SetNewPasswordView.as_view()),

@@ -236,5 +236,9 @@ class WwcApi {
     });
   }
 
+  static async requestRegistraionLink(userId) {
+    return Promise.resolve();
+  }
+
 }
 export default WwcApi;

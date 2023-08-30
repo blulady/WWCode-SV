@@ -3,7 +3,9 @@ from rest_framework.response import Response
 from rest_framework.generics import ListAPIView, RetrieveAPIView
 from rest_framework.permissions import IsAuthenticated
 from api.serializers.CompleteMemberInfoSerializer import CompleteMemberInfoSerializer
+from api.serializers.CompleteUserProfileSerializer import CompleteUserProfileSerializer
 from api.serializers.NonSensitiveMemberInfoSerializer import NonSensitiveMemberInfoSerializer
+from api.serializers.NonSensitiveUserProfileSerializer import NonSensitiveUserProfileSerializer
 from api.helper_functions import is_director_or_superuser
 from rest_framework.filters import OrderingFilter, SearchFilter
 from django.db.models.functions import Collate
@@ -119,13 +121,14 @@ class GetMemberInfoView(RetrieveAPIView):
     def get_serializer_class(self):
         try:
             if is_director_or_superuser(self.request.user.id, self.request.user.is_superuser):
-                return CompleteMemberInfoSerializer
+                return CompleteUserProfileSerializer
             else:
-                return NonSensitiveMemberInfoSerializer
+                return NonSensitiveUserProfileSerializer
         except AttributeError:
             return "Attribute Exception: user id not found"
 
 
+# This view is not longer needed
 class GetMemberProfileView(RetrieveAPIView):
     """
     Get current logged in user's id. If valid, display profile information for that user. Return an error
