@@ -5,11 +5,11 @@ import cx from 'classnames';
 
 const AssignEditTeams = ({role, selectedTeamsForThisRole = [], selectedTeamsForUser, totalTeams, editRoleTeams, setTeamEditMode}) => {
 
-  const allSelectedTeams = new Set(selectedTeamsForUser);
+  const teamsAssociatedWithOtherRoles = selectedTeamsForUser.filter((team) => !selectedTeamsForThisRole.includes(team));
   const [ selectedTeams, setSelectedTeams] = useState( new Set(selectedTeamsForThisRole));
 
   let getCheckboxClassName = (item) => {
-    if (allSelectedTeams.has(item.name) && !selectedTeams.has(item.name)){
+    if (teamsAssociatedWithOtherRoles.includes(item.name)){
       return "disabled";
     }
     return selectedTeams.has(item.name) ? "checked" : "unchecked"
@@ -56,7 +56,7 @@ const AssignEditTeams = ({role, selectedTeamsForThisRole = [], selectedTeamsForU
                     onChange={handleTeamChange}
                     name="team"
                     checked={selectedTeams.has(item.name) ? "checked" : ""}
-                    disabled = {!selectedTeams.has(item.name) && allSelectedTeams.has(item.name)}
+                    disabled = {teamsAssociatedWithOtherRoles.includes(item.name)}
                   />
                   <div className={cx("checkbox-icon", classes["checkbox-icon"])}></div>
                   {item.name}
