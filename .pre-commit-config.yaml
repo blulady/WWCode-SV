@@ -26,7 +26,6 @@ repos:
     rev: 3.9.2
     hooks:
       - id: flake8
-        # language_version: python3.8
 
 # Seed list of known third party imports
 -   repo: https://github.com/asottile/seed-isort-config
