@@ -6,9 +6,11 @@ from datetime import datetime, timedelta
 from django.core.validators import validate_email, ValidationError
 from pathlib import Path
 from api.models import User_Team, Role
+from django.contrib.auth.models import User
 import logging
 import string
 import random
+import os
 
 
 logger = logging.getLogger('django')
@@ -57,3 +59,38 @@ def is_director_or_superuser(user_id, is_superuser):
 def is_token_expired(self, registration_token):
     token_datetime = datetime.strptime(registration_token[-14:], '%Y%m%d%H%M%S')
     return datetime.now() - timedelta(seconds=settings.REGISTRATION_LINK_EXPIRATION) > token_datetime
+
+
+def is_host_management_member(user_id):
+    try:
+        # Host management team id is 3
+        user_in_host_management_team = User_Team.objects.filter(team_id=3, user_id=user_id)
+        if user_in_host_management_team:
+            return True
+        else:
+            return False
+    except Exception as e:
+        logger.error(f'Error : {e}')
+        return False
+
+
+# Check if the given email exists in the User table
+def is_user_active(email):
+    if User.objects.filter(email=email).exists():
+        return True
+    return False
+
+
+# Deletes a file from the media folder if it exists, with the filename 'name'.
+def delete_file_from_media(name):
+    file_path = os.path.join(settings.MEDIA_ROOT, name)
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+
+# Checks if a file exists on the media folder
+def file_exists_media(name):
+    file_path = os.path.join(settings.MEDIA_ROOT, 'images', name)
+    if os.path.exists(file_path):
+        return True
+    return False

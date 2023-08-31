@@ -7,6 +7,7 @@ from drf_yasg.utils import swagger_auto_schema
 from rest_framework.response import Response
 from api.helper_functions import send_email_helper
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 from drf_yasg import openapi
 from rest_framework import status
 import logging
@@ -131,5 +132,6 @@ class SetNewPasswordView(GenericAPIView):
         return Response({'error': error}, status=res_status)
 
     def send_email_notification(self, email):
-        context_data = {"email": email}
+        context_data = {"email": email,
+                        "portal_link": settings.FRONTEND_APP_URL}
         return send_email_helper(email, 'Password Change Notification', 'password_change_notification.html', context_data)

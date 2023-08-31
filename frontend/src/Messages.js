@@ -9,7 +9,9 @@ export const ERROR_REGISTER_LINK_USED =
 export const ERROR_REGISTER_LINK_EXPIRED =
   "This link has expired.\nPlease contact a Director.";
 export const ERROR_REGISTER_LINK_INVALID =
-  "This link is invalid.\nPlease contact a Director.";
+  "This registration link is no longer valid.";  
+export const SUCCESS_REQUEST_REGISTER = 
+  "A message has been sent to a Director to email you a new registration link.";  
 export const ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD =
   "The list of {0} Team Members was unable to load. \nPlease try again.";
 export const SUCCESS_REQUEST_PASSWORD_RESET =

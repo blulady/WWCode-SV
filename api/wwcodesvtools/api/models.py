@@ -7,6 +7,10 @@ from django.core.validators import MaxValueValidator, MaxLengthValidator
 # Create your models here.
 
 
+def upload_to(instance, filename):
+    return f'images/{filename}'
+
+
 class UserProfile(models.Model):
     PENDING = 'PENDING'
     ACTIVE = 'ACTIVE'
@@ -17,11 +21,24 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     status = models.CharField(max_length=20,
                               choices=((PENDING, PENDING),
-                                       (ACTIVE, ACTIVE), (INACTIVE, INACTIVE))
+                                       (ACTIVE, ACTIVE), (INACTIVE, INACTIVE)),
+                              default='ACTIVE'
                               )
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    city = models.CharField(max_length=255, null=True, blank=True)
+    state = models.CharField(max_length=255, null=True, blank=True)
+    country = models.CharField(max_length=255, null=True, blank=True)
+    timezone = models.CharField(max_length=255, null=True, blank=True)
+    bio = models.TextField(null=True, blank=True)
+    photo = models.ImageField(upload_to=upload_to, null=True, blank=True)
+    slack_handle = models.CharField(max_length=255, null=True, blank=True)
+    linkedin = models.CharField(max_length=255, null=True, blank=True)
+    instagram = models.CharField(max_length=255, null=True, blank=True)
+    facebook = models.CharField(max_length=255, null=True, blank=True)
+    twitter = models.CharField(max_length=255, null=True, blank=True)
+    medium = models.CharField(max_length=255, null=True, blank=True)
 
     def is_pending(self):
         return self.status == self.PENDING
@@ -100,3 +117,20 @@ class Invitee(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+
+class Host(models.Model):
+    company = models.CharField(max_length=255, unique=True, db_collation="case_insensitive")
+    city = models.CharField(max_length=255, null=True, blank=True)
+    notes = models.TextField(null=True, blank=True, validators=[MaxLengthValidator(2000)])
+    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='created_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_by = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='updated_by')
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Contact(models.Model):
+    name = models.CharField(max_length=255, null=True, blank=True)
+    email = models.EmailField(max_length=254, null=True, blank=True)
+    info = models.TextField(null=True, blank=True, validators=[MaxLengthValidator(2000)])
+    company = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='contacts')

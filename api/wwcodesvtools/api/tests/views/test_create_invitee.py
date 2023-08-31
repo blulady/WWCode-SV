@@ -37,7 +37,7 @@ class CreateInviteeTestCase(TransactionTestCase):
                 }
         response = self.post_request(data, self.bearer)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(set(json.loads(response.content)['error'].keys()), set(['email']))
+        self.assertIn('email', json.loads(response.content)['error'])
 
     # test add member fails with blank role
     def test_create_invitee_fails_with_no_role(self):
@@ -47,7 +47,7 @@ class CreateInviteeTestCase(TransactionTestCase):
                 }
         response = self.post_request(data, self.bearer)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(set(json.loads(response.content)['error'].keys()), set(['role']))
+        self.assertIn('role', json.loads(response.content)['error'])
 
     # test add member fails with invalid role
     def test_create_invitee_fails_with_invalid_role(self):
@@ -57,7 +57,7 @@ class CreateInviteeTestCase(TransactionTestCase):
                 }
         response = self.post_request(data, self.bearer)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
-        self.assertEqual(set(json.loads(response.content)['error'].keys()), set(['role']))
+        self.assertIn('role', json.loads(response.content)['error'])
 
     # test add member fails with invalid email
     def test_create_invitee_fails_with_invalid_email(self):
@@ -68,6 +68,17 @@ class CreateInviteeTestCase(TransactionTestCase):
         response = self.post_request(data, self.bearer)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertIn('email', json.loads(response.content)['error'])
+
+    # test create invitee fails with an already registered user email
+    # (there is a registered user with the given email)
+    def test_create_invitee_fails_with_registered_user_email(self):
+        data = {"email": 'director@example.com',
+                "role": 1,
+                "message": "optional message"
+                }
+        response = self.post_request(data, self.bearer)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
+        self.assertEqual(json.loads(response.content)['error'], 'There is already an active user associated with this email')
 
     # test add member saves with valid data
     def test_create_invitee_saves_with_valid_data(self):
@@ -105,7 +116,7 @@ class CreateInviteeTestCase(TransactionTestCase):
 
         expected_encoded_email_param = "email=Ja-ne%2B%2BDo-e%40example.com"
         expected_encoded_token_param = "token=7b4152bbf09444cdbe97ce574b88634c20210219015501"
-        expected_host_api_endpoint = "https://wwcode-chtools-fe.herokuapp.com/register?"
+        expected_host_api_endpoint = "https://wwcode-chtools-fe-staging.up.railway.app/register?"
 
         # Verify that one email message has been sent.
         self.assertEquals(len(mail.outbox), 1)

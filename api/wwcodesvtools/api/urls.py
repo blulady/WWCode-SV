@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 from api.views.InviteeView import InviteeViewSet
 from rest_framework_simplejwt.views import TokenRefreshView
 from drf_yasg.utils import swagger_auto_schema
@@ -7,7 +9,8 @@ from api.views.UserRegistrationView import UserRegistrationView
 from api.views.MailSender import MailSender
 from api.views.AddMemberView import AddMemberView
 from api.views.EditMemberRoleTeamsView import EditMemberRoleTeamsView
-from api.views.GetMembersView import GetMembersView, GetMemberInfoView, GetMemberProfileView
+from api.views.GetMembersView import GetMembersView, GetMemberInfoView
+from api.views.UserProfileView import UserProfileView
 from api.views.RequestPasswordResetView import RequestPasswordResetView
 from api.views.SetNewPasswordView import SetNewPasswordView
 from api.views.ChangePasswordView import ChangePasswordView
@@ -21,11 +24,13 @@ from api.views.UpdateMemberStatusView import UpdateMemberStatusView
 from api.views.resources_view import ResourceViewSet
 from api.views.DeleteMemberRoleView import DeleteMemberRoleView
 from api.views.UserView import UserView
+from api.views.HostView import HostView
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
 router.register(r'resources', ResourceViewSet)
 router.register(r'invitee', InviteeViewSet)
+router.register(r'host', HostView)
 
 
 decorated_login_view = \
@@ -42,7 +47,7 @@ urlpatterns = [
     path('logout/', LogoutView.as_view()),
     path("user/create/", AddMemberView.as_view()),
     path("users/", GetMembersView.as_view()),
-    path("user/profile/", GetMemberProfileView.as_view()),
+    path("user/profile/", UserProfileView.as_view()),
     path('user/<int:id>/', GetMemberInfoView.as_view()),
     path('user/reset_password/request/', RequestPasswordResetView.as_view()),
     path('user/reset_password/confirm/', SetNewPasswordView.as_view()),
@@ -57,4 +62,6 @@ urlpatterns = [
     path('user/name/', UserView.as_view()),
 ]
 
+
 urlpatterns += router.urls
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
