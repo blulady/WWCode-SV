@@ -9,27 +9,24 @@ exports[`PendingMemberList Component Validation Tests PendingMemberList componen
       class="align-self-end"
     >
       <div
-        class="dropdown"
+        aria-expanded="false"
+        class="icon more"
+        data-bs-toggle="dropdown"
+      />
+      <ul
+        class="dropdown-menu  dropdown-menu-lg-start"
       >
-        <ul
-          class="dropdown-menu"
-        >
-          <li>
-            <a
-              class="dropdown-item"
-              data-bs-toggle="modal"
-              href="#"
-            >
-              Delete
-            </a>
-          </li>
-        </ul>
-        <div
-          aria-expanded="false"
-          class="icon more"
-          data-bs-toggle="dropdown"
-        />
-      </div>
+        <li>
+          <a
+            class="dropdown-item"
+            data-bs-target="#deletePendingMemberDialog"
+            data-bs-toggle="modal"
+            href="#"
+          >
+            Delete
+          </a>
+        </li>
+      </ul>
     </div>
     <div
       class="d-flex row"
@@ -86,7 +83,9 @@ exports[`PendingMemberList Component Validation Tests PendingMemberList componen
       >
         <button
           class="invite-button icon"
+          data-bs-target="#resendConfirmationDialog"
           data-bs-toggle="modal"
+          type="button"
         >
           Resend Invite
         </button>
