@@ -1,20 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Dropdown = ({ menu, children }) => {
+const Dropdown = ({ menu, menuStyle=null, children }) => {
+
+  const [open, setOpen] = useState(false);
+
+  const toggleDropdown = (e) => {
+    e.stopPropagation();
+    setOpen(!open);
+  };
+
+  const closeDropdown = () => setOpen(false)
+
   return (
-    <div className="dropdown">
-      <ul className="dropdown-menu">
+    <>
+      {React.cloneElement(children, {
+        "data-bs-toggle": 'dropdown',
+        "aria-expanded": "false",
+        onClick: (e) => toggleDropdown(e),
+      })}
+      <ul className={`dropdown-menu ${open ? "show" : ""} dropdown-menu-lg-start`} style={menuStyle}>
         {menu.map((item) => (
-          <li key={item.key}>
-            {item.label}
-          </li>
+          <li key={item.key} onClick={closeDropdown}>{item.label}</li>
         ))}
       </ul>
-      {React.cloneElement(children, {
-          "data-bs-toggle":"dropdown",
-          "aria-expanded": "false"
-      })}
-    </div>
+    </>
   );
 };
 

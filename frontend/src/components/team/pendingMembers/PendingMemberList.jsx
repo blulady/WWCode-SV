@@ -1,12 +1,10 @@
 import React from "react";
 import Dropdown from "../../common/Dropdown";
+import ModalDialog from "../../common/ModalDialog";
 import styles from "./PendingMemberList.module.css";
 import "../../../Common.css";
 
-const PendingMemberList = (props) => {
-  const users = props.users;
-
-
+const PendingMemberList = ({ users, onResendInvite, onDeleteMember }) => {
   return users.map((user, idx) => (
     <div
       className={styles["pending-member-list-card"] + " d-flex flex-column"}
@@ -17,15 +15,16 @@ const PendingMemberList = (props) => {
           menu={[
             {
               label: (
-                <a
-                  className="dropdown-item"
-                  href="#"
-                  data-bs-toggle="modal"
-                  data-bs-target={props.targetDelete}
-                  data-bs-user={user.id}
+                <ModalDialog
+                  id="deletePendingMemberDialog"
+                  title="Are you sure?"
+                  text="Are you sure you want to permanently delete this invitee from the records?"
+                  onConfirm={() => onDeleteMember(user.id)}
                 >
-                  Delete
-                </a>
+                  <a className="dropdown-item" href="#">
+                    Delete
+                  </a>
+                </ModalDialog>
               ),
               key: "delete",
             },
@@ -53,14 +52,19 @@ const PendingMemberList = (props) => {
       <div className={"d-flex " + styles["row"]}>
         <div className={styles["column"]}>Resend Invite</div>
         <div className={styles["column"]}>
-          <button
-            className={styles["invite-button"] + " " + styles["icon"]}
-            data-bs-toggle="modal"
-            data-bs-target={props.target}
-            data-bs-user={user.id}
+          <ModalDialog
+            id="resendConfirmationDialog"
+            title="Are you sure?"
+            text="Are you sure you want to resend the registration link?"
+            onConfirm={() => onResendInvite(user.id)}
           >
-            Resend Invite
-          </button>
+            <button
+              className={styles["invite-button"] + " " + styles["icon"]}
+              type="button"
+            >
+              Resend Invite
+            </button>
+          </ModalDialog>
         </div>
       </div>
     </div>

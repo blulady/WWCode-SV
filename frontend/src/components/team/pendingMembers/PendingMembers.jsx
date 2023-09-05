@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import WwcApi from "../../../WwcApi";
 import PendingMemberList from "./PendingMemberList";
 import PendingMemberTable from "./PendingMemberTable";
-import ModalDialog from "../../common/ModalDialog";
 import MessageBox from "../../messagebox/MessageBox";
 import {
   ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD,
@@ -14,20 +13,18 @@ import {
 } from "../../../Messages";
 import styles from "./PendingMembers.module.css";
 
-const PendingMembers = (props) => {
+const PendingMembers = () => {
   const [users, setUsers] = useState([]);
   const [apiError, setApiError] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
 
   const renderTable = () => {
     return (
       <PendingMemberTable
         users={users}
-        target="#resendConfirmationDialog"
-        targetDelete="#deletePendingMemberDialog"
         onDeleteMember={handelDeleteMember}
+        onResendInvite={resendInvite}
       />
     );
   };
@@ -35,8 +32,8 @@ const PendingMembers = (props) => {
     return (
       <PendingMemberList
         users={users}
-        target="#resendConfirmationDialog"
-        targetDelete="#deletePendingMemberDialog"
+        onResendInvite={resendInvite}
+        onDeleteMember={handelDeleteMember}
       ></PendingMemberList>
     );
   };
@@ -57,7 +54,7 @@ const PendingMembers = (props) => {
           });
     };
 
-  const resendInvite = async () => {
+  const resendInvite = async (currentUser) => {
     try {
       await WwcApi.resendInvite(currentUser);
       await getInvitees();
@@ -68,21 +65,14 @@ const PendingMembers = (props) => {
     }
   };
 
-  const handelDeleteMember = () => {
+  const handelDeleteMember = (currentUserId) => {
     const temp = [...users];
-    const filteredMembers = temp.filter((member) => member.id !== +currentUser);
+    const filteredMembers = temp.filter((member) => member.id !== currentUserId);
     setUsers(filteredMembers);
-    WwcApi.deleteInvitees(currentUser).catch((err) => {
+    WwcApi.deleteInvitees(currentUserId).catch((err) => {
       setUsers(temp);
       setApiError(ERROR_REQUEST_MESSAGE);
     });
-  };
-
-  const onOpeningModalDialog = (target) => {
-    if (target) {
-      const user = target.getAttribute("data-bs-user");
-      setCurrentUser(user);
-    }
   };
 
   useEffect(() => {
@@ -127,22 +117,6 @@ const PendingMembers = (props) => {
       ) : (
         <div className={styles["no-users-msg"]}>No invitees to display</div>
       )}
-      <ModalDialog
-        id="resendConfirmationDialog"
-        title="Are you sure?"
-        text="Are you sure you want to resend the registration link?"
-        onConfirm={resendInvite}
-        onOpening={onOpeningModalDialog}
-        onCancel={() => {}}
-      ></ModalDialog>
-      <ModalDialog
-        id="deletePendingMemberDialog"
-        title="Are you sure?"
-        text="Are you sure you want to permanently delete this invitee from the records?"
-        onConfirm={handelDeleteMember}
-        onOpening={onOpeningModalDialog}
-        onCancel={() => {}}
-      ></ModalDialog>
     </div>
   );
 };

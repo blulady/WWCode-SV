@@ -236,6 +236,18 @@ class WwcApi {
     });
   }
 
+  static async getCompanyHost() {
+    return await axios.get(`${BASE_URL}/host/`, {
+      headers: getConfig()
+    });
+  }
+
+  static async deleteCompanyHost(companyId) {
+    return null
+  }
+
+
+
   static async requestRegistraionLink(userId) {
     return Promise.resolve();
   }

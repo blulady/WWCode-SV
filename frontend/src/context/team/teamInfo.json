@@ -55,6 +55,10 @@
       {
         "pageId": "resources",
         "label": "Host Management Resources"
+      },
+      {
+        "pageId": "company-hosts",
+        "label": "Company Hosts"
       }
     ],
     "slug": "host_management_resource",

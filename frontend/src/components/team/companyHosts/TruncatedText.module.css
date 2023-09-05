@@ -1,0 +1,22 @@
+.text-container {
+    position: relative;
+    width: 200px;
+    display:-webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.expanded {
+    width: 200px;
+    white-space: nomal;
+}
+
+/* .showMore::after {
+    content: 'more...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: inherit;
+    padding-left: 6px;
+} */
