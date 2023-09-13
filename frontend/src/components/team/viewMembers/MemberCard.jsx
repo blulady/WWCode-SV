@@ -17,6 +17,9 @@ const MemberCard = (props) => {
   cardUserInfo.numTeams = new Set(cardUserInfo.role_teams
                           .filter(team => team.hasOwnProperty("team_id"))
                           .map(team => team.team_id)).size;
+  // Adjust number of teams a user is in if their highest role is or is not associated with a team
+  cardUserInfo.numTeams = !cardUserInfo.role_teams[0].hasOwnProperty("team_name") ? cardUserInfo.numTeams : cardUserInfo.numTeams - 1;
+
   const isDirector = props.isDirector;
   const userRole = props.userRole;
   const memberCardAllowance = ["DIRECTOR", "LEADER", "VOLUNTEER"];
@@ -102,7 +105,7 @@ const MemberCard = (props) => {
               )}
             >
               {teamsStr}
-              {cardUserInfo.numTeams > 1 && (
+              {cardUserInfo.numTeams >= 1 && (
                 <React.Fragment>
                   <div
                     className={styles["multi-dots"]}
@@ -121,8 +124,8 @@ const MemberCard = (props) => {
                     place="bottom"
                   >
                     <span>
-                      Also part of {cardUserInfo.numTeams - 1} other team
-                      {cardUserInfo.numTeams - 1 > 1 ? "s" : ""}
+                      Also part of {cardUserInfo.numTeams} other team
+                      {cardUserInfo.numTeams > 1 ? "s" : ""}
                     </span>
                   </ReactTooltip>
                 </React.Fragment>
@@ -208,7 +211,7 @@ const MemberCard = (props) => {
               )}
             >
               {teamsStr}
-              {cardUserInfo.numTeams > 1 && (
+              {cardUserInfo.numTeams >= 1 && (
                 <React.Fragment>
                   <div
                     className={styles["multi-dots"]}
@@ -224,8 +227,8 @@ const MemberCard = (props) => {
                     type="light"
                   >
                     <span>
-                      Also part of {cardUserInfo.numTeams - 1} other team
-                      {cardUserInfo.numTeams - 1 > 1 ? "s" : ""}
+                      Also part of {cardUserInfo.numTeams} other team
+                      {cardUserInfo.numTeams > 1 ? "s" : ""}
                     </span>
                   </ReactTooltip>
                 </React.Fragment>
