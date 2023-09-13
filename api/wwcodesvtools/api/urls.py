@@ -5,7 +5,6 @@ from drf_yasg.utils import swagger_auto_schema
 from .swagger import login_response as resp
 from api.views.UserRegistrationView import UserRegistrationView
 from api.views.MailSender import MailSender
-from api.views.AddMemberView import AddMemberView
 from api.views.EditMemberRoleTeamsView import EditMemberRoleTeamsView
 from api.views.GetMembersView import GetMembersView, GetMemberInfoView
 from api.views.UserProfileView import UserProfileView
@@ -43,7 +42,6 @@ urlpatterns = [
     path("login/", decorated_login_view),
     path("login/refresh/", TokenRefreshView.as_view()),
     path('logout/', LogoutView.as_view()),
-    path("user/create/", AddMemberView.as_view()),
     path("users/", GetMembersView.as_view()),
     path("user/profile/", UserProfileView.as_view()),
     path('user/<int:id>/', GetMemberInfoView.as_view()),

@@ -8,8 +8,6 @@ from pathlib import Path
 from api.models import User_Team, Role
 from django.contrib.auth.models import User
 import logging
-import string
-import random
 import os
 
 
@@ -36,13 +34,6 @@ def send_email_helper(to_email, subject, template_file, context_data):
     else:
         logger.error("send_email_helper: Make sure all parameters values are passed and valid.")
         return False
-
-
-def generate_random_password(num):
-    # generate random password string of num chars
-    letters_and_digits = string.ascii_letters + string.digits
-    password = ''.join((random.choice(letters_and_digits) for i in range(num)))
-    return password
 
 
 def is_director_or_superuser(user_id, is_superuser):
