@@ -134,3 +134,23 @@ class Contact(models.Model):
     email = models.EmailField(max_length=254, null=True, blank=True)
     info = models.TextField(null=True, blank=True, validators=[MaxLengthValidator(2000)])
     company = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='contacts')
+
+
+class Mentor(models.Model):
+    LEVEL_CHOICES = (
+        ('Beginner', 'Beginner'),
+        ('Intermediate', 'Intermediate'),
+        ('Advanced', 'Advanced'),
+    )
+    RELIABILITY_CHOICES = (
+        ('Unknown', 'Unknown'),
+        ('Poor', 'Poor'),
+        ('Adequate', 'Adequate'),
+        ('Good', 'Good'),
+        ('Excellent', 'Excellent'),
+    )
+    first_name = models.CharField(max_length=255, null=False, blank=False)
+    last_name = models.CharField(max_length=255, null=False, blank=False)
+    email = models.EmailField(max_length=254, null=False, blank=False, unique=True)
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES)
+    reliability = models.CharField(max_length=20, choices=RELIABILITY_CHOICES)
