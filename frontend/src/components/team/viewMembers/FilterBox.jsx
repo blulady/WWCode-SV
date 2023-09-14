@@ -48,13 +48,13 @@ const FilterBox = (props) => {
     };
 
     const onFilterReset = () => {
-        let _filter = {};
-        Object.keys(filters).forEach((key) => {
-            _filter[key] = []
+        let filters = {...props.state};
+        Object.keys(filters).forEach((filter) => {
+            if (filter !== "team") filters[filter] = [];
         });
-        setFilters(_filter);
+        setFilters({ ...filters });
         if(props.onFilterReset) {
-            props.onFilterReset(_filter);
+            props.onFilterReset({ ...filters });
         }
     };
 
