@@ -1,0 +1,35 @@
+[
+    {
+      "model": "api.mentor",
+      "pk": 1,
+      "fields": {
+          "first_name": "Viri",
+          "last_name": "Ponce",
+          "email": "viriponce@example.com",
+          "level": "Advanced",
+          "reliability": "Excellent"
+      }
+  },
+  {
+      "model": "api.mentor",
+      "pk": 2,
+      "fields": {
+          "first_name": "Marisia",
+          "last_name": "Sanjuan",
+          "email": "msanjuan@example.com",
+          "level": "Advanced",
+          "reliability": "Excellent"
+      }
+  },
+  {
+      "model": "api.mentor",
+      "pk": 3,
+      "fields": {
+          "first_name": "Kelly",
+          "last_name": "Apple",
+          "email": "kellyapple@example.com",
+          "level": "Intermediate",
+          "reliability": "Unknown"
+      }
+  }
+]

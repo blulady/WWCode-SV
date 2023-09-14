@@ -151,6 +151,6 @@ class Mentor(models.Model):
     )
     first_name = models.CharField(max_length=255, null=False, blank=False)
     last_name = models.CharField(max_length=255, null=False, blank=False)
-    email = models.EmailField(max_length=254, null=False, blank=False, unique=True)
+    email = models.EmailField(max_length=255, null=False, blank=False, unique=True)
     level = models.CharField(max_length=20, choices=LEVEL_CHOICES)
     reliability = models.CharField(max_length=20, choices=RELIABILITY_CHOICES)
