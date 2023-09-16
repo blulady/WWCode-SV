@@ -17,9 +17,10 @@ axios.interceptors.response.use(
     return Promise.resolve(response);
   },
   function (error) {
-    const { detail, code, error: err } = error.response.data;
-    console.log(err);
-    console.log("Interceptor error:", detail, ":", code);
+    const { response, message, code } = error;
+    const detail = response.data.detail;
+    console.error(message);
+    console.error(`Interceptor error: ${detail}: ${code}`);
 
     const originalRequest = error.config;
 
