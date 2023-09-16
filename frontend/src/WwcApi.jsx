@@ -247,10 +247,12 @@ class WwcApi {
     return null
   }
 
-
-
   static async requestRegistraionLink(userId) {
-    return Promise.resolve();
+    let res = await axios.get(`${BASE_URL}/director_resend/`, {
+      headers: getConfig(),
+    });
+
+    return res.data;
   }
 
 }
