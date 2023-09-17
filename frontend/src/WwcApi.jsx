@@ -177,6 +177,12 @@ class WwcApi {
     return res.data;
   }
 
+  static async editUserProfile(data) {
+    return await axios.put(`${BASE_URL}/user/profile/`, data, {
+      headers: {...getConfig(), "Content-Type": "multipart/form-data",},
+    });
+  }
+
   static async editUserName(userName) {
     return await axios.patch(`${BASE_URL}/user/name/`, userName, {
       headers: getConfig(),
