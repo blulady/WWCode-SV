@@ -18,7 +18,7 @@ axios.interceptors.response.use(
   },
   function (error) {
     const { response, message, code } = error;
-    const detail = response.data.detail;
+    const detail = response.data?.detail || response.data?.error || "Error details not defined";
     console.error(message);
     console.error(`Interceptor error: ${detail}: ${code}`);
 
@@ -250,7 +250,9 @@ class WwcApi {
   }
 
   static async deleteCompanyHost(companyId) {
-    return null
+    return await axios.delete(`${BASE_URL}/host/${companyId}/`, {
+      headers: getConfig()
+    });
   }
 
   static async requestRegistraionLink(userId) {
