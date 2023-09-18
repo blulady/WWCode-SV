@@ -2,7 +2,7 @@ from unittest.mock import MagicMock
 from django.test import TransactionTestCase
 from rest_framework import exceptions as drf_exceptions
 from rest_framework_simplejwt.tokens import AccessToken, RefreshToken
-from ..models import UserProfile, User, RegistrationToken, Role, User_Team
+from ..models import UserProfile, User, Role, User_Team
 from api.serializers.UserProfileSerializer import UserProfileSerializer
 from api.serializers.CustomTokenObtainPairSerializer import CustomTokenObtainPairSerializer
 from django.conf import settings
@@ -26,7 +26,6 @@ class AuthCustomTokenObtainPairSerializerTestCase(TransactionTestCase):
             first_name=self.first_name,
             last_name=self.last_name
         )
-        self.registration_token = RegistrationToken.objects.get(user_id=self.user.id)
         self.user_profile = UserProfile.objects.get(user_id=self.user.id)
         userProfile = UserProfileSerializer(instance=self.user_profile, data={
             "status": UserProfile.ACTIVE
