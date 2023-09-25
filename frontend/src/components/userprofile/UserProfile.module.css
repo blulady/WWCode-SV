@@ -1,3 +1,120 @@
+.p_container {
+  padding: 85px;
+}
+
+.p_inner_container {
+  padding: 85px;
+  background: #FFFFFF;
+}
+
+.status-icon{
+  font-size: 14px;
+}
+.status-icon-active{
+  color: #007a7c;
+}
+
+.status-icon-inactive{
+  color: #828282;
+}
+
+.member-info-text {
+  text-transform: capitalize;
+}
+
+/* Profile Section */
+.header {
+  font-family: Open Sans;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 33px;
+  letter-spacing: 0em;
+}
+
+hr.divider {
+  display: block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: auto;
+  margin-right: auto;
+  border-style: inset;
+  border-width: 1px;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  border-top: 1px solid #A1A4B1;
+  width: 100%;
+}
+
+/* View Profile */
+.p-view-container {
+  padding: 50px;
+  background: #f5f5f5;
+}
+
+.user-profile-img {
+  width: 182px;
+  height: 182px;
+}
+
+.p-view-profile-container {
+  padding-left: 50px;
+  padding-right: 30px;
+}
+
+.p-name {
+  font-family: Open Sans;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 44px;
+  letter-spacing: 0em;
+}
+
+.p-email {
+  font-family: Open Sans;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 32px;
+  letter-spacing: 0em;
+  color: #2376E5;
+
+}
+
+/* Edit Profile */
+.page-header {
+  font-family: Open Sans;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 48px;
+}
+
+.label-required {
+  text-align: center;
+  font-family: Open Sans;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.label-required:before {
+  content:"* ";
+  color: red;
+}
+
+.user-profile-img {
+  width: 182px;
+  height: 182px;
+}
+
+.word-count-text {
+  position: relative;
+  left: 92%;
+  color: #A4A1B1;
+  font-size: 14px;
+}
+
 /* UserProfile */
 .view-user-image-div {
   width: 182px;
@@ -188,13 +305,69 @@ header p {
     font-weight: normal;
     line-height: 19px;
   }
-
-  input {
-    font-size: 14px;
-  }
 } 
 
-@media only screen and (max-width: 380px) { 
+@media only screen and (max-width: 576px) { 
+  .p_container {
+    padding: 35px 15px;
+    font-size: 12px;
+    line-height: 16.34px;
+  }
+  
+  .p_inner_container {
+    padding: 22px;
+  }
+  
+  .status-icon{
+    font-size: 9px;
+  }
+  
+  /* Profile Section */
+  .header {
+    font-size: 14px;
+    line-height: 19px;
+  }
+  
+  /* View Profile */
+  .p-view-container {
+    padding: 17px;
+  }
+  
+  .user-profile-img {
+    width: 75px;
+    height: 75px;
+  }
+  
+  .p-view-profile-container {
+    padding-left: 15px;
+    padding-right: 10px;
+  }
+  
+  .p-name {
+    font-size: 18px;
+    line-height: 25px;
+  }
+  
+  .p-email {
+    font-size: 12px;
+    line-height: 16.34px;
+  }
+  
+  /* Edit Profile */
+  .page-header {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  
+  .label-required {
+    font-size: 12px;
+    line-height: 20px;
+  }
+
+  .word-count-text {
+    left: 65%;
+  }
+
   /* Edit Modals */ 
   .cancel-btn {
     float: none;

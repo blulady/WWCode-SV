@@ -28,6 +28,24 @@
 
 }
 
+.wwc-primary-button {
+    background: #007a7c;
+    border: 1px solid #007a7c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 10px;
+    color: #FFFFFF;
+}
+
+.wwc-secondary-button {
+    background: #FFFFFF;
+    border: 1px solid #007a7c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    padding: 10px;
+    color: #007a7c;
+}
+
 .wwc-action-button .icon:before {
     content: "";
     width: 24px;
@@ -45,6 +63,12 @@
     background: url("./images/edit_purple_24px.png");
     background-repeat: no-repeat;
     background-size: contain;
+}
+
+select.disabled {
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
 }
 
 @media only screen and (max-width: 576px) {
@@ -67,5 +91,15 @@
         width: 16px;
         height: 16px;
         display: inline-block;
+    }
+
+    .wwc-primary-button {
+        font-size: 12px;
+        line-height: 16px;
+    }
+    
+    .wwc-secondary-button {
+        font-size: 12px;
+        line-height: 16px;
     }
 }

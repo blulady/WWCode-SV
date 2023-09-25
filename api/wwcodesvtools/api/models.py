@@ -47,22 +47,10 @@ class UserProfile(models.Model):
         self.status = self.ACTIVE
 
 
-class RegistrationToken(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    token = models.CharField(max_length=150, default='#deftoken#')
-    used = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
-    def mark_as_used(self):
-        self.used = True
-
-
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
-        RegistrationToken.objects.create(user=instance)
 
 
 class Team(models.Model):

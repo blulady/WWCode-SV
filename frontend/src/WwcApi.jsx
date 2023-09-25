@@ -18,7 +18,7 @@ axios.interceptors.response.use(
   },
   function (error) {
     const { response, message, code } = error;
-    const detail = response.data.detail;
+    const detail = response.data?.detail || response.data?.error || "Error details not defined";
     console.error(message);
     console.error(`Interceptor error: ${detail}: ${code}`);
 
@@ -177,6 +177,12 @@ class WwcApi {
     return res.data;
   }
 
+  static async editUserProfile(data) {
+    return await axios.put(`${BASE_URL}/user/profile/`, data, {
+      headers: {...getConfig(), "Content-Type": "multipart/form-data",},
+    });
+  }
+
   static async editUserName(userName) {
     return await axios.patch(`${BASE_URL}/user/name/`, userName, {
       headers: getConfig(),
@@ -244,13 +250,17 @@ class WwcApi {
   }
 
   static async deleteCompanyHost(companyId) {
-    return null
+    return await axios.delete(`${BASE_URL}/host/${companyId}/`, {
+      headers: getConfig()
+    });
   }
 
-
-
   static async requestRegistraionLink(userId) {
-    return Promise.resolve();
+    let res = await axios.get(`${BASE_URL}/director_resend/`, {
+      headers: getConfig(),
+    });
+
+    return res.data;
   }
 
 }

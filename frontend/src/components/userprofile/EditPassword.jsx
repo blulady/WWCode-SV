@@ -5,7 +5,7 @@ import classes from "./UserProfile.module.css";
 import WwcApi from "../../WwcApi";
 
 
-const EditPasswordModal = (props) => {
+const EditPassword = (props) => {
     const [password, setPassword] = useState("");
 
     const handleSetPassword = async (pwd) => {
@@ -70,4 +70,4 @@ const EditPasswordModal = (props) => {
     );
 };
 
-export default EditPasswordModal;
+export default EditPassword;

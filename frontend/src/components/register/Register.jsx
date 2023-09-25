@@ -38,6 +38,7 @@ function Register(props) {
       await WwcApi.requestRegistraionLink(email);
       setMessageInfo({ type: "Success", hasRequested: true, showRequest: false, title: "Success!", message: SUCCESS_REQUEST_REGISTER });
     } catch (error) {
+      setMessageInfo({ type: "Error", title: "Sorry!", message: ERROR_REQUEST_MESSAGE });
       console.log(error);
     }
   };

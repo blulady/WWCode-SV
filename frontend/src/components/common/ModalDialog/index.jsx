@@ -10,15 +10,28 @@ const ModalDialog = ({
   onConfirm,
   children,
 }) => {
-  return (
-    <>
-      {React.cloneElement(children, {
+
+  const allowCustomOnClick = () => {
+    if (!children.props.onClick) {
+      return {
         "data-bs-toggle": "modal",
         "data-bs-target": `#${id}`,
         onClick: (event) => {
           event.stopPropagation();
         },
-      })}
+      }
+    } else {
+      return {
+        "data-bs-toggle": "modal",
+        "data-bs-target": `#${id}`
+      }
+    }
+  }
+
+  return (
+    <>
+      {React.cloneElement(children, allowCustomOnClick())}
+
       {createPortal(
         <Modal
           id={id}
