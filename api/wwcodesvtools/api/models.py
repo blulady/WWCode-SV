@@ -7,10 +7,6 @@ from django.core.validators import MaxValueValidator, MaxLengthValidator
 # Create your models here.
 
 
-def upload_to(instance, filename):
-    return f'images/{filename}'
-
-
 class UserProfile(models.Model):
     PENDING = 'PENDING'
     ACTIVE = 'ACTIVE'
@@ -32,7 +28,7 @@ class UserProfile(models.Model):
     country = models.CharField(max_length=255, null=True, blank=True)
     timezone = models.CharField(max_length=255, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
-    photo = models.ImageField(upload_to=upload_to, null=True, blank=True)
+    photo = models.CharField(max_length=255, null=True, blank=True)
     slack_handle = models.CharField(max_length=255, null=True, blank=True)
     linkedin = models.CharField(max_length=255, null=True, blank=True)
     instagram = models.CharField(max_length=255, null=True, blank=True)
