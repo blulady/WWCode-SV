@@ -1,23 +1,28 @@
 import React, { useState, useEffect } from "react";
 import GenericTable from "../../common/Table";
 import WwcApi from '../../../WwcApi'
+import cx from "classnames";
 import styles from "./CompanyHosts.index.module.css";
 import TruncatedText from "./TruncatedText";
 import ModalDialog from "../../common/ModalDialog";
 import Contacts from "./Contacts";
+import MessageBox from "../../messagebox/MessageBox";
 
 
 const CompanyHosts = () => {
   const [companyHosts, setCompanyHosts] = useState([]);
   const [currentRecord, setCurrentRecord] = useState(null);
+  const [showRequestStatus, setShowRequestStatus] = useState({});
 
   useEffect(() => {
     const fetchCompanyHost = async () => {
       try {
         const hosts = await WwcApi.getCompanyHost();
         setCompanyHosts(hosts.data);
+        setShowRequestStatus({type: "Success"});
       } catch (error) {
-        console.log("An error occurred while fetching company hosts:", error);
+        console.warn("An error occurred while fetching company hosts:", error.message);
+        setShowRequestStatus({type: "Error", title: "Sorry!", message: error.response.data.detail});
       }
     }
     fetchCompanyHost();
@@ -95,7 +100,16 @@ const CompanyHosts = () => {
   ];
 
   return (
-    <GenericTable tableClass={styles["company-hosts-table"]} columns={columns} data={companyHosts} />
+    <React.Fragment>
+        <div className={cx(styles['message-container'])}>
+          {showRequestStatus?.type === "Error" && (
+          <MessageBox type={showRequestStatus.type} title={showRequestStatus.title} message={showRequestStatus.message}></MessageBox>
+          )}
+        </div>
+        {showRequestStatus?.type === "Success" && (
+          <GenericTable tableClass={styles["company-hosts-table"]} columns={columns} data={companyHosts} />
+        )}
+    </React.Fragment>
   );
 };
 
