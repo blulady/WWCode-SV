@@ -255,13 +255,12 @@ class WwcApi {
     });
   }
 
-  static async requestRegistraionLink(userId) {
-    let res = await axios.get(`${BASE_URL}/director_resend/`, {
+  static async requestRegistraionLink(email) {
+    return await axios.get(`${BASE_URL}/invitee/director_resend/?email=${email}`, {
       headers: getConfig(),
     });
-
-    return res.data;
   }
 
 }
+
 export default WwcApi;
