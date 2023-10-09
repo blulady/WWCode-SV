@@ -255,6 +255,18 @@ class WwcApi {
     });
   }
 
+  static async addCompanyHost(data) {
+    return await axios.post(`${BASE_URL}/host/`, data, {
+      headers: getConfig()
+    });
+  }
+
+  static async editCompanyHost(id, data) {
+    return await axios.put(`${BASE_URL}/host/${id}/`, data, {
+      headers: getConfig()
+    });
+  }
+
   static async requestRegistraionLink(email) {
     return await axios.get(`${BASE_URL}/invitee/director_resend/?email=${email}`, {
       headers: getConfig(),

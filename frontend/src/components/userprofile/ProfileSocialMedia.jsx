@@ -1,7 +1,7 @@
 import React from "react";
 
 import ProfileSection from "./ProfileSection";
-import TextField from "./forms/TextField";
+import TextField from "../common/forms/TextField";
 
 export const ProfileSocialMedia = ({ slack_handle, linkedin, instagram, facebook, twitter, medium, readonly, onChange }) => {
     return (

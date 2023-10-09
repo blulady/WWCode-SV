@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import ProfileSection from "./ProfileSection";
 import ProfileImage from "../../images/ProfileImage.png";
-import TextField from "./forms/TextField";
 import ProfileBio from "./ProfileBio";
 import ProfileSocialMedia from "./ProfileSocialMedia";
+import TextField from "../common/forms/TextField";
 
 import MemberImage from "../memberdetails/MemberImage";
 import ProfileLocation from "./ProfileLocation";
