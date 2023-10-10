@@ -72,6 +72,12 @@ select.disabled {
     appearance: none !important;
 }
 
+/* To overrider bootstrap from validation for valid case */
+.was-validated .form-control:valid {
+    border-color: #ced4da !important;
+    background-image: none !important;
+}
+
 @media only screen and (max-width: 576px) {
     .wwc-action-button {
         height: 32px;
