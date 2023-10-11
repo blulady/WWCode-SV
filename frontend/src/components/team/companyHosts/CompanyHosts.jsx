@@ -36,7 +36,6 @@ const CompanyHosts = () => {
   const handleDeleteCompanyHost = () => {
     WwcApi.deleteCompanyHost(currentRecord.id)
       .then((res) => {
-        console.info(res.data.result);
         setCompanyHosts(companyHosts.filter((record) => record.id !== currentRecord.id));
         setCurrentRecord(null);
       })
@@ -165,8 +164,8 @@ const CompanyHosts = () => {
       elements.push(<MessageBox type="Success" title="Success!" message={`${created} was added to the list of host companies.`}></MessageBox>);
     }
     elements.push(
-      <div className="d-flex justify-content-end mb-2 mb-md-5">
-        <button type="button" className="wwc-action-button" onClick={() => goToCompanyHostForm(false)}>
+      <div className="d-flex justify-content-end mb-2 mb-md-5" key="">
+        <button type="button" className="wwc-action-button" onClick={() => goToCompanyHostForm(false, {})}>
           + Add Host
         </button>
       </div>
