@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 from api.serializers.CompleteUserProfileSerializer import CompleteUserProfileSerializer
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from rest_framework.parsers import MultiPartParser, FormParser
 import logging
 from rest_framework import status
 
@@ -16,14 +15,11 @@ class UserProfileView(RetrieveUpdateAPIView):
     """
     Get current logged in user's id. If valid, display profile information for that user. Return an error
     message if there is no id match in the DB.
-    ------------------------------------------------
-    photo can be null, blank or "/media/images/filename.extention".
     ---------------------------------------------------------------
     """
 
     permission_classes = [IsAuthenticated]
     serializer_class = CompleteUserProfileSerializer
-    parser_classes = (MultiPartParser, FormParser)
     queryset = None
     http_method_names = ['get', 'put']
 
@@ -104,7 +100,6 @@ class UserProfileView(RetrieveUpdateAPIView):
                     'error': {
                         "first_name": ["This field may not be blank.", "This field may not be null."],
                         "last_name": ["This field may not be blank.", "This field may not be null."],
-                        "photo": ["The submitted data was not a file. Check the encoding type on the form."]
                     }
                 }
             }
@@ -127,12 +122,29 @@ class UserProfileView(RetrieveUpdateAPIView):
         ),
     }
 
-    @swagger_auto_schema(operation_description="""
+    @swagger_auto_schema(request_body=openapi.Schema(
+                             type=openapi.TYPE_OBJECT,
+                             properties={
+                                'first_name': openapi.Parameter('first_name', openapi.IN_BODY, description="First name", type=openapi.TYPE_STRING),
+                                'last_name': openapi.Parameter('last_name', openapi.IN_BODY, description="Last name", type=openapi.TYPE_STRING),
+                                'city': openapi.Parameter('city', openapi.IN_BODY, description="City", type=openapi.TYPE_STRING),
+                                'state': openapi.Parameter('state', openapi.IN_BODY, description="State", type=openapi.TYPE_STRING),
+                                'country': openapi.Parameter('country', openapi.IN_BODY, description="Country", type=openapi.TYPE_STRING),
+                                'timezone': openapi.Parameter('timezone', openapi.IN_BODY, description="Timezone", type=openapi.TYPE_STRING),
+                                'bio': openapi.Parameter('bio', openapi.IN_BODY, description="Bio", type=openapi.TYPE_STRING),
+                                'photo': openapi.Parameter('photo', openapi.IN_BODY, description="Photo", type=openapi.TYPE_STRING),
+                                'slack_handle': openapi.Parameter('slack_handle', openapi.IN_BODY, description="Slack_handle", type=openapi.TYPE_STRING),
+                                'linkedin': openapi.Parameter('linkedin', openapi.IN_BODY, description="Linkedin", type=openapi.TYPE_STRING),
+                                'instagram': openapi.Parameter('instagram', openapi.IN_BODY, description="Instagram", type=openapi.TYPE_STRING),
+                                'facebook': openapi.Parameter('facebook', openapi.IN_BODY, description="Facebook", type=openapi.TYPE_STRING),
+                                'twitter': openapi.Parameter('twitter', openapi.IN_BODY, description="Twitter", type=openapi.TYPE_STRING),
+                                'medium': openapi.Parameter('medium', openapi.IN_BODY, description="Medium", type=openapi.TYPE_STRING),
+                             },
+                         ),
+                         operation_description="""
                            This function is able to update first name and last name as well as the fields on the User Profile table of the logged in user.
                            ------------------------------------------------
                            photo is not required and can be null or blank
-                           ------------------------------------------------
-                            email and date_joined are read only, they will not be updated.
                            ------------------------------------------------
                         """,
                          operation_summary="Updates the logged in user's User Profile.",

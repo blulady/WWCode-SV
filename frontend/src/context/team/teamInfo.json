@@ -58,7 +58,8 @@
       },
       {
         "pageId": "company-hosts",
-        "label": "Company Hosts"
+        "label": "Company Hosts",
+        "isHostTeamOnly": true
       }
     ],
     "slug": "host_management_resource",

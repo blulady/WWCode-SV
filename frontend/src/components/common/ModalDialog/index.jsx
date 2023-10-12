@@ -8,6 +8,7 @@ const ModalDialog = ({
   text,
   onCancel = () => Promise.resolve(),
   onConfirm,
+  contents,
   children,
 }) => {
 
@@ -39,6 +40,7 @@ const ModalDialog = ({
           text={text}
           onCancel={onCancel}
           onConfirm={onConfirm}
+          contents={contents}
         />,
         document.body
       )}

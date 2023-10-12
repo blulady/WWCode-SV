@@ -9,7 +9,7 @@ class NonSensitiveUserProfileSerializer(NonSensitiveMemberInfoSerializer):
     country = serializers.CharField(source='userprofile.country', allow_blank=True, allow_null=True)
     timezone = serializers.CharField(source='userprofile.timezone', allow_blank=True, allow_null=True)
     bio = serializers.CharField(source='userprofile.bio', allow_blank=True, allow_null=True)
-    photo = serializers.ImageField(source='userprofile.photo', max_length=None, allow_empty_file=False, allow_null=True, required=False)
+    photo = serializers.CharField(source='userprofile.photo', allow_blank=True, allow_null=True)
     slack_handle = serializers.CharField(source='userprofile.slack_handle', allow_blank=True, allow_null=True)
     linkedin = serializers.CharField(source='userprofile.linkedin', allow_blank=True, allow_null=True)
     instagram = serializers.CharField(source='userprofile.instagram', allow_blank=True, allow_null=True)

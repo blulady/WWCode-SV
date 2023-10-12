@@ -7,22 +7,17 @@ const Modal = ({
   id,
   title,
   text,
+  contents,
   onCancel = () => Promise.resolve(),
   onConfirm,
+
 }) => {
-
-
-  return (
-    <div className="modal" id={id} tabIndex="-1" role="dialog">
-    <div className="modal-dialog modal-dialog-centered">
-      <div className="modal-content">
-        <div className="modal-header fw-bold">
-          <header className="text-center">
-            <div className={classes["modal-title-text"]}>{title}</div>
-          </header>
-        </div>
-        <div className="modal-body">
-          <div className="mb-5">{text}</div>
+  const renderModalContents = () => {
+    if (contents) {
+      return contents;
+    }
+    return (<>
+              <div className="mb-5">{text}</div>
           <div className="text-center">
             <button
               className={cx(
@@ -57,7 +52,19 @@ const Modal = ({
             >
               Confirm
             </button>
-          </div>
+          </div></>)
+  };
+
+  return (
+    <div className="modal" id={id} tabIndex="-1" role="dialog">
+    <div className="modal-dialog modal-dialog-centered">
+      <div className="modal-content">
+        
+          {title &&           <div className="modal-header fw-bold"><header className="text-center">
+            <div className={classes["modal-title-text"]}>{title}</div>
+          </header></div>}
+        <div className="modal-body">
+        {renderModalContents()}
         </div>
       </div>
     </div>

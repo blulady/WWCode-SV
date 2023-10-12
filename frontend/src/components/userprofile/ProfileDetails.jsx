@@ -1,8 +1,8 @@
 import React from "react";
 import ProfileSection from "./ProfileSection";
-import TextField from "./forms/TextField";
+import FormLabelField from "../common/forms/FormLabelField";
+import TextField from "../common/forms/TextField";
 import { formatDate } from "../../utils";
-import FormLabelField from "./forms/FormLabelField";
 import styles from "./UserProfile.module.css"
 import cx from "classnames";
 

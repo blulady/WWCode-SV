@@ -5,7 +5,6 @@ from ..validators.FirstAndLastNameValidator import validate_first_name, validate
 from utils.EmailSendingFailedError import EmailSendingFailedError
 from api.helper_functions import send_email_helper
 from rest_framework import serializers
-from api.helper_functions import delete_file_from_media
 import logging
 
 logger = logging.getLogger('django')
@@ -33,7 +32,6 @@ class CompleteUserProfileSerializer(NonSensitiveUserProfileSerializer):
         profile = instance.userprofile
         userprofile_data = validated_data.pop('userprofile')
         email = user.email
-        photo_before_update = profile.photo
 
         # set user data
         user.first_name = validated_data.get('first_name', instance.first_name)
@@ -48,10 +46,4 @@ class CompleteUserProfileSerializer(NonSensitiveUserProfileSerializer):
             email_sent = send_email_helper(email, 'User Profile updated at WWCode-Silicon Valley', 'userprofile_update_email.html', {})
             if not email_sent:
                 raise EmailSendingFailedError()
-        photo_after_update = profile.photo
-        if photo_before_update != photo_after_update and photo_before_update:
-            try:
-                delete_file_from_media(photo_before_update.name)
-            except Exception as e:
-                logger.error(f'CompleteUserProfileSerializer Update: error deleting previous image: {e}')
         return user

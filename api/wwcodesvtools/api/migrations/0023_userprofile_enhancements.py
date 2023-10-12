@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='userprofile',
             name='photo',
-            field=models.ImageField(blank=True, null=True, upload_to=api.models.upload_to),
+            field=models.CharField(blank=True, max_length=255, null=True),
         ),
         migrations.AddField(
             model_name='userprofile',

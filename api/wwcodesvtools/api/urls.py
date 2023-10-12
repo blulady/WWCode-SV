@@ -22,6 +22,7 @@ from api.views.resources_view import ResourceViewSet
 from api.views.DeleteMemberRoleView import DeleteMemberRoleView
 from api.views.UserView import UserView
 from api.views.HostView import HostView
+from api.views.DirectorResendInviteView import DirectorResendInviteView
 from rest_framework.routers import SimpleRouter
 
 router = SimpleRouter()
@@ -56,6 +57,7 @@ urlpatterns = [
     path('roles/', RolesView.as_view()),
     path('validate/', ValidateRegLinkView.as_view()),
     path('user/name/', UserView.as_view()),
+    path('invitee/director_resend/', DirectorResendInviteView.as_view()),
 ]
 
 

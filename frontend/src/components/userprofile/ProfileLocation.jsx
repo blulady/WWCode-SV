@@ -1,8 +1,8 @@
 import React from "react";
 
 import ProfileSection from "./ProfileSection";
-import SelectMenu from "./forms/SelectMenu";
-import TextField from "./forms/TextField";
+import SelectMenu from "../common/forms/SelectMenu";
+import TextField from "../common/forms/TextField";
 
 import ct from "countries-and-timezones";
 
