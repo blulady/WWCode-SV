@@ -19,7 +19,7 @@ There are two main files in the project used to setup the application in order t
 
 Docker will create a container for each service defined in the [docker-compose.yml](https://github.com/WomenWhoCode/WWCode-SV/blob/master/api/wwcodesvtools/docker-compose.yml) file.
 
-The following instructions will allow you to run the application using Docker. 
+The following instructions will allow you to run the application using Docker.
 
 
 1. Install [Docker Community Edition](https://docs.docker.com/install/) if it is not already installed.
@@ -36,13 +36,13 @@ The following instructions will allow you to run the application using Docker.
     ```
     $ docker-compose up
     ```
-    
+
    Docker creates a container for the project with three services: web, migrations and db.
-   
-6. The web application will be available at http://localhost:8000. 
+
+6. The web application will be available at http://localhost:8000.
 
    In order to see the list of the existing API endpoints go to: http://localhost:8000/swagger.
-   
+
 **NOTE:** After running the application, revert back step 4. Uncomment the [ApiConfig.ready()](https://github.com/WomenWhoCode/WWCode-SV/blob/master/api/wwcodesvtools/api/apps.py) function in the `apps.py` file.
 
 ### Compose
@@ -125,7 +125,7 @@ $ docker-compose exec web bash ./manage.py loaddata api/fixtures/users_data.json
 
 This will create the below users in the local db with 'Password123'
 ```
-            user_name            | first_name | last_name 
+            user_name            | first_name | last_name
 ---------------------------------+------------+-----------
  director@example.com            | John       | Smith
  volunteer@example.com           | Alice      | Robinson
@@ -141,7 +141,7 @@ This will create the below users in the local db with 'Password123'
 
 Here are the users details with roles and teams:
 ```
- user_id |            user_name            |    FN     |    LN    | role_name | status  |       team_name        
+ user_id |            user_name            |    FN     |    LN    | role_name | status  |       team_name
 ---------+---------------------------------+-----------+----------+-----------+---------+------------------------
        1 | director@example.com            | John      | Smith    | DIRECTOR  | ACTIVE  | Social Media Team
        2 | volunteer@example.com           | Alice     | Robinson | VOLUNTEER | ACTIVE  | Partnership Management
@@ -149,12 +149,12 @@ Here are the users details with roles and teams:
        2 | volunteer@example.com           | Alice     | Robinson | VOLUNTEER | ACTIVE  | Host Management
        3 | leader@example.com              | Bruno     | Clark    | LEADER    | ACTIVE  | Event Volunteers
        3 | leader@example.com              | Bruno     | Clark    | LEADER    | ACTIVE  | Volunteer Management
-       4 | leaderPendingStatus@example.com | Caroline  | Miller   | LEADER    | PENDING | 
-       5 | brendajackson@example.com       | Brenda    | Jackson  | DIRECTOR  | ACTIVE  | 
+       4 | leaderPendingStatus@example.com | Caroline  | Miller   | LEADER    | PENDING |
+       5 | brendajackson@example.com       | Brenda    | Jackson  | DIRECTOR  | ACTIVE  |
        6 | sophiefisher@example.com        | Sophie    | Fisher   | VOLUNTEER | ACTIVE  | Hackathon Volunteers
        6 | sophiefisher@example.com        | Sophie    | Fisher   | LEADER    | ACTIVE  | Tech Event Team
-       7 | alexanderbrown@example.com      | Alexander | Brown    | LEADER    | ACTIVE  | 
-       8 | jackross@example.com            | Jack      | Ross     | LEADER    | PENDING | 
+       7 | alexanderbrown@example.com      | Alexander | Brown    | LEADER    | ACTIVE  |
+       8 | jackross@example.com            | Jack      | Ross     | LEADER    | PENDING |
        9 | sophiebutler@example.com        | Sophie    | Butler   | DIRECTOR  | ACTIVE  | Partnership Management
        9 | sophiebutler@example.com        | Sophie    | Butler   | LEADER    | ACTIVE  | Event Volunteers
 ```
@@ -164,8 +164,8 @@ Here are the users details with roles and teams:
 
 For endpoints that need authentication and authorization,
 * Click on Django Login button:
-    - Login using the username and password. 
-    
+    - Login using the username and password.
+
         Some endpoints are restricted to the director role, so it is recommended to login with a user with this role in order to have access to all endpoints.
     - Copy the "access" token: the alphanumeric value that is between double quotes (" ").
 
@@ -175,9 +175,9 @@ For endpoints that need authentication and authorization,
 Go back to /swagger/
 
 * Click on Authorize button:
-    - In the Value text box, enter "Bearer", leave a space and paste the value of the access $token$. 
+    - In the Value text box, enter "Bearer", leave a space and paste the value of the access $token$.
       This will add an authorization key which will have the "Bearer $token$" as the value in the request header.
-      
+
 
 <img width="642" alt="Screen Shot 2023-05-10 at 5 25 39 PM" src="https://github.com/WomenWhoCode/WWCode-SV/assets/102187795/5f34a048-f6b9-4a83-95cf-6b993a460c9f">
 
@@ -185,31 +185,31 @@ Go back to /swagger/
 **NOTE:** Do not include the double quotes (" ") either when copying the access token or when entering the values in the text box.
 
 
-You will be authorized at this point. You will see the lock icons closed as an indicator. 
+You will be authorized at this point. You will see the lock icons closed as an indicator.
 
 * Click on each endpoint and click on "Try it out" to send requests to the API.
 
-    
+
 ## How to contribute
 
-* Please follow the following naming convention for branch: 
-    
+* Please follow the following naming convention for branch:
+
     BE-SprintXFeatureNameIssue#Developer
 
     E.g.: BE-Sprint1UserLogin#12Rita
-    
+
     * Feature name can be shortened so that it’s not too long
 
 Refer to the [Technical Guide for Backend](https://github.com/WomenWhoCode/WWCode-SV/wiki/Technical-Guide-for-Backend) for guidelines and other useful information.
-    
+
 ## How to enable swagger and redoc documentation for your API
 
 Swagger and redoc documentation for the APIs can be automatically generated by ensuring
 some simple steps in your views.
 * Make sure that your view class has a `serializer_class` variable defined and is pointing
 to the serializer class that the view uses.
-* Swagger does not do a good job in automatically documenting the responses. To document the 
-response of the API properly, define a dictionary that can contain the openapi schema for the 
+* Swagger does not do a good job in automatically documenting the responses. To document the
+response of the API properly, define a dictionary that can contain the openapi schema for the
 responses. The schema has all the possible responses from the API along with a brief description
 and examples.
 Example:
@@ -231,7 +231,7 @@ post_response_schema = {
         ),
     }
 ```
-* Use the @swagger_auto_schema decorator to override the swagger auto schema generation 
+* Use the @swagger_auto_schema decorator to override the swagger auto schema generation
 for the responses.
 Example:
 ```
@@ -240,24 +240,24 @@ def post(self, request):
     ...
 ```
 * To check out the documentation, open `/redoc/` or `/swagger/`
-    
-## Deploying the Backend API on [Railway](railway.app) 
-The following instructions are specific to deploy the backend application on Railway, assuming the initial project setup on Railway is done. 
-    
+
+## Deploying the Backend API on [Railway](railway.app)
+The following instructions are specific to deploy the backend application on Railway, assuming the initial project setup on Railway is done.
+
 * [Install Railway CLI](https://docs.railway.app/develop/cli) following the instructions for your operating system.
 
 For deploying the application on Railway, we use the dockerfile [`Dockerfile`](https://github.com/WomenWhoCode/WWCode-SV/blob/master/api/wwcodesvtools/Dockerfile). It contains the commands to be run while deploying, to install all the dependencies and execute the Django related commands to run migrations, collect static files and load fixtures(in dev only).
 
- 
+
 1. Open the [`Dockerfile`](https://github.com/WomenWhoCode/WWCode-SV/blob/master/api/wwcodesvtools/Dockerfile) and comment out/uncomment the following lines depending on the environment you are deploying:
 
 * Development Environment:
     ```
-    CMD  python manage.py migrate && python manage.py loaddata api/fixtures/users_data.json && python manage.py collectstatic && gunicorn wwcodesvtools.wsgi:application --bind 0.0.0.0:$PORT
+    CMD  python manage.py migrate && python manage.py loaddata api/fixtures/users_data.json && python manage.py collectstatic --noinput && gunicorn wwcodesvtools.wsgi:application --bind 0.0.0.0:$PORT
     ```
 * Staging Environment:
     ```
-    CMD  python manage.py migrate && python manage.py collectstatic && gunicorn wwcodesvtools.wsgi:application --bind 0.0.0.0:$PORT
+    CMD  python manage.py migrate && python manage.py collectstatic --noinput && gunicorn wwcodesvtools.wsgi:application --bind 0.0.0.0:$PORT
     ```
 
 
@@ -282,7 +282,7 @@ For deploying the application on Railway, we use the dockerfile [`Dockerfile`](h
     * Development Env Project: **wwcode-chtools-api-dev**
 
     * Stage Env Project: **wwcode-chtools-api-stage**
-    
+
     You can find the ProjectId on Railway(web), selecting the project then under the Settings > General > Project Info page.
 
 
@@ -291,15 +291,15 @@ For deploying the application on Railway, we use the dockerfile [`Dockerfile`](h
     ```
     railway up
     ```
-    
-    Make sure you are in the backend directory (where the Dockerfile is) because if no path is provided the current directory is deployed. 
 
-    
+    Make sure you are in the backend directory (where the Dockerfile is) because if no path is provided the current directory is deployed.
+
+
 If there is no errors during the deployment process, you will be able to access the application.
-    
+
    * Dev environment:   https://wwcode-chtools-api-dev-development.up.railway.app/swagger/
    * Staging environment: https://wwcode-chtools-api-stage-production.up.railway.app/swagger/
-    
+
 During the deployment process, Railway generates build logs and deploy logs. In case an error occurs, you can review what happened in the process.
 
 ## Other Railway commands
@@ -321,7 +321,7 @@ During the deployment process, Railway generates build logs and deploy logs. In 
     ```
 * Open your current Railway project in the browser.
     ```
-    railway open 
+    railway open
     ```
 * Disconnects the current directory from Railway. You will need to rerun railway init to use railway in this directory again.
     ```
@@ -376,7 +376,7 @@ heroku logs --tail -a wwcode-chtools-api
 ```
 heroku config:set SECRET_KEY=SOME_SECRET_VALUE -a wwcode-chtools-api
 ```
-The config variables set in this way are available as environment variables to 
+The config variables set in this way are available as environment variables to
 the application.
 
 * Check environment variables that are available to the app
