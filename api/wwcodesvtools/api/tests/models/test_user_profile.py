@@ -4,7 +4,7 @@ from ...models import UserProfile
 
 class TestUserProfile(TransactionTestCase):
     reset_sequences = True
-    fixtures = ["users_data.json", "userprofile_data.json", "roles_data.json", "teams_data.json"]
+    fixtures = ["users_data.json", "roles_data.json", "teams_data.json"]
     volunteer_brenda = None
     volunteer_sophie = None
     volunteer_alexander = None

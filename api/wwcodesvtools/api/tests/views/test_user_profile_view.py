@@ -7,7 +7,7 @@ import json
 
 class UserProfileViewTestCase(TransactionTestCase):
     reset_sequences = True
-    fixtures = ['users_data.json', 'teams_data.json', 'roles_data.json', 'userprofile_data.json']
+    fixtures = ['users_data.json', 'teams_data.json', 'roles_data.json']
     USERPROFILE_FIELDS = ['city', 'state', 'country', 'timezone', 'bio', 'photo', 'slack_handle', 'linkedin', 'instagram', 'facebook', 'twitter', 'medium']
     VOLUNTEER_EMAIL = 'volunteer@example.com'
     PASSWORD = 'Password123'
