@@ -30,7 +30,7 @@ class InviteeModelTest(TransactionTestCase):
         response = self.client.get("/api/invitee/", **self.bearer)
         data_json = response.json()
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(data_json), 6)
+        self.assertEqual(len(data_json), 7)
 
     # Testing GET invitee list endpoint authenticated
     # a user with Leader role
@@ -50,7 +50,6 @@ class InviteeModelTest(TransactionTestCase):
                            "role": 1,
                            "registration_token": token,
                            "resent_counter": 0,
-                           "accepted": False,
                            "created_by": 1
                            })
         response = self.client.post("/api/invitee/", data, **self.bearer, accept=json_type, content_type=json_type)

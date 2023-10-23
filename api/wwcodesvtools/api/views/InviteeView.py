@@ -56,7 +56,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
     filter_backends = [OrderingFilter, SearchFilter]
     ordering_fields = ['email', 'status', 'role_name']
     search_fields = ['^email']
-    queryset = Invitee.objects.all().exclude(accepted=True)
+    queryset = Invitee.objects.all()
 
     # Validates if the fields passed as parameters for ordering are allowed
     def validate_ordering_fields(self, fields):
@@ -78,7 +78,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
                                                 When(~Q(updated_at__lt=threshold_datetime) & Q(resent_counter__gt=0), then=Value('RESENT')),
                                                 When(updated_at__lt=threshold_datetime, then=Value('EXPIRED')),
                                                 output_field=fields.CharField()
-                                            )).exclude(accepted=True)
+                                            ))
         search_query = self.request.query_params.get('search')
         if search_query is not None:
             queryset = queryset.filter(email__istartswith=search_query)
@@ -256,7 +256,6 @@ class InviteeViewSet(viewsets.ModelViewSet):
                     "status": 'INVITED',
                     "registration_token": registration_token,
                     "resent_counter": 0,
-                    "accepted": False,
                     'created_at': timenow,
                     'updated_at': timenow,
                     'created_by': created_by
