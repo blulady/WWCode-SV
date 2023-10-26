@@ -41,13 +41,6 @@ class InviteeModelTest(TransactionTestCase):
         max_length = invitee._meta.get_field('registration_token').max_length
         self.assertEqual(max_length, 150)
 
-    # Testing default value for accepted
-    def test_default_values(self):
-        invitee = Invitee(email="volunteer3@example.com", message="Invitee to new user", created_by=self._director)
-        invitee.save()
-        self.assertEquals(invitee.resent_counter, 0)
-        self.assertEquals(invitee.accepted, False)
-
     # Testing timestamps
     def test_it_has_timestamps(self):
         invitee = Invitee.objects.get(pk=1)

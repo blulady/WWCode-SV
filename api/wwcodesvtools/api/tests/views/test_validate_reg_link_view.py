@@ -29,7 +29,6 @@ class ValidateRegLinkViewTestCase(TransactionTestCase):
                           role=Role.objects.get(name='VOLUNTEER'),
                           registration_token=self.token,
                           resent_counter=0,
-                          accepted=False,
                           created_by=User.objects.get(email=self.DIRECTOR_EMAIL)
                           )
         invitee.save()

@@ -97,7 +97,6 @@ class Invitee(models.Model):
     role = models.ForeignKey(Role, on_delete=models.CASCADE, default=1)
     registration_token = models.CharField(null=False, blank=False, max_length=150)
     resent_counter = models.PositiveSmallIntegerField(default=0, validators=[MaxValueValidator(5)])
-    accepted = models.BooleanField(default=False)
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

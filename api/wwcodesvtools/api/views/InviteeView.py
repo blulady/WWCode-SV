@@ -1,35 +1,172 @@
+import logging
+from api.helper_functions import send_email_helper, is_user_active
 from api.models import Invitee
-from api.serializers.InviteeSerializer import InviteeSerializer
-from rest_framework import viewsets
-from rest_framework.permissions import IsAuthenticated
 from api.permissions import CanAccessInvitee
+from api.serializers.InviteeSerializer import InviteeSerializer
+from datetime import timedelta, datetime
+from django.conf import settings
+from django.contrib.auth.models import User
+from django.db import transaction
+from django.db.models import F, fields, Case, When, Value, CharField, Q
+from django.db.models.functions import Cast
+from django.forms import ValidationError
+from django.utils import timezone
+from django.utils.http import urlencode
+from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
-from uuid import uuid4
-from api.helper_functions import send_email_helper, is_user_active
-from datetime import datetime
-import logging
-from django.utils.http import urlencode
-from rest_framework.response import Response
 from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.decorators import action
-from django.conf import settings
-from django.shortcuts import get_object_or_404
-from django.db import transaction
-from django.contrib.auth.models import User
+from rest_framework.filters import OrderingFilter, SearchFilter
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from uuid import uuid4
 
 logger = logging.getLogger('django')
 
 
 class InviteeViewSet(viewsets.ModelViewSet):
-    # Exclude the invitees that has been accepted
-    queryset = Invitee.objects.exclude(accepted=True)
+
+    """
+    Returns a list of all invitees.
+    Ordering by default is descending by the most recent date of invited member
+    ------------------------------------------------
+    You may also order by email, status and role_name
+    You may also specify reverse orderings by prefixing the field name with '-', like so:
+    http//example.com/api/invitee/?ordering=email
+    http//example.com/api/invitee/?ordering=-email
+    http//example.com/api/invitee/?ordering=status,role_name
+    http//example.com/api/invitee/?ordering=-role_name, email
+
+    Returns a list of invitees.
+    -------------------------------------------------------------
+    Search by any number of characters in email:
+    http//example.com/api/users/?search=email
+    Returns a list of invitees
+
+    Returns a list of invitees.
+    -------------------------------------------------------------
+    Search and ordering:
+    http//example.com/api/users/?ordering=role_name&search=email
+    Returns a list of invitees
+    """
+
     permission_classes = [IsAuthenticated & CanAccessInvitee]
+    filter_backends = [OrderingFilter, SearchFilter]
+    ordering_fields = ['email', 'status', 'role_name']
+    search_fields = ['^email']
+    queryset = Invitee.objects.all()
+
+    # Validates if the fields passed as parameters for ordering are allowed
+    def validate_ordering_fields(self, fields):
+        allowed_fields = self.ordering_fields
+        invalid_fields = [field for field in fields if field.lstrip('-') not in allowed_fields]
+        if invalid_fields:
+            error_message = f"The following ordering fields are invalid: {', '.join(invalid_fields)}"
+            raise ValidationError(error_message)
+
+    # Override get_queryset for custom implementation of ordering and search
+    def get_queryset(self):
+        threshold_datetime = timezone.now() - timedelta(seconds=settings.REGISTRATION_LINK_EXPIRATION)
+
+        # Annotate queryset to dynamically compute role_name and status fields
+        # in order to be able to use them as ordering fields
+        queryset = Invitee.objects.annotate(role_name=Cast(F('role__name'), CharField()),
+                                            status=Case(
+                                                When(~Q(updated_at__lt=threshold_datetime) & Q(resent_counter=0), then=Value('INVITED')),
+                                                When(~Q(updated_at__lt=threshold_datetime) & Q(resent_counter__gt=0), then=Value('RESENT')),
+                                                When(updated_at__lt=threshold_datetime, then=Value('EXPIRED')),
+                                                output_field=fields.CharField()
+                                            ))
+        search_query = self.request.query_params.get('search')
+        if search_query is not None:
+            queryset = queryset.filter(email__istartswith=search_query)
+        ordering_fields = self.request.query_params.get('ordering')
+        if ordering_fields:
+            ordering_fields = ordering_fields.split(',')
+            self.validate_ordering_fields(ordering_fields)
+            ordering_fields.append('-updated_at')
+            return queryset.order_by(*ordering_fields)
+        return queryset.order_by(('-updated_at'))
 
     def get_serializer_class(self):
         if self.action == 'create' or self.action == 'resend':
             return None
         return InviteeSerializer
+
+    get_response_schema = {
+        status.HTTP_200_OK: openapi.Response(
+            description="List of all Invitees",
+            examples={
+                "application/json": {
+                    'result': [
+                                {
+                                    "id": 7,
+                                    "email": "volunteer_7@example.com",
+                                    "role_name": "DIRECTOR",
+                                    "status": "RESENT",
+                                    "created_at": "2023-09-26T02:00:33.552925Z",
+                                    "updated_at": "2023-09-26T02:00:33.552925Z"
+                                },
+                                {
+                                    "id": 9,
+                                    "email": "volunteer_9@example.com",
+                                    "role_name": "DIRECTOR",
+                                    "status": "INVITED",
+                                    "created_at": "2023-09-25T23:22:01.413300Z",
+                                    "updated_at": "2023-09-25T23:22:01.413333Z"
+                                },
+                                {
+                                    "id": 3,
+                                    "email": "volunteer_3@example.com",
+                                    "role_name": "LEADER",
+                                    "status": "EXPIRED",
+                                    "created_at": "2017-10-19T17:30:10.468000Z",
+                                    "updated_at": "2017-10-19T17:30:10.468000Z"
+                                },
+                        ]
+                }
+            }
+        ),
+        status.HTTP_400_BAD_REQUEST: openapi.Response(
+            description="User is not authenticated",
+            examples={
+                "application/json": {
+                    "error": "The following ordering fields are invalid: invalid_field",
+                }
+            }
+        ),
+        status.HTTP_401_UNAUTHORIZED: openapi.Response(
+            description="User is not authenticated",
+            examples={
+                "application/json": {
+                    "detail": "Authentication credentials were not provided.",
+                }
+            }
+        ),
+        status.HTTP_403_FORBIDDEN: openapi.Response(
+            description="User is not allowed",
+            examples={
+                "application/json": {
+                    "detail": "You do not have permission to perform this action.",
+                }
+            }
+        ),
+    }
+
+    @swagger_auto_schema(
+        operation_summary="Lists all Invitees sorted descending by the most recent date of invited member",
+        responses=get_response_schema)
+    def list(self, request, *args, **kwargs):
+        try:
+            queryset = self.get_queryset()
+            serializer = self.get_serializer_class()(queryset, many=True)
+        except ValidationError as error:
+            return Response({'error': str(error)}, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as error:
+            return Response({'error': str(error)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(serializer.data)
 
     ERROR_CREATING_INVITEE = 'Error creating invitee'
     ERROR_SENDING_EMAIL_NOTIFICATION = 'Error sending email notification to the invitee'
@@ -98,7 +235,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
         logger.debug(f'InviteeViewSet Create : query params: {req}')
 
         try:
-            email = req.get('email')
+            email = req.get('email').lower()
             role = req.get('role')
             message = req.get('message')
 
@@ -119,7 +256,6 @@ class InviteeViewSet(viewsets.ModelViewSet):
                     "status": 'INVITED',
                     "registration_token": registration_token,
                     "resent_counter": 0,
-                    "accepted": False,
                     'created_at': timenow,
                     'updated_at': timenow,
                     'created_by': created_by
