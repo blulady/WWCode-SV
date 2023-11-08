@@ -1,4 +1,4 @@
-Django==3.2
+Django==3.2.23
 django-registration==3.1
 django-environ==0.4.5
 djangorestframework==3.11.1
