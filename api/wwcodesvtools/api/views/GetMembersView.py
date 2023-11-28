@@ -59,7 +59,6 @@ class GetMembersView(ListAPIView):
     def get(self, request):
         # This get method needs to be written purely to add the swagger_auto_schema decorator
         # So that we can display and accept the query params from swagger UI
-        self.is_user_director_or_superuser = is_director_or_superuser(request.user.id, request.user.is_superuser)
         queryset = self.get_queryset()
         filter_query_set = self.filter_queryset(queryset)
         serializer = self.get_serializer_class()(filter_query_set, many=True)
@@ -105,7 +104,7 @@ class GetMembersView(ListAPIView):
         return queryset
 
     def get_serializer_class(self):
-        if self.is_user_director_or_superuser:
+        if is_director_or_superuser(self.request.user.id, self.request.user.is_superuser):
             return CompleteMemberInfoSerializer
         return NonSensitiveMemberInfoSerializer
 
