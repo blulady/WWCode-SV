@@ -1,0 +1,60 @@
+version: 4.1.1
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.8
+        environment:
+          DATABASE_URL: postgres://postgres@localhost:5432/postgres_test?sslmode=disable
+      - image: circleci/postgres:12.0-alpine-ram
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+    environment:
+        DEBUG: True
+        SECRET_KEY: SECRET_KEY
+        SENDGRID_API_KEY: SENDGRID_API_KEY
+        EMAIL_BACKEND: 'django.core.mail.backends.smtp.EmailBackend'
+        EMAIL_HOST: 'smtp.sendgrid.net'
+        EMAIL_USE_TLS: True
+        EMAIL_PORT: 587
+        EMAIL_HOST_USER: 'apikey'
+        EMAIL_SENDER: 'WWCodeSV@gmail.com'
+        FRONTEND_APP_URL: 'https://wwcode-chtools-fe-staging.up.railway.app'
+        LOCAL_FRONTEND_ALLOWED: True
+        DATABASES['default']['ENGINE']: django.db.backends.postgresql
+        DATABASES['default']['NAME']: postgres_test
+        DATABASES['default']['USER']: postgres
+    steps:
+      - checkout
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "api/wwcodesvtools/requirements.txt" }}
+      - run:
+          name: Installing Python dependencies in a venv
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            cd api/wwcodesvtools
+            pip install -r requirements.txt            
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "api/wwcodesvtools/requirements.txt" }}
+          paths:
+            - "venv"
+      - run:
+          name: Running Migration
+          command: |
+            . venv/bin/activate
+            cd api/wwcodesvtools
+            python manage.py migrate --noinput
+      - run:
+          name: Running tests
+          command: |
+            . venv/bin/activate
+            cd api/wwcodesvtools
+            python manage.py test -v 2
+      - run:
+          name: Running Linting Flake8
+          command: |
+            . venv/bin/activate
+            cd api/wwcodesvtools
+            python -m flake8

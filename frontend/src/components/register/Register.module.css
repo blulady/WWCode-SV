@@ -1,0 +1,91 @@
+.WwcLogo {
+  background: url(../../images/logoPNG.png);
+  position: absolute;
+  width: 139px;
+  height: 76px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  left: 227px;
+  top: 42px;
+}
+
+.container {
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+.register-main {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Open Sans";
+}
+
+.title {
+  font-family: Montserrat;
+  font-style: normal;
+  padding: 5px;
+  color: #48484a;
+  font-weight: 600;
+  font-size: 30px;
+  line-height: 37px;
+}
+
+.warning {
+  margin-top: 25px;
+  font-weight: 300;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 26px;
+  color: #48484a;
+}
+
+.action-button {
+  width: 180px;
+  height: 39px;
+  background: #007A7C;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 22px;
+  color: #FFFFFF;
+  margin: 1rem 0;
+}
+
+@media only screen and (max-width: 768px) {
+
+  .WwcLogo{
+    width: 70px;
+    height: 38px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    left: 8px;
+    top: 10px;
+  }
+  .Register{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+  }
+
+  .title{
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    padding: 0;
+  }
+
+  .warning{
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 19px;
+  }
+
+  header p{
+    margin: 5px auto;
+  }
+
+}

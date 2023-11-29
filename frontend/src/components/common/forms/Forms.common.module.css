@@ -1,0 +1,35 @@
+.form-label-field {
+    font-family: Open Sans;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.label {
+    font-family: Open Sans;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 27px;
+    letter-spacing: 0px;
+    text-align: left;
+}
+
+.label.required:after {
+    content:" *";
+    color: red;
+}
+
+@media only screen and (max-width: 576px) { 
+    .form-label-field {
+        font-size: 12px;
+        line-height: 16.34px;
+    }
+
+    .label {
+        font-size: 12px;
+        line-height: 16.34px;
+        font-weight: 400;
+    }
+}

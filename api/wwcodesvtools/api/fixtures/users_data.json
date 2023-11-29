@@ -1,0 +1,640 @@
+[
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$29OAmW1uZ4ZE$0LyHCoOvPS7A++eOE17tgYZSmmZGQwTOHMlNXBX2e+Y=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "director@example.com",
+        "first_name": "John",
+        "last_name": "Smith",
+        "email": "director@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-19T01:55:01.810Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$v7DTYMLbcpXd$vNB4kBoKXJ3NkahrGFCHBRZJY+eqWgFwR2oyXFNgDws=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "volunteer@example.com",
+        "first_name": "alice",
+        "last_name": "robinson",
+        "email": "volunteer@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-19T01:56:06.115Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$gCRNRz67YJ7Q$Avxt48S+3W+7VyeoyB7IyQnTWUu79pJM3bZ0ZylCeG4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "leader@example.com",
+        "first_name": "Bruno",
+        "last_name": "de la Clark",
+        "email": "leader@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-19T01:56:29.756Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$6t6H2JkUwTwr$ObZPbuDDFxIC+rIluTd2ubeUHiNUGTTgsg7YMixWaws=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "leaderPendingStatus@example.com",
+        "first_name": "Caroline",
+        "last_name": "Miller",
+        "email": "leaderPendingStatus@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-02-19T01:56:51.160Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$R5GQOYFT7WGY$jbA+MM+nb1R0Dr3vH2Pn8wd8BDupWl+BMQivLU0/+l4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "brendajackson@example.com",
+        "first_name": "brenda",
+        "last_name": "Jackson",
+        "email": "brendajackson@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-24T23:50:53.484Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$cLJh5g8xda0F$M/4AaMnBLbS52I2/ORuu9VZjGEJJZGteliFy07DOyH0=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "sophiefisher@example.com",
+        "first_name": "Sophie",
+        "last_name": "Fisher",
+        "email": "sophiefisher@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-24T23:55:04.556Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$5nW9To49chfS$12RWXoZEkP4wzTd3YcTMyL+9bQH8oJb6b759U89ZS1c=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "alexanderbrown@example.com",
+        "first_name": "Alexander",
+        "last_name": "Brown",
+        "email": "alexanderbrown@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-25T00:00:52.353Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$y6ZcN6zPojn3$uQEBC17H3Dg5NaEVyQIzfklTBTyPU+HDbdt91YFVjXU=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "jackross@example.com",
+        "first_name": "Jack",
+        "last_name": "Ross",
+        "email": "jackross@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-25T00:02:34.401Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$hzCifRYnooke$F2t5GUMLzzzUMcFrWLMlb3q+ZRYqyz2apy+8MZZAy2k=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "sophiebutler@example.com",
+        "first_name": "Sophie",
+        "last_name": "Butler",
+        "email": "sophiebutler@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2021-05-27T21:34:01.149Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$bYO8FKGIKNvj$bOVRx+vk5FKx/cPOkkdu/vfip0hJ2aFssRqMOvI2hHs=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "thomasparker@example.com",
+        "first_name": "Thomas",
+        "last_name": "Parker",
+        "email": "thomasparker@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2020-05-27T21:34:01.365Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 11,
+    "fields": {
+        "password": "pbkdf2_sha256$216000$nUakym3vXbGI$A23hxIxxCLwWdLRz7DqqoXaMjaLJ81PI5kTdba+2AJ4=",
+        "last_login": null,
+        "is_superuser": false,
+        "username": "vincenttaylor@example.com",
+        "first_name": "Vincent",
+        "last_name": "Taylor",
+        "email": "vincenttaylor@example.com",
+        "is_staff": false,
+        "is_active": true,
+        "date_joined": "2022-01-19T17:30:10.464Z",
+        "groups": [],
+        "user_permissions": []
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "director@example.com"
+        ],
+        "team": 5,
+        "role": 3
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "volunteer@example.com"
+        ],
+        "team": 4,
+        "role": 1
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 3,
+    "fields": {
+        "user": [
+            "volunteer@example.com"
+        ],
+        "team": 5,
+        "role": 1
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 4,
+    "fields": {
+        "user": [
+            "volunteer@example.com"
+        ],
+        "team": 3,
+        "role": 1
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "leader@example.com"
+        ],
+        "team": 1,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 6,
+    "fields": {
+        "user": [
+            "leader@example.com"
+        ],
+        "team": 7,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 7,
+    "fields": {
+        "user": [
+            "leaderPendingStatus@example.com"
+        ],
+        "team": null,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 8,
+    "fields": {
+        "user": [
+            "brendajackson@example.com"
+        ],
+        "team": null,
+        "role": 3
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 9,
+    "fields": {
+        "user": [
+            "sophiefisher@example.com"
+        ],
+        "team": 2,
+        "role": 1
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 10,
+    "fields": {
+        "user": [
+            "sophiefisher@example.com"
+        ],
+        "team": 6,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 11,
+    "fields": {
+        "user": [
+            "alexanderbrown@example.com"
+        ],
+        "team": null,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 12,
+    "fields": {
+        "user": [
+            "jackross@example.com"
+        ],
+        "team": null,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 13,
+    "fields": {
+        "user": [
+            "sophiebutler@example.com"
+        ],
+        "team": 4,
+        "role": 3
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 14,
+    "fields": {
+        "user": [
+            "sophiebutler@example.com"
+        ],
+        "team": 1,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 15,
+    "fields": {
+        "user": [
+            "thomasparker@example.com"
+        ],
+        "team": null,
+        "role": 2
+    }
+},
+{
+    "model": "api.user_team",
+    "pk": 16,
+    "fields": {
+        "user": [
+            "vincenttaylor@example.com"
+        ],
+        "team": null,
+        "role": 2
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 1,
+    "fields": {
+        "user": [
+            "director@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2021-02-19T01:55:01.830Z",
+        "updated_at": "2021-02-19T01:58:16.235Z",
+        "city": null,
+        "state": null,
+        "country": null,
+        "timezone": null,
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 2,
+    "fields": {
+        "user": [
+            "volunteer@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2021-02-19T01:56:06.117Z",
+        "updated_at": "2021-02-19T01:58:52.064Z",
+        "city": null,
+        "state": null,
+        "country": null,
+        "timezone": null,
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 3,
+    "fields": {
+        "user": [
+            "leader@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2021-02-19T01:56:29.758Z",
+        "updated_at": "2021-02-19T01:59:15.950Z",
+        "city": null,
+        "state": "NV",
+        "country": null,
+        "timezone": null,
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 4,
+    "fields": {
+        "user": [
+            "leaderPendingStatus@example.com"
+        ],
+        "status": "PENDING",
+        "created_at": "2021-02-19T01:56:51.161Z",
+        "updated_at": "2021-02-19T01:56:51.297Z",
+        "city": null,
+        "state": null,
+        "country": "USA",
+        "timezone": null,
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 5,
+    "fields": {
+        "user": [
+            "brendajackson@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2021-05-24T23:50:53.487Z",
+        "updated_at": "2021-05-24T23:54:08.975Z",
+        "city": "San Diego",
+        "state": "ca",
+        "country": "United States",
+        "timezone": null,
+        "bio": "Brenda Jackson is a web developer from San Diego, CA who has been working in the industry for over 10 years. Originally from Texas, Brenda moved to San Diego to pursue a career in web development and gain exposure to the latest industry standards and techniques.\r\n\r\nBrenda's passion for technology started at a young age, and she got her first computer when she was just 7 years old. She spent countless hours tinkering and exploring the possibilities of the machine, and it wasn't long before she realized that she wanted to pursue a career in technology.\r\n\r\nAfter completing her Bachelor's Degree in Computer Science from the University of California, San Diego, Brenda landed her first job as a web developer at a small tech startup in downtown San Diego. Here, she honed her skills in HTML, CSS, and JavaScript while working on a variety of web projects for clients ranging from local small businesses to large corporations.\r\n\r\nOver the years, Brenda has gained a wealth of experience working on a variety of projects, including e-commerce websites, custom web applications, and mobile applications. Her expertise in various web development frameworks such as AngularJS and Ruby on Rails, has made her a highly sought after developer in the San Diego tech community.\r\n\r\nAside from developing web applications, Brenda is passionate about open-source technology and has contributed to numerous projects throughout her career. She is an active member of various meetups in the San Diego tech community, and regularly speaks at conferences and events about her experiences in the industry.\r\n\r\nBrenda is a firm believer in lifelong learning, and she constantly strives to keep herself up-to-date with the latest industry trends and technologies In her free time, Brenda enjoys hiking and exploring the beautiful San Diego coastline, as well as experimenting with new recipes in the kitchen.\r\n\r\nWith her passion for technology, years of experience, and dedication to her craft, Brenda Jackson has become an esteemed figure in the San Diego tech industry. Her exceptional skills, strong work ethic, and knack for problem-solving continue to make her an invaluable asset to any team lucky enough to have her.",
+        "photo": "",
+        "slack_handle": null,
+        "linkedin": "https://www.linkedin.com/in/brendajackson",
+        "instagram": "https://instagram.com/brendajackson?igshid=MzRlODBiNWFlZA==",
+        "facebook": "https://www.facebook.com/brenda.jackson.23",
+        "twitter": "https://fosstodon.org/@BrendaJackson",
+        "medium": "https://medium.com/@brendajackson"
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 6,
+    "fields": {
+        "user": [
+            "sophiefisher@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2021-05-24T23:55:04.559Z",
+        "updated_at": "2021-05-25T00:00:04.838Z",
+        "city": "San Jose",
+        "state": "ca",
+        "country": "United States",
+        "timezone": "PST",
+        "bio": "",
+        "photo": "images/tira_token_BAhKrZP.png",
+        "slack_handle": null,
+        "linkedin": "https://www.linkedin.com/in/sophiefisher/",
+        "instagram": "https://instagram.com/sophiefishes?igshid=MzRlODBiNWFlZA==",
+        "facebook": "https://www.facebook.com/sophiefisher.35",
+        "twitter": "https://www.twitter.com/SophieFisher23",
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 7,
+    "fields": {
+        "user": [
+            "alexanderbrown@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2021-05-25T00:00:52.355Z",
+        "updated_at": "2021-05-25T00:02:00.685Z",
+        "city": "San Francisco",
+        "state": "CA",
+        "country": "United States",
+        "timezone": "PST",
+        "bio": "",
+        "photo": "images/kettle1_g66bkO7.jpg",
+        "slack_handle": null,
+        "linkedin": "https://www.linkedin.com/in/alexanderbrown/",
+        "instagram": "https://instagram.com/alexanderbrown?igshid=MzRlODBiNWFlZA==",
+        "facebook": "https://www.facebook.com/alexanderbrown",
+        "twitter": "https://mstdn.social/@alexanderbrown",
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 8,
+    "fields": {
+        "user": [
+            "jackross@example.com"
+        ],
+        "status": "PENDING",
+        "created_at": "2021-05-25T00:02:34.404Z",
+        "updated_at": "2021-05-25T00:02:34.545Z",
+        "city": null,
+        "state": null,
+        "country": null,
+        "timezone": "PST",
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 9,
+    "fields": {
+        "user": [
+            "sophiebutler@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2021-05-27T21:34:01.151Z",
+        "updated_at": "2021-05-27T21:35:10.454Z",
+        "city": null,
+        "state": null,
+        "country": null,
+        "timezone": null,
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 10,
+    "fields": {
+        "user": [
+            "thomasparker@example.com"
+        ],
+        "status": "PENDING",
+        "created_at": "2021-11-22T04:52:30.367Z",
+        "updated_at": "2021-11-22T04:52:30.515Z",
+        "city": null,
+        "state": null,
+        "country": null,
+        "timezone": null,
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+},
+{
+    "model": "api.userprofile",
+    "pk": 11,
+    "fields": {
+        "user": [
+            "vincenttaylor@example.com"
+        ],
+        "status": "ACTIVE",
+        "created_at": "2022-01-19T17:30:10.468Z",
+        "updated_at": "2022-01-19T17:31:00.445Z",
+        "city": null,
+        "state": null,
+        "country": null,
+        "timezone": null,
+        "bio": null,
+        "photo": null,
+        "slack_handle": null,
+        "linkedin": null,
+        "instagram": null,
+        "facebook": null,
+        "twitter": null,
+        "medium": null
+    }
+}
+]
