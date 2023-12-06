@@ -9,7 +9,7 @@ const BackToMemberPortal = ({teamId, pending}) => {
   const navigate = useNavigate();
   const { teams } = useTeamContext();
   const teamInfo = teams[teamId];
-  const teamHome = pending ? "Pending Members" : teamInfo.pages[0].label;
+  const teamHome = pending ? "Invitees" : teamInfo.pages[0].label;
   const endpoint = pending ? "/pending" : "/members"
 
   return (
