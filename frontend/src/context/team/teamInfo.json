@@ -11,7 +11,7 @@
       },
       {
         "pageId": "pending",
-        "label": "Pending Members",
+        "label": "Invitees",
         "isDirectorOnly": true
       }
     ],

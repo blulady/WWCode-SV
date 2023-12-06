@@ -117,3 +117,27 @@ class Contact(models.Model):
     email = models.EmailField(max_length=254, null=True, blank=True)
     info = models.TextField(null=True, blank=True, validators=[MaxLengthValidator(2000)])
     company = models.ForeignKey(Host, on_delete=models.CASCADE, related_name='contacts')
+
+
+class Mentor(models.Model):
+    LEVEL_CHOICES = (
+        ('Beginner', 'Beginner'),
+        ('Intermediate', 'Intermediate'),
+        ('Advanced', 'Advanced'),
+    )
+    RELIABILITY_CHOICES = (
+        ('Unknown', 'Unknown'),
+        ('Poor', 'Poor'),
+        ('Adequate', 'Adequate'),
+        ('Good', 'Good'),
+        ('Excellent', 'Excellent'),
+    )
+    first_name = models.CharField(max_length=255, null=False, blank=False)
+    last_name = models.CharField(max_length=255, null=False, blank=False)
+    email = models.EmailField(max_length=255, null=False, blank=False, unique=True)
+    level = models.CharField(max_length=20, choices=LEVEL_CHOICES)
+    reliability = models.CharField(max_length=20, choices=RELIABILITY_CHOICES)
+    created_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='mentor_created_by')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='mentor_updated_by')
+    updated_at = models.DateTimeField(auto_now=True)
