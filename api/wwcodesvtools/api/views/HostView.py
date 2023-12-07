@@ -362,7 +362,7 @@ class HostView(viewsets.ModelViewSet):
                     "created_by": host_target.created_by.id,
                     "updated_by": user.id,
                 }
-                serializer_host = HostSerializer(host_target, data=host_data)
+                serializer_host = HostSerializer(instance=host_target, data=host_data)
                 if serializer_host.is_valid():
                     try:
                         serializer_host.save()
