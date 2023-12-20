@@ -37,11 +37,11 @@ class InviteeSerializer(serializers.ModelSerializer):
         RESENT = 'RESENT'
         EXPIRED = 'EXPIRED'
         is_expired = self.is_token_expired(invitee.registration_token)
-        if(is_expired):
+        if (is_expired):
             return EXPIRED
-        elif(invitee.resent_counter == 0):
+        elif (invitee.resent_counter == 0):
             return INVITED
-        elif(invitee.resent_counter > 0):
+        elif (invitee.resent_counter > 0):
             return RESENT
 
     """

@@ -40,9 +40,9 @@ class GetMembersSearchTestCase(TransactionTestCase):
         for member in members:
             member_start_with_first_name_check = re.search('^Br|^br', member['first_name'])
             member_start_with_last_name_check = re.search('^Br|^br', member['last_name'])
-            if(member_start_with_first_name_check is not None):
+            if (member_start_with_first_name_check is not None):
                 name_of_members.add(member['first_name'])
-            elif(member_start_with_last_name_check is not None):
+            elif (member_start_with_last_name_check is not None):
                 name_of_members.add(member['last_name'])
         self.assertSetEqual(expected_members, name_of_members)
 
@@ -94,8 +94,8 @@ class GetMembersSearchTestCase(TransactionTestCase):
         for member in members:
             member_start_with_first_name_check = re.search('^Br|^br', member['first_name'])
             member_start_with_last_name_check = re.search('^Br|^br', member['last_name'])
-            if(member_start_with_first_name_check is not None):
+            if (member_start_with_first_name_check is not None):
                 name_of_members.add(member['first_name'])
-            elif(member_start_with_last_name_check is not None):
+            elif (member_start_with_last_name_check is not None):
                 name_of_members.add(member['last_name'])
         self.assertSetEqual(expected_members, name_of_members)
