@@ -36,14 +36,12 @@ def send_email_helper(to_email, subject, template_file, context_data):
 
 
 def is_director_or_superuser(user_id, is_superuser):
-    if user_id:
-        try:
-            highest_user_role = User_Team.highest_role(user_id=user_id)
-            return (highest_user_role == Role.DIRECTOR) or is_superuser
-        except Exception as e:
-            logger.error(f'is_director_or_superuser: Error user not found : {e}')
-            return False
-    return False
+    try:
+        highest_user_role = User_Team.highest_role(user_id=user_id)
+        return (highest_user_role == Role.DIRECTOR) or is_superuser
+    except Exception as e:
+        logger.error(f'is_director_or_superuser: Error user not found : {e}')
+        return False
 
 
 # Validate if the token/registration link is expired based on the date (last 14 digits of the token)
@@ -71,3 +69,11 @@ def is_user_active(email):
     if User.objects.filter(email=email).exists():
         return True
     return False
+
+
+def is_user_tech_team(user_id):
+    try:
+        user_in_tech_team = User_Team.objects.filter(team_id=6, user_id=user_id)
+        return bool(user_in_tech_team)
+    except Exception as e:
+        logger.error(f'Error: {e}')
