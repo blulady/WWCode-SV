@@ -73,7 +73,6 @@ class MentorViewTestCase(TransactionTestCase):
                            'level': 'Beginner',
                            'reliability': 'Unknown'})
         response = self.client.post("/api/mentor/", data, **self.bearer, accept=json_type, content_type=json_type)
-        print(response.data)
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.data, {'error': "{'email': [ErrorDetail(string='mentor with this email already exists.', code='unique')]}"})
 
