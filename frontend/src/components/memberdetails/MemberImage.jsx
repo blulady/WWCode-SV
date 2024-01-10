@@ -4,7 +4,8 @@ import styles from "./MemberImage.module.css";
 
 
 const MemberImage = ({profile}) => {
-  const imageSrc = profile.photo === "" ? ProfileImage : profile.photo
+  const imageSrc = profile?.photo && profile?.photo !== "" ? profile.photo :  ProfileImage
+
   return (
       <img
         alt="Profiles"
