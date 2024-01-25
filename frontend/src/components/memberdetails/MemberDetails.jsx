@@ -80,8 +80,8 @@ function ViewMemberDetails() {
     { id: 2, name: "Hackathon Volunteers" },
     { id: 3, name: "Host Management" },
     { id: 4, name: "Partnership Management" },
-    { id: 5, name: "Social Media" },
-    { id: 6, name: "Tech Event Volunteers" },
+    { id: 5, name: "Social Media Team" },
+    { id: 6, name: "Tech Event Team" },
     { id: 7, name: "Volunteer Management" },
     { id: 8, name: "Tech Bloggers" },
   ];
