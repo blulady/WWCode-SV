@@ -14,7 +14,7 @@ from django.utils import timezone
 from django.utils.http import urlencode
 from django.shortcuts import get_object_or_404
 from drf_yasg import openapi
-from drf_yasg.utils import swagger_auto_schema
+from drf_yasg.utils import swagger_auto_schema, no_body
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import action
@@ -57,6 +57,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
     ordering_fields = ['email', 'status', 'role_name']
     search_fields = ['^email']
     queryset = Invitee.objects.all()
+    serializer_class = InviteeSerializer
 
     # Validates if the fields passed as parameters for ordering are allowed
     def validate_ordering_fields(self, fields):
@@ -89,11 +90,6 @@ class InviteeViewSet(viewsets.ModelViewSet):
             ordering_fields.append('-updated_at')
             return queryset.order_by(*ordering_fields)
         return queryset.order_by(('-updated_at'))
-
-    def get_serializer_class(self):
-        if self.action == 'create' or self.action == 'resend':
-            return None
-        return InviteeSerializer
 
     get_response_schema = {
         status.HTTP_200_OK: openapi.Response(
@@ -333,7 +329,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
         ),
     }
 
-    @swagger_auto_schema(responses=post_resend_schema)
+    @swagger_auto_schema(request_body=no_body, responses=post_resend_schema)
     @action(methods=['patch'], detail=True)
     def resend(self, request, *args, **kwargs):
         error = None
