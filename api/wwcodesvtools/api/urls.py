@@ -22,6 +22,7 @@ from api.views.resources_view import ResourceViewSet
 from api.views.DeleteMemberRoleView import DeleteMemberRoleView
 from api.views.UserView import UserView
 from api.views.HostView import HostView
+from api.views.MentorView import MentorView
 from api.views.DirectorResendInviteView import DirectorResendInviteView
 from rest_framework.routers import SimpleRouter
 
@@ -29,6 +30,7 @@ router = SimpleRouter()
 router.register(r'resources', ResourceViewSet)
 router.register(r'invitee', InviteeViewSet)
 router.register(r'host', HostView)
+router.register(r'mentor', MentorView)
 
 
 decorated_login_view = \

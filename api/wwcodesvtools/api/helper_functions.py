@@ -71,3 +71,11 @@ def is_user_active(email):
     if User.objects.filter(email=email).exists():
         return True
     return False
+
+
+def is_user_tech_team(user_id):
+    try:
+        user_in_tech_team = User_Team.objects.filter(team_id=6, user_id=user_id)
+        return bool(user_in_tech_team)
+    except Exception as e:
+        logger.error(f'Error: {e}')
