@@ -1,8 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import { useTeamContext } from "../../context/team/TeamContext";
 import ContainerWithNav from "../layout/ContainerWithNav";
 import styles from "./Home.module.css";
+import { NAVITEMS } from "../../navitems";
 
 /*
  * Home page - contains header and Chapter Members link in the body
@@ -10,32 +10,26 @@ import styles from "./Home.module.css";
 
 const Home = () => {
   const navigate = useNavigate();
-  const { teams } = useTeamContext();
-  let allTeams  = [...teams] || [];
-
-  const handleClick = (team) => {
-    navigate("/team/" + team + "/members");
+  const handleClick = (pageId) => {
+    navigate(`/${pageId}/members`);
   };
 
   return (
     <ContainerWithNav>
       <div className={`${styles["home-container"]} container`}>
         <div className="row">
-        {allTeams.map((team) => {
-          if (team.enabled) {
-          return (
-            <div key={team.id} className={`${styles["home-card"]} ${styles[team.name.toLowerCase().replaceAll(" ", "-")]} col-12 col-md-4`} onClick={() => handleClick(team.id)}>
-              <div className={styles.cardimgtop}></div>
-              <div className={`${styles.cardbody} d-flex justify-content-center align-items-center`}>
-                {team.name}
+          {NAVITEMS.map((item) => {
+            return (
+              <div key={item.pageId} className={`${styles["home-card"]} ${styles[item.name.toLowerCase().replaceAll(" ", "-")]} col-12 col-md-4`} onClick={() => handleClick(item.pageId)}>
+                <div className={styles.cardimgtop}></div>
+                <div className={`${styles.cardbody} d-flex justify-content-center align-items-center`}>
+                  {item.name}
+                </div>
               </div>
-            </div>
-          )
-          }
-        })}
+            )
+          })}
         </div>
       </div>
-
     </ContainerWithNav>
   );
 };

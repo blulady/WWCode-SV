@@ -12,13 +12,17 @@ import AddMember from "./components/addmember/AddMember";
 import MemberDetails from "./components/memberdetails/MemberDetails";
 import UserProfile from './components/userprofile/UserProfile'
 import PrivateRoute from "./PrivateRoute";
-import TeamHomeContainer from "./components/team/TeamHomeContainer";
-import TeamResources from "./components/team/resources/TeamResources";
-import ViewMembers from "./components/team/viewMembers/ViewMembers";
-import PendingMembers from "./components/team/pendingMembers/PendingMembers";
+import TeamResources from "./components/tabs/resources/TeamResources";
+import ViewMembers from "./components/tabs/viewMembers/ViewMembers";
+import PendingMembers from "./components/tabs/pendingMembers/PendingMembers";
 import ResetScroll from "./ResetScroll";
-import CompanyHosts from "./components/team/companyHosts/CompanyHosts";
-import CompanyHostForm from "./components/team/companyHosts/CompanyHostForm";
+import CompanyHosts from "./components/tabs/companyHosts/CompanyHosts";
+import CompanyHostForm from "./components/tabs/companyHosts/CompanyHostForm";
+import { NAVITEMS } from "./navitems";
+import TabNav from "./components/tabs/TabNav";
+import TeamProvider from "./context/team/TeamProvider";
+import TechEventMentorList from "./components/tabs/techEvent/TechEventMentorList";
+import TechEventMentorForm from "./components/tabs/techEvent/TechEventMentorForm";
 
 
 function App() {
@@ -32,14 +36,36 @@ function App() {
           <Route exact path='/password/reset' element={<ResetPasswordForm />} />
           <Route exact path='/home' element={<PrivateRoute element={<Home />}/>} />
           <Route path='/register' element={<Register />} />
-          <Route path='/team/:team' element={<PrivateRoute element={<TeamHomeContainer />}/>}>
-            <Route path='members' element={<ViewMembers />} />
-            <Route path='pending' element={<PendingMembers />} />
-            <Route path='resources' element={<TeamResources />} />
-            <Route path="company-hosts" element={<CompanyHosts />} />
-            <Route path="company-hosts/form" element={<CompanyHostForm />} />
-          </Route>
-          <Route exact path='/member/view' element={<PrivateRoute element={<MemberDetails />}/>} />
+          {
+            NAVITEMS.map((item) => {
+              return (<Route path={item.pageId} element={<PrivateRoute element={<TeamProvider><TabNav navInfo={item} /></TeamProvider>} />}>
+                {item.tabs.map((tab) => {
+                  switch(tab.tabId) {
+                    case "members":
+                      return <Route path="members" element={<ViewMembers teamId={item.teamId} />} />;
+                    case "pending":
+                      return <Route path="pending" element={<PendingMembers />} />;
+                    case "resources":
+                      return <Route path='resources' element={<TeamResources teamId={item.teamId} />} />;
+                    case "company-hosts":
+                      return (
+                      <>
+                        <Route path="company-hosts" element={<CompanyHosts />} />
+                        <Route path="company-hosts/form" element={<CompanyHostForm />} />
+                      </>);
+                    case "mentors":
+                      return (
+                      <>
+                        <Route path="mentors" element={<TechEventMentorList />} />
+                        <Route path="mentors/form" element={<TechEventMentorForm />} />
+                      </>);
+                  }
+                  
+                })}
+              </Route>);
+            })
+          }
+          <Route exact path='/member/view' element={<PrivateRoute element={<TeamProvider><MemberDetails /></TeamProvider>}/>} />
           <Route exact path='/member/add' element={<PrivateRoute element={<AddMember />}/>} />
           <Route exact path='/member/review' element={<PrivateRoute element={<ReviewMember />}/>} />
           <Route exact path='/member/profile' element={<PrivateRoute element={<UserProfile />}/>} />

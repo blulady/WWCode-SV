@@ -50,7 +50,7 @@ const PendingMembers = () => {
 
     const goToAddMember = () => {
         navigate("/member/add",{
-            state: { teamId: 0, pending: true }
+            state: { pageId: "chapter", pending: true }
           });
     };
 
