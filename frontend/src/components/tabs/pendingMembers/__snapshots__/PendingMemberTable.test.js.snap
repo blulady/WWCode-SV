@@ -46,7 +46,7 @@ exports[`PendingMemberTable Component Validation Tests PendingMemberTable compon
         <td>
           <button
             class="invite-button"
-            data-bs-target="#resendConfirmationDialog"
+            data-bs-target="#resendConfirmationDialog-1"
             data-bs-toggle="modal"
             type="button"
           >
@@ -56,7 +56,7 @@ exports[`PendingMemberTable Component Validation Tests PendingMemberTable compon
         <td>
           <button
             class="delete icon"
-            data-bs-target="#deletePendingMemberDialog"
+            data-bs-target="#deletePendingMemberDialog-1"
             data-bs-toggle="modal"
             type="button"
           />
