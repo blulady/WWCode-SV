@@ -5,7 +5,7 @@ import MemberCard from "./MemberCard";
 import ReactPaginate from "react-paginate";
 import AuthContext from "../../../context/auth/AuthContext";
 import { isBrowser } from "react-device-detect";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./ViewMembers.module.css";
 import cx from "classnames";
@@ -18,6 +18,7 @@ import WwcApi from "../../../WwcApi";
 import ScrollToTop from "../../scrollToTop/ScrollToTop";
 import { ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD } from "../../../Messages";
 import { useTeamContext } from "../../../context/team/TeamContext";
+import { getPageId } from "../../../utils";
 
 let current_year =  new Date().getFullYear();
 
@@ -61,11 +62,12 @@ const baseFilters = [
   },
 ];
 
-const ViewMembers = (props) => {
+const ViewMembers = ({ teamId }) => {
   const navigate = useNavigate();
-  const params = useParams();
-  const team = parseInt(params.team);
+  const location = useLocation();
+  const pageId = getPageId(location.pathname);
   const { teams } = useTeamContext();
+ 
   const defaultUsersPerPage = 12;
   const [users, setUsers] = useState([]);
   const [paginationInfo, setPaginationInfo] = useState({
@@ -75,8 +77,9 @@ const ViewMembers = (props) => {
     currentUsers: [],
   });
   const [sortKey, setSort] = useState(sortOptions.NEW);
-  const { userInfo } = useContext(AuthContext);
-  const isDirector = userInfo.role === "DIRECTOR";
+  const { userInfo, isDirectorForTeam } = useContext(AuthContext);
+  const isDirector = isDirectorForTeam(teamId);
+
   const userRole = userInfo.role;
 
   const pageRef = React.createRef();
@@ -107,7 +110,7 @@ const ViewMembers = (props) => {
 
   const handleAddMember = () => {
     navigate("/member/add",{
-      state: { teamId: team }
+      state: { pageId }
     });
   };
 
@@ -189,7 +192,7 @@ const ViewMembers = (props) => {
   // create team filter if not chapter member page
   let availableFilters = [...baseFilters];
   let initialFilterStatus = { role: [], status: [], date_joined: [], team: [] };
-  if (team === 0) {
+  if (teamId === 0) {
     const teamFilter = [{ value: 0, label: "All Teams" }];
     teams.forEach((t) => {
       if (t.id !== 0) {
@@ -207,7 +210,7 @@ const ViewMembers = (props) => {
     };
     availableFilters.splice(2, 0, teamOptions);
   } else {
-    initialFilterStatus.team = [team];
+    initialFilterStatus.team = [teamId];
   }
   if (isDirector) {
     availableFilters[1].options[2] = true;
@@ -266,7 +269,7 @@ const ViewMembers = (props) => {
         <MessageBox
           type="Error"
           title="Sorry!"
-          message={ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD.replace("{0}", teams[team].name)}
+          message={ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD.replace("{0}", teams[teamId]?.name)}
         ></MessageBox>
       </div>
     )}

@@ -33,11 +33,11 @@ const PendingMembers = () => {
     }
   };
 
-  const goToAddMember = () => {
-    navigate("/member/add", {
-      state: { teamId: 0, pending: true },
-    });
-  };
+    const goToAddMember = () => {
+        navigate("/member/add",{
+            state: { pageId: "chapter", pending: true }
+          });
+    };
 
   const resendInvite = async (currentUser) => {
     try {

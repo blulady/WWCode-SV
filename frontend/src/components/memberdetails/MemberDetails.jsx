@@ -22,7 +22,7 @@ import { ERROR_REQUEST_MESSAGE } from "../../Messages";
 
 function ViewMemberDetails() {
   const location = useLocation();
-  const { id, teamId } = location.state;
+  const { id, pageId } = location.state;
   const { userInfo } = useContext(AuthContext);
 
   const [errorOnLoading, setErrorOnLoading] = useState(false);
@@ -207,9 +207,9 @@ function ViewMemberDetails() {
   return (
     <ContainerWithNav>
       <div className={styles["view-member-wrapper"]}>
-        <BackToTeamHomeButton label="Back to" teamId={teamId} />
+        <BackToTeamHomeButton label="Back to" pageId={pageId} />
         <div className={styles["member-container"]}>
-          <BackToMemberPortal teamId={teamId}/>
+          <BackToMemberPortal pageId={pageId} />
           <div className={cx(styles["member-details-container"], "align-items-center")}>
             {errorOnLoading && (
               <MessageBox

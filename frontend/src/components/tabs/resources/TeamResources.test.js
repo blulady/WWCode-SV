@@ -9,7 +9,7 @@ import WwcApi from "../../../WwcApi";
 import * as TeamContext from "../../../context/team/TeamContext";
 import Router from "react-router-dom";
 
-const userInfo = { userInfo: { role: "DIRECTOR" } };
+const userInfo = { userInfo: { role: "DIRECTOR" }, isDirectorForTeam: () => true };
 jest.mock("../../../WwcApi", () => {
   return {
     ...jest.requireActual("../../../WwcApi"),
@@ -26,9 +26,9 @@ jest.mock("react-router-dom", () => ({
 describe("Team Resources Component Validation Tests", () => {
   beforeEach(() => {
     jest.resetAllMocks();
-    jest.spyOn(Router, "useParams").mockReturnValue({ team: "0" });
+    jest.spyOn(Router, "useParams").mockReturnValue({ teamId: "0" });
 
-    const contextTeams = { teams: [{ id: 1, name: "Team1", slug: "test" }] };
+    const contextTeams = { teams: [{ id: 1, name: "Team1", slug: "test" }], getTeamInfo: () => { return {}} };
     jest
       .spyOn(TeamContext, "useTeamContext")
       .mockImplementation(() => contextTeams);

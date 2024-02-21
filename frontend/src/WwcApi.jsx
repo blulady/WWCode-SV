@@ -274,6 +274,36 @@ class WwcApi {
     });
   }
 
+  static async getTechMentors() {
+    return await axios.get(`${BASE_URL}/mentor/`, {
+      headers: getConfig()
+    });
+  }
+
+  static async getTechMentor(id) {
+    return await axios.get(`${BASE_URL}/mentor/${id}`, {
+      headers: getConfig()
+    });
+  }
+
+  static async deleteTechMentor(id) {
+    return await axios.delete(`${BASE_URL}/mentor/${id}/`, {
+      headers: getConfig()
+    });
+  }
+
+  static async addTechMentor(data) {
+    return await axios.post(`${BASE_URL}/mentor/`, data, {
+      headers: getConfig()
+    });
+  }
+
+  static async editTechMentor(id, data) {
+    return await axios.put(`${BASE_URL}/mentor/${id}/`, data, {
+      headers: getConfig()
+    });
+  }
+
   static async requestRegistraionLink(email) {
     return await axios.get(
       `${BASE_URL}/invitee/director_resend/?email=${email}`,
