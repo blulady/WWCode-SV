@@ -1,6 +1,5 @@
 from django.urls import path
 from api.views.InviteeView import InviteeViewSet
-from rest_framework_simplejwt.views import TokenRefreshView
 from drf_yasg.utils import swagger_auto_schema
 from .swagger import login_response as resp
 from api.views.UserRegistrationView import UserRegistrationView
@@ -12,6 +11,7 @@ from api.views.RequestPasswordResetView import RequestPasswordResetView
 from api.views.SetNewPasswordView import SetNewPasswordView
 from api.views.ChangePasswordView import ChangePasswordView
 from api.views.CustomTokenObtainPairView import CustomTokenObtainPairView
+from api.views.CustomTokenRefreshView import CustomTokenRefreshView
 from api.views.LogoutView import LogoutView
 from api.views.DeleteMemberView import DeleteMemberView
 from api.views.GetTeamsView import GetTeamsView
@@ -43,7 +43,7 @@ urlpatterns = [
     path("user/activate/", UserRegistrationView.as_view()),
     path("send_email_example/", MailSender.as_view()),
     path("login/", decorated_login_view),
-    path("login/refresh/", TokenRefreshView.as_view()),
+    path("login/refresh/", CustomTokenRefreshView.as_view()),
     path('logout/', LogoutView.as_view()),
     path("users/", GetMembersView.as_view()),
     path("user/profile/", UserProfileView.as_view()),
