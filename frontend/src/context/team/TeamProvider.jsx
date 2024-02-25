@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import TeamContext from "./TeamContext";
 import WwcApi from "../../WwcApi"
+import AuthContext from "../auth/AuthContext";
 
 const teamInfo = new Map();
 teamInfo.set(0, { slug: "volunteer_resource"});
@@ -14,7 +15,8 @@ teamInfo.set(6, { slug: "tech_bloggers_resource"});
 const TeamProvider = ({ children }) => {
     const [teams, setTeams] = useState([]);
     const [fetching, setFetching] = useState(true); // TODO: Is there a better way to delay rendering??
-
+    const { userInfo } = useContext(AuthContext);
+  
     useEffect(() => {
         const fetchTeams = async () => {
             let t = [];

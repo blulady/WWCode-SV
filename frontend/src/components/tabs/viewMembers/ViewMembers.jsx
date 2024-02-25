@@ -77,6 +77,7 @@ const ViewMembers = ({ teamId }) => {
     currentUsers: [],
   });
   const [sortKey, setSort] = useState(sortOptions.NEW);
+
   const { userInfo, isDirectorForTeam } = useContext(AuthContext);
   const isDirector = isDirectorForTeam(teamId);
 
@@ -192,10 +193,11 @@ const ViewMembers = ({ teamId }) => {
   // create team filter if not chapter member page
   let availableFilters = [...baseFilters];
   let initialFilterStatus = { role: [], status: [], date_joined: [], team: [] };
-  if (teamId === 0) {
+
+  if (teamId === 0 || pageId === 'directors') {
     const teamFilter = [{ value: 0, label: "All Teams" }];
     teams.forEach((t) => {
-      if (t.id !== 0) {
+      if (t.id !== 0 && pageId === 'directors') {
         teamFilter.push({
           value: t.id,
           label: t.name
@@ -209,9 +211,25 @@ const ViewMembers = ({ teamId }) => {
       options: teamFilter,
     };
     availableFilters.splice(2, 0, teamOptions);
+    if (pageId === 'directors') {
+      const directorFilterOnly = {
+        group: "role",
+        label: "Role",
+        type: "button",
+        options: [
+          { label: "Director", value: "DIRECTOR", enable: true },
+          { label: "Leader", value: "LEADER", enable: false },
+          { label: "Volunteer", value: "VOLUNTEER", enable: false }
+        ],
+      }
+      availableFilters.splice(0, 1, directorFilterOnly);
+      initialFilterStatus.role = ["DIRECTOR"];
+    }
+
   } else {
     initialFilterStatus.team = [teamId];
   }
+
   if (isDirector) {
     availableFilters[1].options[2] = true;
   }
@@ -375,7 +393,7 @@ const ViewMembers = ({ teamId }) => {
               </div>
             </div>
           )}
-          {isDirector && (
+          {isDirector && pageId !== 'directors' && (
             <div
               id="addMemberButtonContainer"
               className={styles["add-memeber-button-container"]}

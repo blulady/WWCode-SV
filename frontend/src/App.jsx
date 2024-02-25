@@ -18,12 +18,14 @@ import PendingMembers from "./components/tabs/pendingMembers/PendingMembers";
 import ResetScroll from "./ResetScroll";
 import CompanyHosts from "./components/tabs/companyHosts/CompanyHosts";
 import CompanyHostForm from "./components/tabs/companyHosts/CompanyHostForm";
-import { NAVITEMS } from "./navitems";
+import {NAVITEMS} from "./navitems";
 import TabNav from "./components/tabs/TabNav";
 import TeamProvider from "./context/team/TeamProvider";
 import TechEventMentorList from "./components/tabs/techEvent/TechEventMentorList";
 import TechEventMentorForm from "./components/tabs/techEvent/TechEventMentorForm";
-
+import {DirectorBusiness} from "./components/tabs/directors/DirectorBusiness";
+import {EventCalendar} from "./components/tabs/directors/EventCalendar";
+import { MeetingNotes } from "./components/tabs/directors/MeetingNotes";
 
 function App() {
   return (
@@ -50,15 +52,21 @@ function App() {
                     case "company-hosts":
                       return (
                       <>
-                        <Route path="company-hosts" element={<CompanyHosts />} />
-                        <Route path="company-hosts/form" element={<CompanyHostForm />} />
+                        <Route path="company-hosts" element={<CompanyHosts />} />;
+                        <Route path="company-hosts/form" element={<CompanyHostForm />} />;
                       </>);
                     case "mentors":
                       return (
                       <>
-                        <Route path="mentors" element={<TechEventMentorList />} />
-                        <Route path="mentors/form" element={<TechEventMentorForm />} />
+                        <Route path="mentors" element={<TechEventMentorList />} />;
+                        <Route path="mentors/form" element={<TechEventMentorForm />} />;
                       </>);
+                    case "notes":
+                      return <Route path="notes" element={<MeetingNotes/>} />;
+                    case "business":
+                      return <Route path="business" element={<DirectorBusiness/>} />;
+                    case "event-calendar":
+                      return <Route path="event-calendar" element={<EventCalendar/>} />;
                   }
                   
                 })}

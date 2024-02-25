@@ -102,12 +102,24 @@ export const NAVITEMS = [
         pageId: "directors",
         tabs: [
             {
-                tabId: "members",
-                label: "Volunteer Management"
+                "tabId": "members",
+                "label": "Directors",
+                "isDirectorOnly": true
             },
             {
-                tabId: "resources",
-                label: "Volunteer Management Resources"
+                "tabId": "notes",
+                "label": "Director Meeting Notes",
+                "isDirectorOnly": true
+            },
+            {
+               "tabId": "business",
+                "label": "Director Business",
+                "isDirectorOnly": true
+            },
+            {
+                "tabId": "event-calendar",
+                "label": "Event Calendar",
+                "isDirectorOnly": true
             }
         ]
     }

@@ -25,7 +25,7 @@ const TechEventMentorList = () => {
         setMentors(mentors.data);
         setShowRequestStatus({ type: "Success" });
       } catch (error) {
-        console.warn("An error occurred while fetching mentros:", error.message);
+        console.warn("An error occurred while fetching mentors:", error.message);
         //setShowRequestStatus({ type: "Error", title: "Sorry!", message: error.response.data.detail });
       }
     }
