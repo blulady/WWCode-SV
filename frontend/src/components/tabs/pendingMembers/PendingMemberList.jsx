@@ -5,10 +5,10 @@ import styles from "./PendingMemberList.module.css";
 import "../../../Common.css";
 
 const PendingMemberList = ({ users, onResendInvite, onDeleteMember }) => {
-  return users.map((user, idx) => (
+  return users.map((user) => (
     <div
       className={styles["pending-member-list-card"] + " d-flex flex-column"}
-      key={idx}
+      key={user.id}
     >
       <div className={"align-self-end"}>
         <Dropdown
@@ -21,9 +21,9 @@ const PendingMemberList = ({ users, onResendInvite, onDeleteMember }) => {
                   text="Are you sure you want to permanently delete this invitee from the records?"
                   onConfirm={() => onDeleteMember(user.id)}
                 >
-                  <a className="dropdown-item" href="#">
+                  <button className="dropdown-item">
                     Delete
-                  </a>
+                  </button>
                 </ModalDialog>
               ),
               key: "delete",

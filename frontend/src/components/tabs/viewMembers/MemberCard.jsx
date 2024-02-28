@@ -3,14 +3,14 @@
 import React, { useState, useEffect } from "react";
 import { ReactComponent as MemberImg } from "../../../images/open_person_icon.svg";
 import { ReactComponent as MemberSmImg } from "../../../images/open_person_sm_icon.svg";
-//import "./MemberCard.css";
 import { isBrowser, isMobile } from "react-device-detect";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./MemberCard.module.css";
 import cx from "classnames";
 
 import ReactTooltip from "react-tooltip";
+import { getPageId } from "../../../utils";
 
 const MemberCard = (props) => {
   const cardUserInfo = props.userInfo;
@@ -48,11 +48,13 @@ const MemberCard = (props) => {
     return { top: 0, left: 0 };
   };
 
-  const { team } = useParams() || 0;
+
+  const location = useLocation();
+  const pageId = getPageId(location.pathname);
 
   const handleClick = (a) => {
     navigate("/member/view",{
-      state: { ...cardUserInfo, teamId: team }
+      state: { ...cardUserInfo, pageId }
     });
   };
 

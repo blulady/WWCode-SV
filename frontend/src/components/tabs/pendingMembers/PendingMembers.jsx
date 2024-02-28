@@ -19,24 +19,9 @@ const PendingMembers = () => {
   const [showMessage, setShowMessage] = useState(false);
   const navigate = useNavigate();
 
-  const renderTable = () => {
-    return (
-      <PendingMemberTable
-        users={users}
-        onDeleteMember={handelDeleteMember}
-        onResendInvite={resendInvite}
-      />
-    );
-  };
-  const renderList = () => {
-    return (
-      <PendingMemberList
-        users={users}
-        onResendInvite={resendInvite}
-        onDeleteMember={handelDeleteMember}
-      ></PendingMemberList>
-    );
-  };
+  useEffect(() => {
+    getInvitees();
+  }, []);
 
   const getInvitees = async () => {
     try {
@@ -50,7 +35,7 @@ const PendingMembers = () => {
 
     const goToAddMember = () => {
         navigate("/member/add",{
-            state: { teamId: 0, pending: true }
+            state: { pageId: "chapter", pending: true }
           });
     };
 
@@ -65,19 +50,39 @@ const PendingMembers = () => {
     }
   };
 
-  const handelDeleteMember = (currentUserId) => {
+  const handleDeleteMember = async (currentUserId) => {
     const temp = [...users];
-    const filteredMembers = temp.filter((member) => member.id !== currentUserId);
-    setUsers(filteredMembers);
-    WwcApi.deleteInvitees(currentUserId).catch((err) => {
+    try {
+      await WwcApi.deleteInvitees(currentUserId)
+      const filteredMembers = temp.filter(
+        (member) => member.id !== currentUserId
+      );
+      setUsers(filteredMembers);
+    } catch (err) {
       setUsers(temp);
       setApiError(ERROR_REQUEST_MESSAGE);
-    });
+      console.error(err)
+    }
   };
 
-  useEffect(() => {
-    getInvitees();
-  }, []);
+  const renderTable = () => {
+    return (
+      <PendingMemberTable
+        users={users}
+        onDeleteMember={handleDeleteMember}
+        onResendInvite={resendInvite}
+      />
+    );
+  };
+  const renderList = () => {
+    return (
+      <PendingMemberList
+        users={users}
+        onResendInvite={resendInvite}
+        onDeleteMember={handleDeleteMember}
+      ></PendingMemberList>
+    );
+  };
 
   return (
     <div className={styles["pending-members-container"]}>
