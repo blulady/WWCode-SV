@@ -8,7 +8,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import transaction
 from django.db.models import F, fields, Case, When, Value, CharField, Q
-from django.db.models.functions import Cast
+from django.db.models.functions import Cast, Collate
 from django.forms import ValidationError
 from django.utils import timezone
 from django.utils.http import urlencode
@@ -22,6 +22,7 @@ from rest_framework.filters import OrderingFilter, SearchFilter
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from uuid import uuid4
+
 
 logger = logging.getLogger('django')
 
@@ -54,7 +55,7 @@ class InviteeViewSet(viewsets.ModelViewSet):
 
     permission_classes = [IsAuthenticated & CanAccessInvitee]
     filter_backends = [OrderingFilter, SearchFilter]
-    ordering_fields = ['email', 'status', 'role_name']
+    ordering_fields = ['email_sort', 'status', 'role_name']
     search_fields = ['^email']
     queryset = Invitee.objects.all()
     serializer_class = InviteeSerializer
@@ -80,12 +81,15 @@ class InviteeViewSet(viewsets.ModelViewSet):
                                                 When(updated_at__lt=threshold_datetime, then=Value('EXPIRED')),
                                                 output_field=fields.CharField()
                                             ))
+        queryset = queryset.annotate(email_sort=Collate("email", "C"))
         search_query = self.request.query_params.get('search')
         if search_query is not None:
             queryset = queryset.filter(email__istartswith=search_query)
         ordering_fields = self.request.query_params.get('ordering')
         if ordering_fields:
             ordering_fields = ordering_fields.split(',')
+            if 'email' in ordering_fields:
+                ordering_fields[ordering_fields.index('email')] = 'email_sort'
             self.validate_ordering_fields(ordering_fields)
             ordering_fields.append('-updated_at')
             return queryset.order_by(*ordering_fields)
