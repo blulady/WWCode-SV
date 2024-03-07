@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import cx from "classnames";
-import AuthContext from "../../../context/auth/AuthContext";
+import { useAuthContext } from "../../../context/auth/AuthContext";
 import WwcApi from "../../../WwcApi";
 import MessageBox from "../../messagebox/MessageBox";
 import {
@@ -9,11 +9,10 @@ import {
   ERROR_REQUEST_MESSAGE
 } from "../../../Messages";
 import ResourcesLinks from "./ResourcesLinks";
-import { useParams } from "react-router-dom";
 import { useTeamContext } from "../../../context/team/TeamContext";
 import styles from "./TeamResources.module.css";
 
-const TeamResources = (props) => {
+const TeamResources = ({ teamId }) => {
   const errorTitle = "Sorry!";
   const [errorRetrieveDocument, setErrorRetrieveDocument] = useState(false);
   const [errorRetrieveDocumentMessage, setErrorRetrieveDocumentMessage] = useState("");
@@ -25,14 +24,11 @@ const TeamResources = (props) => {
     edit_link: "",
     published_link: "",
   });
-  const { userInfo } = useContext(AuthContext);
-  const isDirector = userInfo.role === "DIRECTOR";
+  const { isDirectorForTeam } = useAuthContext()
+  const isDirector = isDirectorForTeam(teamId);
 
-  const params = useParams();
-  const team = params.team;
-
-  const { teams } = useTeamContext();
-  const teamInfo = teams[team];
+  const { getTeamInfo } = useTeamContext();
+  const teamInfo = getTeamInfo(teamId);
 
   const slug = teamInfo.slug;
 

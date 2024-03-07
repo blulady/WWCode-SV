@@ -38,7 +38,7 @@ export const EditProfile = ({ profileData, onSubmitEditForm, onCancelEdit }) => 
                 <div className={styles["label-required"]}>Mandatory Fields</div>
             </div>
 
-            <ProfileSection header="User Profile">
+            <ProfileSection header="User Photo">
                 <div className={styles["user-profile-img"]}>
                   <MemberImage profile={profile} />
                 </div>
