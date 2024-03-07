@@ -1,8 +1,8 @@
-from django.apps import AppConfig
-
-
-class ApiConfig(AppConfig):
-    name = 'api'
+# from django.apps import AppConfig
+#
+#
+# class ApiConfig(AppConfig):
+#     name = 'api'
 
     # def ready(self):
     #     # flush expired tokens from the outstanding and the blacklist.
