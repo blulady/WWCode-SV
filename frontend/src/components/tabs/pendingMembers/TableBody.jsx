@@ -5,7 +5,7 @@ import ModalDialog  from '../../common/ModalDialog'
 import styles from "./PendingMemberTable.module.css";
 
 const TableBody = ({ users, onResendInvite, onDeleteMember}) => {
-  console.log(users)
+
   return (
     <tbody>
       {users.map((user, idx) => (
@@ -18,7 +18,7 @@ const TableBody = ({ users, onResendInvite, onDeleteMember}) => {
           <td className="wwc-text-capitalize">{user.status.toLowerCase()}</td>
           <td>
           <ModalDialog
-              id="resendConfirmationDialog"
+              id={`resendConfirmationDialog-${user.id}`}
               title="Are you sure?"
               text="Are you sure you want to resend the registration link?"
               onConfirm={() => onResendInvite(user.id)}
@@ -33,10 +33,11 @@ const TableBody = ({ users, onResendInvite, onDeleteMember}) => {
           </td>
           <td>
             <ModalDialog
-              id="deletePendingMemberDialog"
+              id={`deletePendingMemberDialog-${user.id}`}
               title="Are you sure?"
               text="Are you sure you want to delete the pending member?"
-              onConfirm={() => onDeleteMember(user.id)}
+              onConfirm={() => {
+                onDeleteMember(user.id)}}
             >
               <button
                 className={styles["delete"] + " " + styles["icon"]}

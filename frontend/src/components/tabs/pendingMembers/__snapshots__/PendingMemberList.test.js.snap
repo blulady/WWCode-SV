@@ -17,14 +17,13 @@ exports[`PendingMemberList Component Validation Tests PendingMemberList componen
         class="dropdown-menu  dropdown-menu-lg-start"
       >
         <li>
-          <a
+          <button
             class="dropdown-item"
             data-bs-target="#deletePendingMemberDialog"
             data-bs-toggle="modal"
-            href="#"
           >
             Delete
-          </a>
+          </button>
         </li>
       </ul>
     </div>

@@ -78,6 +78,7 @@ select.disabled {
     background-image: none !important;
 }
 
+
 @media only screen and (max-width: 576px) {
     .wwc-action-button {
         height: 32px;
