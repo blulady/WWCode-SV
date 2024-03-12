@@ -114,7 +114,7 @@ class InviteeModelTest(TransactionTestCase):
         data = response.data
         email_values = [invitee['email'] for invitee in data]
         self.assertEqual(email_values, sorted(email_values))
-    
+
     # Testing GET invitee endpoint ordering desc by email
     def test_get_ordering_by_email_desc(self):
         response = self.client.get('/api/invitee/?ordering=-email', **self.bearer)
