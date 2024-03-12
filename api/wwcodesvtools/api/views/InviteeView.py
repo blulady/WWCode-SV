@@ -90,6 +90,8 @@ class InviteeViewSet(viewsets.ModelViewSet):
             ordering_fields = ordering_fields.split(',')
             if 'email' in ordering_fields:
                 ordering_fields[ordering_fields.index('email')] = 'email_sort'
+            elif '-email' in ordering_fields:
+                ordering_fields[ordering_fields.index('-email')] = '-email_sort'
             self.validate_ordering_fields(ordering_fields)
             ordering_fields.append('-updated_at')
             return queryset.order_by(*ordering_fields)
