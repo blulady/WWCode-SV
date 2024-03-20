@@ -3,6 +3,7 @@ from django.core.mail import EmailMessage
 from django.conf import settings
 from smtplib import SMTPException
 from datetime import datetime, timedelta
+from uuid import uuid4
 from django.core.validators import validate_email, ValidationError
 from pathlib import Path
 from api.models import User_Team, Role
@@ -51,6 +52,13 @@ def is_director_or_superuser(user_id, is_superuser):
 def is_token_expired(self, registration_token):
     token_datetime = datetime.strptime(registration_token[-14:], '%Y%m%d%H%M%S')
     return datetime.now() - timedelta(seconds=settings.REGISTRATION_LINK_EXPIRATION) > token_datetime
+
+
+def generate_registration_token():
+    # generate random token as a 32-character hexadecimal string and timestamp
+    timenow = datetime.now().strftime('%Y%m%d%H%M%S')
+    registration_token = str(uuid4().hex) + timenow
+    return registration_token
 
 
 def is_host_management_member(user_id):

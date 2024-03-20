@@ -46,7 +46,7 @@ function App() {
                     case "members":
                       return <Route path="members" element={<ViewMembers teamId={item.teamId} />} />;
                     case "pending":
-                      return <Route path="pending" element={<PendingMembers />} />;
+                      return <Route path="pending" element={<PendingMembers teamId={item.teamId} />} />;
                     case "resources":
                       return <Route path='resources' element={<TeamResources teamId={item.teamId} />} />;
                     case "company-hosts":

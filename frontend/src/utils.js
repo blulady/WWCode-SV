@@ -10,3 +10,7 @@ export const formatDate = (dateStr) => {
 export const getPageId = (path) => {
   return path.substring(1).split("/")[0];
 };
+
+export const getTabId = (path) => {
+  return path.substring(1).split("/").pop();
+};
