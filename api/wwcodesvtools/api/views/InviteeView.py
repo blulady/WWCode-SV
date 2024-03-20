@@ -23,7 +23,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 
-
 logger = logging.getLogger('django')
 
 
