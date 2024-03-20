@@ -1,23 +1,34 @@
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { isBrowser } from "react-device-detect";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import WwcApi from "../../../WwcApi";
+import AuthContext from "../../../context/auth/AuthContext";
 import PendingMemberList from "./PendingMemberList";
 import PendingMemberTable from "./PendingMemberTable";
 import MessageBox from "../../messagebox/MessageBox";
+import { getPageId, getTabId } from "../../../utils";
 import {
   ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD,
   ERROR_REQUEST_MESSAGE,
 } from "../../../Messages";
+import SearchSortFilter from "../../searchsortfilter/SearchSortFilter";
 import styles from "./PendingMembers.module.css";
+import { memberSortOptions } from "../../searchsortfilter/constants";
 
-const PendingMembers = () => {
+const PendingMembers = ({teamId}) => {
+  const location = useLocation();
+  const pageId = getPageId(location.pathname);
+  const tabId = getTabId(location.pathname);
+  const navigate = useNavigate();
+
   const [users, setUsers] = useState([]);
   const [apiError, setApiError] = useState(null);
   const [showMessage, setShowMessage] = useState(false);
-  const navigate = useNavigate();
+  const [prevSearch, setPrevSearch] = useState("");
+
+  const { isDirectorForTeam } = useContext(AuthContext);
+  const isDirector = isDirectorForTeam(teamId);
 
   useEffect(() => {
     getInvitees();
@@ -25,11 +36,12 @@ const PendingMembers = () => {
 
   const getInvitees = async () => {
     try {
-      let _users = await WwcApi.getInvitees();
-      setUsers(_users);
+      let users = await WwcApi.getInvitees();
+      setUsers(users);
+      return users;
     } catch (error) {
       setApiError(ERROR_TEAM_MEMBERS_UNABLE_TO_LOAD.replace("{0}", ""));
-      console.log(error);
+      console.warn(error);
     }
   };
 
@@ -46,7 +58,7 @@ const PendingMembers = () => {
       setShowMessage(true);
     } catch (error) {
       setApiError(ERROR_REQUEST_MESSAGE);
-      console.log(error);
+      console.warn(error);
     }
   };
 
@@ -64,6 +76,17 @@ const PendingMembers = () => {
       console.error(err)
     }
   };
+
+  const getSearchSuggestions = async (query) => {
+    let users = await getInvitees(null, query, null);
+    let suggestOptions = users.map((user) => {
+      return {
+        id: user.id,
+        value: user.email,
+      };
+    });
+   return suggestOptions;
+}
 
   const renderTable = () => {
     return (
@@ -86,15 +109,22 @@ const PendingMembers = () => {
 
   return (
     <div className={styles["pending-members-container"]}>
-      <div className="d-flex justify-content-end mb-2 mb-md-5">
-        <button
-          type="button"
-          className="wwc-action-button"
-          onClick={goToAddMember}
-        >
-          + Add Member
-        </button>
-      </div>
+      <SearchSortFilter
+        initialFilterStatus={[]}
+        availableFilters={[]}
+        sortOptions={memberSortOptions}
+        fetchData={getInvitees}
+        addData={goToAddMember}
+        setData={setUsers}
+        setPrevSearch={setPrevSearch}
+        searchPlaceholder={"Search by email"}
+        getFilters={undefined}
+        getSearchSuggestions={getSearchSuggestions}
+        isDirector={isDirector}
+        addButton={"+ Add Member"}
+        pageId={pageId}
+        tabId={tabId}
+      />
       {showMessage && (
         <div className="d-flex justify-content-center">
           <MessageBox

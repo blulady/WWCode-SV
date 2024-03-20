@@ -1,36 +1,46 @@
 import React, { useState, useEffect } from "react";
+import { isBrowser } from "react-device-detect";
+import { useLocation, useNavigate } from "react-router-dom";
 import GenericTable from "../../common/Table";
 import WwcApi from '../../../WwcApi'
 import cx from "classnames";
 import styles from "./CompanyHosts.index.module.css";
 import TruncatedText from "./TruncatedText";
+import { getPageId, getTabId } from "../../../utils";
 import ModalDialog from "../../common/ModalDialog";
 import Contacts from "./Contacts";
 import MessageBox from "../../messagebox/MessageBox";
-import { isBrowser } from "react-device-detect";
-import { useLocation, useNavigate } from "react-router-dom";
 import CardList from "../../common/CardList/CardList";
+import SearchSortFilter from "../../searchsortfilter/SearchSortFilter";
+import { hostCompanySortOptions } from "../../searchsortfilter/constants";
+
 
 const CompanyHosts = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const pageId = getPageId(location.pathname);
+  const tabId = getTabId(location.pathname);
+
   const [companyHosts, setCompanyHosts] = useState([]);
   const [currentRecord, setCurrentRecord] = useState(null);
-  const location = useLocation();
-  const navigate = useNavigate();
   const created = location.state?.created;
   const [showRequestStatus, setShowRequestStatus] = useState({});
+  const [prevSearch, setPrevSearch] = useState("");
+
+  const fetchCompanyHost = async (sort, search, filters) => {
+    try {
+      const hosts = await WwcApi.getCompanyHost(sort, search, filters);
+      setCompanyHosts(hosts.data);
+      setShowRequestStatus({ type: "Success" });
+      return hosts.data
+    } catch (error) {
+      console.warn("An error occurred while fetching company hosts:", error.message);
+      setShowRequestStatus({ type: "Error", title: "Sorry!", message: error.response.data.detail });
+    }
+  }
 
   useEffect(() => {
-    const fetchCompanyHost = async () => {
-      try {
-        const hosts = await WwcApi.getCompanyHost();
-        setCompanyHosts(hosts.data);
-        setShowRequestStatus({ type: "Success" });
-      } catch (error) {
-        console.warn("An error occurred while fetching company hosts:", error.message);
-        setShowRequestStatus({ type: "Error", title: "Sorry!", message: error.response.data.detail });
-      }
-    }
-    fetchCompanyHost();
+    fetchCompanyHost(undefined, '', undefined);
   }, []);
 
   const handleDeleteCompanyHost = () => {
@@ -76,6 +86,44 @@ const CompanyHosts = () => {
   const goToCompanyHostForm = (edit, companyHostInfo) => {
     navigate(`${location.pathname}/form`, { state: { edit: edit, companyHostInfo: companyHostInfo } });
   };
+
+  const handleAddHost = () => {
+    goToCompanyHostForm(false, {})
+  }
+
+  const findMatchingCategoriesForSearch = (obj, str) => {
+    const categories = []
+    for (let key in obj) {
+      if (typeof obj[key] === 'string' && obj[key].toLowerCase().includes(str.toLowerCase())) {
+        categories.push({category: key, result: obj[key]});
+      } else if (Array.isArray(obj[key])) {
+        for (let item of obj[key]) {
+          for (let key in item) {
+            if (item[key].toLowerCase().includes(str.toLowerCase())) {
+              categories.push({category: key, result: item[key]});
+            }
+          }
+        }
+      }
+    }
+    return categories;
+  };
+
+  const getSearchSuggestions = async (query) => {
+    let hosts = await fetchCompanyHost(null, query, null);
+    const suggestOptions = []
+    hosts.map((host) => {
+      const categories = findMatchingCategoriesForSearch(host, query)
+      categories.map((categoryOptions) => {
+        suggestOptions.push({
+          id: host.id,
+          value: categoryOptions.result,
+          category: categoryOptions.category
+        })
+      })
+    });
+    return suggestOptions;
+  }
 
   const renderHostCompanies = () => {
     if (isBrowser) {
@@ -165,9 +213,22 @@ const CompanyHosts = () => {
     }
     elements.push(
       <div className="d-flex justify-content-end mb-2 mb-md-5" key="">
-        <button type="button" className="wwc-action-button" onClick={() => goToCompanyHostForm(false, {})}>
-          + Add Host
-        </button>
+        <SearchSortFilter
+            initialFilterStatus={undefined}
+            availableFilters={undefined}
+            sortOptions={hostCompanySortOptions}
+            fetchData={fetchCompanyHost}
+            addData={handleAddHost}
+            setData={setCompanyHosts}
+            setPrevSearch={setPrevSearch}
+            searchPlaceholder={"Search company, contact name, and email"}
+            getFilters={undefined}
+            getSearchSuggestions={getSearchSuggestions}
+            isDirector={true}
+            addButton={"+ Add Host"}
+            pageId={pageId}
+            tabId={tabId}
+          />
       </div>
     );
     elements.push(renderHostCompanies());

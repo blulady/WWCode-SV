@@ -250,8 +250,21 @@ class WwcApi {
     });
   }
 
-  static async getCompanyHost() {
-    return await axios.get(`${BASE_URL}/host/`, {
+  static async getCompanyHost(orderBy, search, filters) {
+    let url = `${BASE_URL}/host/?`;
+
+    const searchParams = new URLSearchParams();
+    if (orderBy) {
+      searchParams.set("ordering", orderBy);
+    }
+
+    if (search) {
+      searchParams.set("search", search);
+    }
+
+    url += searchParams.toString();
+    console.log(url);
+    return await axios.get(url, {
       headers: getConfig(),
     });
   }
